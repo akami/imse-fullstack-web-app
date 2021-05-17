@@ -7,8 +7,39 @@ services:
       - 8080:8080
     depends_on:
       - mongo_db
+      - maria_db
   mongo_db:
-    image: "mongo:4.4.3"
+    build: ./docker/mongo-db
+    image: "mongo:4.4"
     restart: always
+    volumes:
+      - mongo_db:/data/db
     ports:
       - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+
+  maria_db:
+      build: ./docker/mariadb
+      image: "mariadb: latest"
+      restart: always
+      volumes:
+        - maria_db:/data/db
+      ports:
+        - 3306:3306
+      envoronment:
+        MARIADB_ROOT_USERNAME: root
+        MARIADB_ROOT_PASSWORD: mariadb
+
+  frontend:
+    container_name: frontend
+    build: docker/frontend
+    volumes:
+      - ./frontend:/frontend
+      - ./frontend/node_modules
+    ports:
+      - 3000:3000
+
+
+

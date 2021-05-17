@@ -1,4 +1,4 @@
-package univie.ac.at.api;
+package at.ac.univie.team17;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
