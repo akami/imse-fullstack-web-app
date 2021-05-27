@@ -4,10 +4,8 @@ WORKDIR /usr/src/myapp
 
 ENV PATH /myapp/node_modules/.bin:$PATH
 
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm install
+COPY . .
 
-COPY . ./
+RUN npm install
 
 CMD ["npm", "start"]

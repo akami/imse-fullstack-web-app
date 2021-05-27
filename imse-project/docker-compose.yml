@@ -1,15 +1,28 @@
 version: "3.7"
 services:
-  api_service:
-    build: .
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     restart: always
     ports:
       - 8080:8080
     depends_on:
       - mongo_db
       - maria_db
+
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    volumes:
+      - ./frontend:/frontend
+      - ./frontend/node_modules
+    ports:
+      - 3000:3000
+
   mongo_db:
-    build: ./docker/mongo-db
     image: "mongo:4.4"
     restart: always
     volumes:
@@ -21,25 +34,17 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: mongo
 
   maria_db:
-      build: ./docker/mariadb
-      image: "mariadb: latest"
+      image: "mariadb:10.6"
       restart: always
       volumes:
-        - maria_db:/data/db
+        - maria_db:/var/lib/mysql
       ports:
         - 3306:3306
-      envoronment:
-        MARIADB_ROOT_USERNAME: root
+      environment:
+        MARIADB_ROOT_USER: root
         MARIADB_ROOT_PASSWORD: mariadb
 
-  frontend:
-    container_name: frontend
-    build: docker/frontend
-    volumes:
-      - ./frontend:/frontend
-      - ./frontend/node_modules
-    ports:
-      - 3000:3000
-
-
+volumes:
+  mongo_db:
+  maria_db:
 
