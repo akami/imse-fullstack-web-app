@@ -23,15 +23,17 @@ services:
       - 3000:3000
 
   mongo_db:
-    image: "mongo:4.4"
+    image: "mongo:latest"
+    container_name: mongodb
     restart: always
     volumes:
       - mongo_db:/data/db
     ports:
       - 27017:27017
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: mongo
+      MONGO_INITIAL_ROOT_USERNAME: root
+      MONGO_INITIAL_ROOT_PASSWORD: mongo
+      MONGO_INITIAL_DATABASE: db
 
   maria_db:
       image: "mariadb:10.6"
