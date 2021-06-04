@@ -5,12 +5,14 @@ public class Quest
     private int questId;
     private String questName;
     private String clientName;
+    private int questRewardId;
 
-    public Quest(int questId, String questName, String clientName)
+    public Quest(int questId, String questName, String clientName, int questRewardId)
     {
         this.questId = questId;
         this.questName = questName;
         this.clientName = clientName;
+        this.questRewardId = questRewardId;
     }
 
     public int getQuestId()
@@ -26,5 +28,10 @@ public class Quest
     public String getClientName()
     {
         return clientName;
+    }
+
+    public int getQuestRewardId()
+    {
+        return questRewardId;
     }
 }

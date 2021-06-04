@@ -7,14 +7,18 @@ public class Monster
     private int attack;
     private int lifepointAmount;
     private int challengeRating;
+    private int characterId;
+    private int monsterLootId;
 
-    public Monster(int monsterId, String monsterName, int attack, int lifepointAmount, int challengeRating)
+    public Monster(int monsterId, String monsterName, int attack, int lifepointAmount, int challengeRating, int characterId, int monsterLootId)
     {
         this.monsterId = monsterId;
         this.monsterName = monsterName;
         this.attack = attack;
         this.lifepointAmount = lifepointAmount;
         this.challengeRating = challengeRating;
+        this.characterId = characterId;
+        this.monsterLootId = monsterLootId;
     }
 
     public int getMonsterId()
@@ -40,5 +44,15 @@ public class Monster
     public int getChallengeRating()
     {
         return challengeRating;
+    }
+
+    public int getCharacterId()
+    {
+        return characterId;
+    }
+
+    public int getMonsterLootId()
+    {
+        return monsterLootId;
     }
 }

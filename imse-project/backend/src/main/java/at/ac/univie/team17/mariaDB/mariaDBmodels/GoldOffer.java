@@ -6,13 +6,15 @@ public class GoldOffer
     private boolean accepted;
     private boolean successful;
     private int goldAmount;
+    private int playerId;
 
-    public GoldOffer(int goldOfferId, boolean accepted, boolean successful, int goldAmount)
+    public GoldOffer(int goldOfferId, boolean accepted, boolean successful, int goldAmount, int playerId)
     {
         this.goldOfferId = goldOfferId;
         this.accepted = accepted;
         this.successful = successful;
         this.goldAmount = goldAmount;
+        this.playerId = playerId;
     }
 
     public int getGoldOfferId()
@@ -33,5 +35,10 @@ public class GoldOffer
     public int getGoldAmount()
     {
         return goldAmount;
+    }
+
+    public int getPlayerId()
+    {
+        return playerId;
     }
 }

@@ -13,6 +13,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.github.javafaker:javafaker:1.0.2'
+    implementation 'org.mongodb:mongo-java-driver:3.0.4'
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.1.2'
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

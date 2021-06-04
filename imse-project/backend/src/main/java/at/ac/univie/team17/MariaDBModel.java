@@ -1,6 +1,8 @@
 package at.ac.univie.team17;
 
 import at.ac.univie.team17.mariaDB.MariaDBDataInitializer;
+import at.ac.univie.team17.mariaDB.MariaDBTableDropper;
+import at.ac.univie.team17.mariaDB.MariaDBTableInitializer;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,30 +17,37 @@ public class MariaDBModel
     public MariaDBModel()
     {
         setupConnection();
+        MariaDBTableDropper.dropMariaDBTables(statement);
+        MariaDBTableInitializer.initializeMariaDBTables(statement);
         MariaDBDataInitializer.initializeMariaDBData(statement);
         closeConnection();
     }
 
     private void setupConnection()
     {
-        try {
+        try
+        {
             Class.forName("org.mariadb.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/mysql?user=root&password=mariadb");
             statement = connection.createStatement();
-        } catch (SQLException throwables) {
+        } catch (SQLException throwables)
+        {
             System.out.println("Failed");
             throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e)
+        {
             e.printStackTrace();
         }
     }
 
     private void closeConnection()
     {
-        try {
+        try
+        {
             statement.close();
             connection.close();
-        } catch (SQLException throwables) {
+        } catch (SQLException throwables)
+        {
             throwables.printStackTrace();
         }
     }

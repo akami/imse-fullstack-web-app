@@ -1,7 +1,7 @@
 FROM openjdk:11
 
-WORKDIR /imse-project
+#WORKDIR /imse-project
 
-COPY backend/build/libs/*.jar ./app.jar
+ADD imse-project/backend/build/libs/backend-0.0.1-SNAPSHOT.jar app.jar
 
 CMD ["java", "-jar", "./app.jar"]
