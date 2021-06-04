@@ -6,13 +6,17 @@ public class Character
     private String characterName;
     private int attack;
     private int lifepointAmount;
+    private int playerId;
+    private int characterClassId;
 
-    public Character(int characterId, String characterName, int attack, int lifepointAmount)
+    public Character(int characterId, String characterName, int attack, int lifepointAmount, int playerId, int characterClassId)
     {
         this.characterId = characterId;
         this.characterName = characterName;
         this.attack = attack;
         this.lifepointAmount = lifepointAmount;
+        this.playerId = playerId;
+        this.characterClassId = characterClassId;
     }
 
     public int getCharacterId()
@@ -33,5 +37,15 @@ public class Character
     public int getLifepointAmount()
     {
         return lifepointAmount;
+    }
+
+    public int getPlayerId()
+    {
+        return playerId;
+    }
+
+    public int getCharacterClassId()
+    {
+        return characterClassId;
     }
 }
