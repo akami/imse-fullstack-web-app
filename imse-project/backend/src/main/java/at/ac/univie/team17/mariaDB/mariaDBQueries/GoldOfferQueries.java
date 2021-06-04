@@ -7,7 +7,7 @@ public class GoldOfferQueries
     public static String getInsertGoldOfferQuery(GoldOffer goldOffer)
     {
         return "INSERT INTO gold_offer(gold_offer_id, accepted, successful, gold_amount, player_id) VALUES ('" +
-                goldOffer.getGoldOfferId() + "', '" + goldOffer.isAccepted() + "', '" + goldOffer.isSuccessful() + "', '" +
+                goldOffer.getGoldOfferId() + "', " + goldOffer.isAccepted() + ", " + goldOffer.isSuccessful() + ", '" +
                 goldOffer.getGoldAmount() + "', '" + goldOffer.getPlayerId() + "');";
     }
 
@@ -24,7 +24,12 @@ public class GoldOfferQueries
     public static String getCreateGoldOfferTableQuery()
     {
         return "CREATE TABLE gold_offer(gold_offer_id INT, accepted BOOLEAN, successful BOOLEAN, gold_amount INT, " +
-                "player_id INT, PRIMARY KEY (gold_offer_id), CONSTRAINT 'fk_player' FOREIGN KEY (player_id) REFERENCES " +
+                "player_id INT, PRIMARY KEY (gold_offer_id), CONSTRAINT gold_offer_fk_player FOREIGN KEY (player_id) REFERENCES " +
                 "player(player_id) ON DELETE CASCADE ON UPDATE RESTRICT);";
+    }
+
+    public static String getDropGoldOfferClassTableQuery()
+    {
+        return "DROP TABLE gold_offer;";
     }
 }

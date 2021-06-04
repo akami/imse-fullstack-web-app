@@ -1,6 +1,7 @@
 package at.ac.univie.team17;
 
 import at.ac.univie.team17.mariaDB.MariaDBDataInitializer;
+import at.ac.univie.team17.mariaDB.MariaDBTableDropper;
 import at.ac.univie.team17.mariaDB.MariaDBTableInitializer;
 
 import java.sql.Connection;
@@ -16,6 +17,7 @@ public class MariaDBModel
     public MariaDBModel()
     {
         setupConnection();
+        MariaDBTableDropper.dropMariaDBTables(statement);
         MariaDBTableInitializer.initializeMariaDBTables(statement);
         MariaDBDataInitializer.initializeMariaDBData(statement);
         closeConnection();

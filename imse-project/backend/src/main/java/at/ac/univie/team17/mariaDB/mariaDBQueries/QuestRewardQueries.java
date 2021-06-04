@@ -22,6 +22,11 @@ public class QuestRewardQueries
 
     public static String getCreateQuestRewardTableQuery()
     {
-        return "CREATE TABLE quest_reward(quest_reward_id INT, gold_amount INT, experience_amount INT, PRIMARY KEY (quest_reward_id);";
+        return "CREATE TABLE quest_reward(quest_reward_id INT, gold_amount INT, experience_amount INT, PRIMARY KEY (quest_reward_id));";
+    }
+
+    public static String getDropQuestRewardTableQuery()
+    {
+        return "DROP TABLE quest_reward;";
     }
 }

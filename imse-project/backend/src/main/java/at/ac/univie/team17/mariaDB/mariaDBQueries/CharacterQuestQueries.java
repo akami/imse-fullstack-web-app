@@ -6,7 +6,7 @@ public class CharacterQuestQueries
 {
     public static String getInsertCharacterQuestQuery(CharacterQuest characterQuest)
     {
-        return "INSERT INTO character (character_id, quest_id) VALUES ('" + characterQuest.getCharacterId() + "', '" +
+        return "INSERT INTO character_quest (character_id, quest_id) VALUES ('" + characterQuest.getCharacterId() + "', '" +
                 characterQuest.getQuestId() + "');";
     }
 
@@ -17,11 +17,19 @@ public class CharacterQuestQueries
 
     public static String getSelectCharacterQuestFromIdQuery(int characterId, int questId)
     {
-        return "SELECT * FROM character WHERE character_id = " + characterId + " AND quest_id = " + questId + ";";
+        return "SELECT * FROM character_quest WHERE character_id = " + characterId + " AND quest_id = " + questId + ";";
     }
 
     public static String getCreateCharacterQuestTableQuery()
     {
-        return "CREATE TABLE character (character_id INT, quest_id INT, PRIMARY KEY (character_id, quest_id));";
+        return "CREATE TABLE character_quest (character_id INT, quest_id INT, PRIMARY KEY (character_id, quest_id), " +
+                "CONSTRAINT character_quest_fk_character FOREIGN KEY (character_id) REFERENCES player_character (character_id) " +
+                "ON DELETE CASCADE ON UPDATE RESTRICT, CONSTRAINT character_quest_fk_quest FOREIGN KEY (quest_id) REFERENCES " +
+                "quest(quest_id) ON DELETE CASCADE ON UPDATE RESTRICT);";
+    }
+
+    public static String getDropCharacterQuestClassTableQuery()
+    {
+        return "DROP TABLE character_quest;";
     }
 }

@@ -23,7 +23,12 @@ public class CharacterSkinQueries
     public static String getCreateCharacterSkinTableQuery()
     {
         return "CREATE TABLE character_skin (character_id INT, skin_id INT, PRIMARY KEY (character_id, skin_id), " +
-                "CONSTRAINT 'fk_character' FOREIGN KEY (character_id) REFERENCES character (character_id) ON DELETE CASCADE ON UPDATE RESTRICT" +
-                ", CONSTRAINT 'fk_skin' FOREIGN KEY (skin_id) REFERENCES skin(skin_id) ON DELETE CASCADE ON UPDATE RESTRICT);";
+                "CONSTRAINT character_skin_fk_character FOREIGN KEY (character_id) REFERENCES player_character (character_id) ON DELETE CASCADE ON UPDATE RESTRICT" +
+                ", CONSTRAINT character_skin_fk_skin FOREIGN KEY (skin_id) REFERENCES skin(skin_id) ON DELETE CASCADE ON UPDATE RESTRICT);";
+    }
+
+    public static String getDropCharacterSkinClassTableQuery()
+    {
+        return "DROP TABLE character_skin;";
     }
 }

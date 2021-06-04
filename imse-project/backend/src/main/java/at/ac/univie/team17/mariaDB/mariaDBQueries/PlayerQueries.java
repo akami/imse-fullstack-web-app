@@ -22,6 +22,11 @@ public class PlayerQueries
 
     public static String getCreatePlayerTableQuery()
     {
-        return "CREATE TABLE player(player_id INT, user_name CHAR(30), email_address CHAR(40), PRIMARY KEY (player_id);";
+        return "CREATE TABLE player(player_id INT, user_name CHAR(30), email_address CHAR(40), PRIMARY KEY (player_id));";
+    }
+
+    public static String getDropPlayerTableQuery()
+    {
+        return "DROP TABLE player;";
     }
 }

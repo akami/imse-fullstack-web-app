@@ -22,6 +22,11 @@ public class MonsterLootQueries
 
     public static String getCreateMonsterLootTableQuery()
     {
-        return "CREATE TABLE monster_loot(monster_loot_id INT, gold_amount INT, experience_amount INT, PRIMARY KEY (monster_loot_id));";
+        return "CREATE TABLE monster_loot (monster_loot_id INT, gold_amount INT, experience_amount INT, PRIMARY KEY (monster_loot_id));";
+    }
+
+    public static String getDropMonsterLootTableQuery()
+    {
+        return "DROP TABLE monster_loot;";
     }
 }

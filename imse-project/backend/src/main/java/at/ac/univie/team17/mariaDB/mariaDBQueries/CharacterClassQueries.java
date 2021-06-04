@@ -26,4 +26,9 @@ public class CharacterClassQueries
         return "CREATE TABLE character_class (character_class_id INT, bonus_attack INT, bonus_lifepoints INT, " +
                 "character_class_name CHAR(25), PRIMARY KEY (character_class_id));";
     }
+
+    public static String getDropCharacterClassTableQuery()
+    {
+        return "DROP TABLE character_class;";
+    }
 }

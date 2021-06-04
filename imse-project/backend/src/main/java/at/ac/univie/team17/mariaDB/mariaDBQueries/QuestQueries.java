@@ -23,8 +23,13 @@ public class QuestQueries
 
     public static String getCreateQuestTableQuery()
     {
-        return "CREATE TABLE quest(quest_id INT, quest_name CHAR(30), client_name CHAR(30), quest_reward_id INT, " +
-                "PRIMARY KEY (quest_id), CONSTRAINT 'fk_quest_reward' FOREIGN KEY (quest_reward_id) REFERENCES " +
+        return "CREATE TABLE quest(quest_id INT, quest_name CHAR(100), client_name CHAR(30), quest_reward_id INT, " +
+                "PRIMARY KEY (quest_id), CONSTRAINT quest_fk_quest_reward FOREIGN KEY (quest_reward_id) REFERENCES " +
                 "quest_reward(quest_reward_id) ON DELETE CASCADE ON UPDATE RESTRICT);";
+    }
+
+    public static String getDropQuestTableQuery()
+    {
+        return "DROP TABLE quest;";
     }
 }

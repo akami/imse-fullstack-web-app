@@ -22,8 +22,13 @@ public class PlayerPetQueries
 
     public static String getCreatePlayerPetsTableQuery()
     {
-        return "CREATE TABLE player_pet (player_id INT, pet_id INT, PRIMARY KEY (player_id, pet_id), CONSTRAINT 'fk_player' " +
-                "FOREIGN KEY (player_id) REFERENCES player (player_id) ON DELETE CASCADE ON UPDATE RESTRICT, " +
-                "CONSTRAINT 'fk_pet' FOREIGN KEY (pet_id) REFERENCES pet (pet_id) ON DELETE CASCADE ON UPDATE RESTRICT);";
+        return "CREATE TABLE player_pet (player_id INT, pet_id INT, PRIMARY KEY (player_id, pet_id), CONSTRAINT player_pet_fk_player " +
+                "FOREIGN KEY (player_id) REFERENCES player(player_id) ON DELETE CASCADE ON UPDATE RESTRICT, " +
+                "CONSTRAINT player_pet_fk_pet FOREIGN KEY (pet_id) REFERENCES pet(pet_id) ON DELETE CASCADE ON UPDATE RESTRICT);";
+    }
+
+    public static String getDropPlayerPetTableQuery()
+    {
+        return "DROP TABLE player_pet;";
     }
 }

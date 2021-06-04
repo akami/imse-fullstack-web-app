@@ -13,7 +13,7 @@ public class MariaDBDataInitializer
     private static String insertQuery;
     public static void initializeMariaDBData(Statement statement)
     {
-        ArrayList<Player> players = PlayerDataGenerator.generatePlayerData(10);
+        ArrayList<Player> players = PlayerData.getPlayerData();
         insertPlayersInMariaDB(statement, players);
 
         ArrayList<CharacterClass> characterClasses = CharacterClassData.getCharacterClassData();
@@ -22,13 +22,13 @@ public class MariaDBDataInitializer
         ArrayList<Pet> pets = PetData.getPetData();
         insertPetsInMariaDB(statement, pets);
 
-        ArrayList<PlayerPet> playerPets = PlayerPetDataGenerator.generatePlayerPetsData(20, players.size(), pets.size());
+        ArrayList<PlayerPet> playerPets = PlayerPetDataGenerator.generatePlayerPetsData(5, players.size(), pets.size());
         insertPlayerPetsInMariaDB(statement, playerPets);
 
         ArrayList<GoldOffer> goldOffers = GoldOfferDataGenerator.generateGoldOfferData(20, players.size());
         insertGoldOffersInMariaDB(statement, goldOffers);
 
-        ArrayList<Character> characters = CharacterDataGenerator.generateCharacterData(30, players.size());
+        ArrayList<Character> characters = CharacterDataGenerator.generateCharacterData(30, players.size(), characterClasses.size());
         insertCharactersInMariaDB(statement, characters);
 
         ArrayList<MonsterLoot> monsterLoots = MonsterLootDataGenerator.generateMonsterLootData(120);
@@ -37,21 +37,21 @@ public class MariaDBDataInitializer
         ArrayList<Monster> monsters = MonsterDataGenerator.generateMonsterData(120, characters.size());
         insertMonstersInMariaDB(statement, monsters);
 
-        ArrayList<QuestReward> questRewards = QuestRewardDataGenerator.generateQuestRewardData(10);
+        ArrayList<QuestReward> questRewards = QuestRewardDataGenerator.generateQuestRewardData(20);
         insertQuestRewardsInMariaDB(statement, questRewards);
 
-        ArrayList<Quest> quests = QuestDataGenerator.generateQuestData(10);
+        ArrayList<Quest> quests = QuestDataGenerator.generateQuestData(20);
         insertQuestsInMariaDB(statement, quests);
 
         ArrayList<Skin> skins = SkinData.getSkinData();
         insertSkinsInMariaDB(statement, skins);
 
         ArrayList<CharacterSkin> characterSkins = CharacterSkinDataGenerator.generateCharacterSkinsData(
-                50, characters.size(), skins.size());
+                0, characters.size(), skins.size());
         insertCharacterSkinsInMariaDB(statement, characterSkins);
 
         ArrayList<CharacterQuest> characterQuests = CharacterQuestDataGenerator.generateCharacterQuestData(
-                60, characters.size(), quests.size());
+                20, characters.size(), quests.size());
         insertCharacterQuestsInMariaDB(statement, characterQuests);
     }
 

@@ -24,4 +24,9 @@ public class PetQueries
     {
         return "CREATE TABLE pet(pet_id INT, pet_name CHAR(30), gold_preis INT, PRIMARY KEY (pet_id));";
     }
+
+    public static String getDropPetTableQuery()
+    {
+        return "DROP TABLE pet;";
+    }
 }

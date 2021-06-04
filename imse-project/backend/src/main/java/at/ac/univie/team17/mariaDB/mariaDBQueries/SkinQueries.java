@@ -23,7 +23,12 @@ public class SkinQueries
     public static String getCreateSkinTableQuery()
     {
         return "CREATE TABLE skin(skin_id INT, character_class_id INT, skin_name CHAR(30), gold_price INT, " +
-                "PRIMARY KEY (skin_id, character_class_id), CONSTRAINT 'fk_character_class' FOREIGN KEY (character_class_id) REFERENCES " +
+                "PRIMARY KEY (skin_id, character_class_id), CONSTRAINT skin_fk_character_class FOREIGN KEY (character_class_id) REFERENCES " +
                 "character_class(character_class_id) ON DELETE CASCADE ON UPDATE RESTRICT);";
+    }
+
+    public static String getDropSkinTableQuery()
+    {
+        return "DROP TABLE skin;";
     }
 }

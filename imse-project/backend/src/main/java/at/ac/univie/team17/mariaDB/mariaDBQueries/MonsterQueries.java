@@ -26,8 +26,13 @@ public class MonsterQueries
     {
         return "CREATE TABLE monster(monster_id INT, monster_name CHAR(30), attack INT, lifepoints INT, " +
                 "challenge_rating INT, character_id INT, monster_loot_id INT, PRIMARY KEY (monster_id), " +
-                "CONSTRAINT 'fk_character' FOREIGN KEY (character_id) REFERENCES character(character_id) ON DELETE CASCADE " +
-                "ON UPDATE RESTRICT, CONSTRAINT 'fk_monster_loot' FOREIGN KEY (monster_loot_id) REFERENCES monster_loot(monster_loot_id) " +
+                "CONSTRAINT monster_fk_character FOREIGN KEY (character_id) REFERENCES player_character(character_id) ON DELETE CASCADE " +
+                "ON UPDATE RESTRICT, CONSTRAINT monster_fk_monster_loot FOREIGN KEY (monster_loot_id) REFERENCES monster_loot(monster_loot_id) " +
                 "ON DELETE CASCADE ON UPDATE RESTRICT);";
+    }
+
+    public static String getDropMonsterTableQuery()
+    {
+        return "DROP TABLE monster;";
     }
 }
