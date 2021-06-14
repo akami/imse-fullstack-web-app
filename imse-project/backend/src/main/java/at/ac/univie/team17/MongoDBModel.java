@@ -2,7 +2,9 @@ package at.ac.univie.team17;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MongoDBModel
 {
     private MongoClient mongoClient = null;
