@@ -1,0 +1,100 @@
+.Greetings {
+    text-align: center;
+}
+
+.Greeting-header-small {
+    background-color: #282c34;
+    min-height: 5vh;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.Greeting-content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: stretch;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.Greeting-login-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: rgba(229, 229, 229, 0.3);
+    border-radius: 15px;
+
+    margin-left: 150px;
+    margin-top: 200px;
+    padding: 24px;
+}
+
+.Greeting-text-card {
+    margin: 100px
+}
+.Greeting-title {
+    font-size: xxx-large;
+    font-family: 'Permanent Marker', cursive;
+    color: magenta;
+}
+.Greeting-subtitle {
+    font-size: x-large;
+    font-family: 'Poppins', sans-serif;
+}
+
+@keyframes shootingStars {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+.span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow:
+            0 0 0 4px rgba(255, 255, 255, 0.1),
+            0 0 0 8px rgba(255, 255, 255, 0.1),
+            0 0 0 20px rgba(255, 255, 255, 1);
+    animation: animate 5s linear infinite;
+}
+
+.span::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 300px;
+    height: 1px;
+    background: linear-gradient(90deg, #ffffff, transparent);
+    transform: translateY(-50%);
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(300deg) translateX(0);
+        opacity: 1;
+    }
+    75% {
+        opacity: 1;
+    }
+    100% {
+        transform: rotate(300deg) translateX(-1000px);
+        opacity: 0;
+    }
+}
