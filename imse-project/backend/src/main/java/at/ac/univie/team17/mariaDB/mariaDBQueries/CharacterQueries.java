@@ -1,14 +1,14 @@
 package at.ac.univie.team17.mariaDB.mariaDBQueries;
 
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Character;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.GameCharacter;
 
 public class CharacterQueries
 {
-    public static String getInsertCharacterQuery(Character character)
+    public static String getInsertCharacterQuery(GameCharacter gameCharacter)
     {
         return "INSERT INTO player_character (character_id, attack, lifepoints, character_name, player_id, character_class_id) VALUES ('" +
-                character.getCharacterId() + "', '" + character.getAttack() + "', '" + character.getLifepointAmount() +
-                "', '" + character.getCharacterName() + "', '" + character.getPlayerId() + "', '" + character.getCharacterClassId()+ "');";
+                gameCharacter.getCharacterId() + "', '" + gameCharacter.getAttack() + "', '" + gameCharacter.getLifepointAmount() +
+                "', '" + gameCharacter.getCharacterName() + "', '" + gameCharacter.getPlayerId() + "', '" + gameCharacter.getCharacterClassId()+ "');";
     }
 
     public static String getSelectAllCharactersQuery()

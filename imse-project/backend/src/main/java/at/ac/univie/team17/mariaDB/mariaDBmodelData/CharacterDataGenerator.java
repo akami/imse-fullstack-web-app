@@ -1,6 +1,6 @@
 package at.ac.univie.team17.mariaDB.mariaDBmodelData;
 
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Character;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.GameCharacter;
 import com.github.javafaker.Faker;
 
 import java.util.ArrayList;
@@ -13,18 +13,18 @@ public class CharacterDataGenerator
     private static final int MINIMAL_LIFEPOINTS = 10;
     private static final int LIFEPOINTS_RANGE = 10;
 
-    public static ArrayList<Character> generateCharacterData(int characterAmount, int playerAmount, int characterClassAmount)
+    public static ArrayList<GameCharacter> generateCharacterData(int characterAmount, int playerAmount, int characterClassAmount)
     {
-        ArrayList<Character> characters = new ArrayList<>();
+        ArrayList<GameCharacter> gameCharacters = new ArrayList<>();
 
         Faker stringCreator = new Faker();
         Random random = new Random();
         for (int i = 0; i < characterAmount; ++i)
         {
-            characters.add(new Character(i, stringCreator.name().firstName(), random.nextInt(ATTACK_RANGE) + MINIMAL_ATTACK,
+            gameCharacters.add(new GameCharacter(i, stringCreator.name().firstName(), random.nextInt(ATTACK_RANGE) + MINIMAL_ATTACK,
                     random.nextInt(LIFEPOINTS_RANGE) + MINIMAL_LIFEPOINTS, random.nextInt(playerAmount),
                     random.nextInt(characterClassAmount)));
         }
-        return characters;
+        return gameCharacters;
     }
 }

@@ -20,6 +20,13 @@ public class PlayerPetQueries
         return "SELECT * FROM player_pet WHERE player_id = " + playerId + " AND pet_id = " + petId + ";";
     }
 
+    public static String getSelectPlayerPetFromPlayerIdQuery(int playerId)
+    {
+        return "SELECT pet.* FROM " +
+                "(SELECT * FROM player_pet WHERE player_id = " + playerId + ") AS bought_pets " +
+                "JOIN pet ON bought_pets.pet_id = pet.pet_id;";
+    }
+
     public static String getCreatePlayerPetsTableQuery()
     {
         return "CREATE TABLE player_pet (player_id INT, pet_id INT, PRIMARY KEY (player_id, pet_id), CONSTRAINT player_pet_fk_player " +
