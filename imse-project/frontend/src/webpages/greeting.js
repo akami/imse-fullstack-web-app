@@ -1,6 +1,6 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
-import {Button, Form} from 'react-bootstrap';
+import {Button, Form, Row, Container, Col} from 'react-bootstrap';
 
 const Greeting = () => {
     let history = useHistory();
@@ -14,21 +14,21 @@ const Greeting = () => {
                     </p>
                 </div>
                 <div>
-                    <Button variant="primary" type="button" onClick={() => history.push("/signup")}> Sign Up</Button> {' '}
+                    <Button variant="success" type="button" onClick={() => history.push("/signup")}> Sign Up</Button> {' '}
                     <Button variant="secondary" type="button" onClick={() => history.push("/home")}> Fill Db</Button>
                 </div>
             </div>
 
-            <div className="container Greeting-content" style={{margin: "unset", maxWidth: "unset"}}>
-                <div className="row">
-                    <div className="col-md"></div>
-                    <div className="col-md Greeting-text-card">
-                        <p className="Greeting-title">The IMSE Quest</p>
-                        <p className="Greeting-subtitle">a database game</p>
-                        <p className="Greeting-subtitle" style={{fontSize: "medium"}}>by Katharina Höckner & Stefan
+            <Container className="Greeting-content" style={{margin: "unset", maxWidth: "unset"}}>
+                <Row className="h-100">
+                    <Col md={1}></Col>
+                    <Col md={6} className="Greeting-text-card" style={{paddingTop: 300}}>
+                        <p className="Text-title">The IMSE Quest</p>
+                        <p className="Text-subtitle">a database game</p>
+                        <p className="Text-subsubtitle">by Katharina Höckner & Stefan
                             Tschurtschenthaler</p>
-                    </div>
-                    <div className="col-md">
+                    </Col>
+                    <Col md={3} style={{paddingTop: 280}}>
                         <div className="Greeting-login-card">
                             <Form>
                                 <Form.Group controlId="formBasicEmail">
@@ -42,13 +42,13 @@ const Greeting = () => {
                                     <Form.Label>Username</Form.Label>
                                     <Form.Control type="username" placeholder="Enter username"/>
                                 </Form.Group>
-                                <Button type="submit" onClick={() => history.push("/home")} style={{marginTop: 16}}> Play Now </Button>
+                                <Button type="submit" variant="success" onClick={() => history.push("/home")} style={{marginTop: 16}}> Play Now </Button>
                             </Form>
                         </div>
-                    </div>
-                    <div className="col-md"></div>
-                </div>
-            </div>
+                    </Col>
+                    <Col md={1}></Col>
+                </Row>
+            </Container>
         </div>
     );
 }
