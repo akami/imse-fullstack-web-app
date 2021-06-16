@@ -6,8 +6,8 @@ public class PlayerQueries
 {
     public static String getInsertPlayersQuery(Player player)
     {
-        return "INSERT INTO player(player_id, user_name, email_address) VALUES ('" + player.getPlayerId() + "', '" +
-                player.getUsername() + "', '" + player.getEmailAddress() + "');";
+        return "INSERT INTO player(player_id, user_name, age, email_address) VALUES ('" + player.getPlayerId() + "', '" +
+                player.getUsername() + "', '" + player.getAge() + "', '" + player.getEmailAddress() + "');";
     }
 
     public static String getSelectAllPlayersQuery()
@@ -22,7 +22,7 @@ public class PlayerQueries
 
     public static String getCreatePlayerTableQuery()
     {
-        return "CREATE TABLE player(player_id INT, user_name CHAR(30), email_address CHAR(40), PRIMARY KEY (player_id));";
+        return "CREATE TABLE player(player_id INT, user_name CHAR(30), age INT, email_address CHAR(40), PRIMARY KEY (player_id));";
     }
 
     public static String getDropPlayerTableQuery()

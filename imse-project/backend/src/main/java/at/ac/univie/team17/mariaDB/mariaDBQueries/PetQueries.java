@@ -1,12 +1,12 @@
 package at.ac.univie.team17.mariaDB.mariaDBQueries;
 
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Pet;
+import at.ac.univie.team17.sharedDataModels.Pet;
 
 public class PetQueries
 {
     public static String getInsertPetQuery(Pet pet)
     {
-        return "INSERT INTO pet(pet_id, pet_name, gold_preis) VALUES ('" + pet.getPetId() + "', '" + pet.getPetName() +
+        return "INSERT INTO pet(pet_id, pet_name, gold_price) VALUES ('" + pet.getPetId() + "', '" + pet.getPetName() +
                 "', '" + pet.getGoldPrice() + "');";
     }
 
@@ -22,7 +22,7 @@ public class PetQueries
 
     public static String getCreatePetTableQuery()
     {
-        return "CREATE TABLE pet(pet_id INT, pet_name CHAR(30), gold_preis INT, PRIMARY KEY (pet_id));";
+        return "CREATE TABLE pet(pet_id INT, pet_name CHAR(30), gold_price INT, PRIMARY KEY (pet_id));";
     }
 
     public static String getDropPetTableQuery()

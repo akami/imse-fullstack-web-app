@@ -17,7 +17,7 @@ public class MonsterDataGenerator
     /*
         monsterid = monster loot id for simplicity
      */
-    public static ArrayList<Monster> generateMonsterData(int monsterAmount, int characterAmount)
+    public static ArrayList<Monster> generateMonsterData(int monsterAmount)
     {
         ArrayList<Monster> monsters = new ArrayList<>();
 
@@ -32,8 +32,7 @@ public class MonsterDataGenerator
                 monsterName = stringCreator.funnyName().name();
             }
             monsters.add(new Monster(i, monsterName, random.nextInt(ATTACK_RANGE) + MINIMAL_ATTACK,
-                    random.nextInt(LIFEPOINTS_RANGE) + MINIMAL_LIFEPOINTS, random.nextInt(MAXIMAL_CHALLENGE_RATING),
-                    random.nextInt(characterAmount), i));
+                    random.nextInt(LIFEPOINTS_RANGE) + MINIMAL_LIFEPOINTS, random.nextInt(MAXIMAL_CHALLENGE_RATING), i));
         }
         return monsters;
     }

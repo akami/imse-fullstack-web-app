@@ -21,6 +21,11 @@ public class GoldOfferQueries
         return "SELECT * FROM gold_offer WHERE gold_offer_id = " + id + ";";
     }
 
+    public static String getSelectedGoldOffersFromPlayerIdQuery(int playerId)
+    {
+        return "SELECT * FROM gold_offer WHERE player_id = " + playerId + ";";
+    }
+
     public static String getCreateGoldOfferTableQuery()
     {
         return "CREATE TABLE gold_offer(gold_offer_id INT, accepted BOOLEAN, successful BOOLEAN, gold_amount INT, " +

@@ -3,7 +3,8 @@ package at.ac.univie.team17.mariaDB;
 import at.ac.univie.team17.mariaDB.mariaDBQueries.*;
 import at.ac.univie.team17.mariaDB.mariaDBmodelData.*;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.*;
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Character;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.GameCharacter;
+import at.ac.univie.team17.sharedDataModels.Pet;
 
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -28,14 +29,17 @@ public class MariaDBDataInitializer
         ArrayList<GoldOffer> goldOffers = GoldOfferDataGenerator.generateGoldOfferData(20, players.size());
         insertGoldOffersInMariaDB(statement, goldOffers);
 
-        ArrayList<Character> characters = CharacterDataGenerator.generateCharacterData(30, players.size(), characterClasses.size());
-        insertCharactersInMariaDB(statement, characters);
+        ArrayList<GameCharacter> gameCharacters = CharacterDataGenerator.generateCharacterData(30, players.size(), characterClasses.size());
+        insertCharactersInMariaDB(statement, gameCharacters);
 
         ArrayList<MonsterLoot> monsterLoots = MonsterLootDataGenerator.generateMonsterLootData(120);
         insertMonsterLootsInMariaDB(statement, monsterLoots);
 
-        ArrayList<Monster> monsters = MonsterDataGenerator.generateMonsterData(120, characters.size());
+        ArrayList<Monster> monsters = MonsterDataGenerator.generateMonsterData(20);
         insertMonstersInMariaDB(statement, monsters);
+
+        ArrayList<AlliedMonsters> alliedMonsters = AlliedMonstersDataGenerator.generateAlliedMonstersData(20, monsters.size());
+        insertAlliedMonstersInMariaDB(statement, alliedMonsters);
 
         ArrayList<QuestReward> questRewards = QuestRewardDataGenerator.generateQuestRewardData(20);
         insertQuestRewardsInMariaDB(statement, questRewards);
@@ -47,11 +51,11 @@ public class MariaDBDataInitializer
         insertSkinsInMariaDB(statement, skins);
 
         ArrayList<CharacterSkin> characterSkins = CharacterSkinDataGenerator.generateCharacterSkinsData(
-                0, characters.size(), skins.size());
+                0, gameCharacters.size(), skins.size());
         insertCharacterSkinsInMariaDB(statement, characterSkins);
 
         ArrayList<CharacterQuest> characterQuests = CharacterQuestDataGenerator.generateCharacterQuestData(
-                20, characters.size(), quests.size());
+                5, gameCharacters.size(), quests.size());
         insertCharacterQuestsInMariaDB(statement, characterQuests);
     }
 
@@ -60,7 +64,7 @@ public class MariaDBDataInitializer
         for (Player player : players)
         {
             insertQuery = PlayerQueries.getInsertPlayersQuery(player);
-            MariaDBQueryExecuter.executeQuery(statement, insertQuery);
+            MariaDBQueryExecuter.executeNoReturnQuery(statement, insertQuery);
         }
     }
 
@@ -69,7 +73,7 @@ public class MariaDBDataInitializer
         for (CharacterClass characterClass : characterClasses)
         {
             insertQuery = CharacterClassQueries.getInsertCharacterClassQuery(characterClass);
-            MariaDBQueryExecuter.executeQuery(statement, insertQuery);
+            MariaDBQueryExecuter.executeNoReturnQuery(statement, insertQuery);
         }
     }
 
@@ -78,7 +82,7 @@ public class MariaDBDataInitializer
         for (Pet pet : pets)
         {
             insertQuery = PetQueries.getInsertPetQuery(pet);
-            MariaDBQueryExecuter.executeQuery(statement, insertQuery);
+            MariaDBQueryExecuter.executeNoReturnQuery(statement, insertQuery);
         }
     }
 
@@ -87,7 +91,7 @@ public class MariaDBDataInitializer
         for (PlayerPet playerPet : playerPets)
         {
             insertQuery = PlayerPetQueries.getInsertPlayerPetQuery(playerPet);
-            MariaDBQueryExecuter.executeQuery(statement, insertQuery);
+            MariaDBQueryExecuter.executeNoReturnQuery(statement, insertQuery);
         }
     }
 
@@ -96,16 +100,16 @@ public class MariaDBDataInitializer
         for (GoldOffer goldOffer : goldOffers)
         {
             insertQuery = GoldOfferQueries.getInsertGoldOfferQuery(goldOffer);
-            MariaDBQueryExecuter.executeQuery(statement, insertQuery);
+            MariaDBQueryExecuter.executeNoReturnQuery(statement, insertQuery);
         }
     }
 
-    private static void insertCharactersInMariaDB(Statement statement, ArrayList<Character> characters)
+    private static void insertCharactersInMariaDB(Statement statement, ArrayList<GameCharacter> gameCharacters)
     {
-        for (Character character : characters)
+        for (GameCharacter gameCharacter : gameCharacters)
         {
-            insertQuery = CharacterQueries.getInsertCharacterQuery(character);
-            MariaDBQueryExecuter.executeQuery(statement, insertQuery);
+            insertQuery = CharacterQueries.getInsertCharacterQuery(gameCharacter);
+            MariaDBQueryExecuter.executeNoReturnQuery(statement, insertQuery);
         }
     }
 
@@ -114,7 +118,7 @@ public class MariaDBDataInitializer
         for (MonsterLoot monsterLoot : monsterLoots)
         {
             insertQuery = MonsterLootQueries.getInsertMonsterLootQuery(monsterLoot);
-            MariaDBQueryExecuter.executeQuery(statement, insertQuery);
+            MariaDBQueryExecuter.executeNoReturnQuery(statement, insertQuery);
         }
     }
 
@@ -123,7 +127,16 @@ public class MariaDBDataInitializer
         for (Monster monster : monsters)
         {
             insertQuery = MonsterQueries.getInsertMonsterQuery(monster);
-            MariaDBQueryExecuter.executeQuery(statement, insertQuery);
+            MariaDBQueryExecuter.executeNoReturnQuery(statement, insertQuery);
+        }
+    }
+
+    private static void insertAlliedMonstersInMariaDB(Statement statement, ArrayList<AlliedMonsters> alliedMonsters)
+    {
+        for (AlliedMonsters monster : alliedMonsters)
+        {
+            insertQuery = AlliedMonstersQueries.getInsertAlliedMonsterQuery(monster);
+            MariaDBQueryExecuter.executeNoReturnQuery(statement, insertQuery);
         }
     }
 
@@ -132,7 +145,7 @@ public class MariaDBDataInitializer
         for (QuestReward questReward : questRewards)
         {
             insertQuery = QuestRewardQueries.getInsertQuestRewardQuery(questReward);
-            MariaDBQueryExecuter.executeQuery(statement, insertQuery);
+            MariaDBQueryExecuter.executeNoReturnQuery(statement, insertQuery);
         }
     }
 
@@ -141,7 +154,7 @@ public class MariaDBDataInitializer
         for (Quest quest : quests)
         {
             insertQuery = QuestQueries.getInsertQuestQuery(quest);
-            MariaDBQueryExecuter.executeQuery(statement, insertQuery);
+            MariaDBQueryExecuter.executeNoReturnQuery(statement, insertQuery);
         }
     }
 
@@ -150,7 +163,7 @@ public class MariaDBDataInitializer
         for (Skin skin : skins)
         {
             insertQuery = SkinQueries.getInsertSkinQuery(skin);
-            MariaDBQueryExecuter.executeQuery(statement, insertQuery);
+            MariaDBQueryExecuter.executeNoReturnQuery(statement, insertQuery);
         }
     }
 
@@ -159,7 +172,7 @@ public class MariaDBDataInitializer
         for (CharacterSkin characterSkin : characterSkins)
         {
             insertQuery = CharacterSkinQueries.getInsertCharacterSkinQuery(characterSkin);
-            MariaDBQueryExecuter.executeQuery(statement, insertQuery);
+            MariaDBQueryExecuter.executeNoReturnQuery(statement, insertQuery);
         }
     }
 
@@ -168,7 +181,7 @@ public class MariaDBDataInitializer
         for (CharacterQuest characterQuest : characterQuests)
         {
             insertQuery = CharacterQuestQueries.getInsertCharacterQuestQuery(characterQuest);
-            MariaDBQueryExecuter.executeQuery(statement, insertQuery);
+            MariaDBQueryExecuter.executeNoReturnQuery(statement, insertQuery);
         }
     }
 }
