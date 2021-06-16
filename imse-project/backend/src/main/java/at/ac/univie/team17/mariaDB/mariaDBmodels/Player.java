@@ -4,12 +4,14 @@ public class Player
 {
     private int playerId;
     private String username;
+    private int age;
     private String emailAddress;
 
-    public Player(int playerId, String username, String emailAddress)
+    public Player(int playerId, String username, int age, String emailAddress)
     {
         this.playerId = playerId;
         this.username = username;
+        this.age = age;
         this.emailAddress = emailAddress;
     }
 
@@ -21,6 +23,11 @@ public class Player
     public String getUsername()
     {
         return username;
+    }
+
+    public int getAge()
+    {
+        return age;
     }
 
     public String getEmailAddress()

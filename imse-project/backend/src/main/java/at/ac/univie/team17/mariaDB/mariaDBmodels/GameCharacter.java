@@ -1,6 +1,6 @@
 package at.ac.univie.team17.mariaDB.mariaDBmodels;
 
-public class Character
+public class GameCharacter
 {
     private int characterId;
     private String characterName;
@@ -9,7 +9,7 @@ public class Character
     private int playerId;
     private int characterClassId;
 
-    public Character(int characterId, String characterName, int attack, int lifepointAmount, int playerId, int characterClassId)
+    public GameCharacter(int characterId, String characterName, int attack, int lifepointAmount, int playerId, int characterClassId)
     {
         this.characterId = characterId;
         this.characterName = characterName;

@@ -31,4 +31,9 @@ public class SkinQueries
     {
         return "DROP TABLE skin;";
     }
+
+    public static String getSelectSkinsFromClassIdQuery(int classId)
+    {
+        return "SELECT * FROM skin WHERE character_class_id = " + classId + ";";
+    }
 }

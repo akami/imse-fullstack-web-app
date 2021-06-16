@@ -10,8 +10,6 @@ import java.sql.*;
 @Component
 public class MariaDBModel
 {
-    private Connection connection = null;
-    private Statement statement = null;
 
     public ResultSet query(String query) {
         setupConnection();
@@ -29,44 +27,16 @@ public class MariaDBModel
     }
 
     public void initialize() {
-        setupConnection();
-        MariaDBTableInitializer.initializeMariaDBTables(statement);
-        MariaDBDataInitializer.initializeMariaDBData(statement);
-        closeConnection();
+        MariaDBConnectionHandler.setupConnection();
+        MariaDBTableDropper.dropMariaDBTables(MariaDBConnectionHandler.getStatement());
+        MariaDBTableInitializer.initializeMariaDBTables(MariaDBConnectionHandler.getStatement());
+        MariaDBDataInitializer.initializeMariaDBData(MariaDBConnectionHandler.getStatement());
+        MariaDBConnectionHandler.closeConnection();
     }
 
     public void clear() {
-        setupConnection();
-        MariaDBTableDropper.dropMariaDBTables(statement);
-        closeConnection();
-    }
-
-    private void setupConnection()
-    {
-        try
-        {
-            Class.forName("org.mariadb.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/mysql?user=root&password=mariadb");
-            statement = connection.createStatement();
-        } catch (SQLException throwables)
-        {
-            System.out.println("Failed");
-            throwables.printStackTrace();
-        } catch (ClassNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    private void closeConnection()
-    {
-        try
-        {
-            statement.close();
-            connection.close();
-        } catch (SQLException throwables)
-        {
-            throwables.printStackTrace();
-        }
+        MariaDBConnectionHandler.setupConnection();
+        MariaDBTableDropper.dropMariaDBTables(MariaDBConnectionHandler.getStatement());
+        MariaDBConnectionHandler.closeConnection();
     }
 }

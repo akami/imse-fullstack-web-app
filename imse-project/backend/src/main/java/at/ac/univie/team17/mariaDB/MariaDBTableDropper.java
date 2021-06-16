@@ -8,18 +8,20 @@ public class MariaDBTableDropper
 {
     public static void dropMariaDBTables(Statement statement)
     {
-        MariaDBQueryExecuter.executeQuery(statement, CharacterQuestQueries.getDropCharacterQuestClassTableQuery());
-        MariaDBQueryExecuter.executeQuery(statement, CharacterSkinQueries.getDropCharacterSkinClassTableQuery());
-        MariaDBQueryExecuter.executeQuery(statement, SkinQueries.getDropSkinTableQuery());
-        MariaDBQueryExecuter.executeQuery(statement, QuestQueries.getDropQuestTableQuery());
-        MariaDBQueryExecuter.executeQuery(statement, QuestRewardQueries.getDropQuestRewardTableQuery());
-        MariaDBQueryExecuter.executeQuery(statement, MonsterQueries.getDropMonsterTableQuery());
-        MariaDBQueryExecuter.executeQuery(statement, MonsterLootQueries.getDropMonsterLootTableQuery());
-        MariaDBQueryExecuter.executeQuery(statement, CharacterQueries.getDropCharacterTableQuery());
-        MariaDBQueryExecuter.executeQuery(statement, GoldOfferQueries.getDropGoldOfferClassTableQuery());
-        MariaDBQueryExecuter.executeQuery(statement, PlayerPetQueries.getDropPlayerPetTableQuery());
-        MariaDBQueryExecuter.executeQuery(statement, PetQueries.getDropPetTableQuery());
-        MariaDBQueryExecuter.executeQuery(statement, CharacterClassQueries.getDropCharacterClassTableQuery());
-        MariaDBQueryExecuter.executeQuery(statement, PlayerQueries.getDropPlayerTableQuery());
+        MariaDBQueryExecuter.executeNoReturnQuery(statement, CharacterQuestQueries.getDropCharacterQuestClassTableQuery());
+        MariaDBQueryExecuter.executeNoReturnQuery(statement, CharacterSkinQueries.getDropCharacterSkinClassTableQuery());
+        MariaDBQueryExecuter.executeNoReturnQuery(statement, SkinQueries.getDropSkinTableQuery());
+        MariaDBQueryExecuter.executeNoReturnQuery(statement, QuestQueries.getDropQuestTableQuery());
+        MariaDBQueryExecuter.executeNoReturnQuery(statement, QuestRewardQueries.getDropQuestRewardTableQuery());
+        MariaDBQueryExecuter.executeNoReturnQuery(statement, CharacterMonsterQueries.getDropCharacterMonsterTableQuery());
+        MariaDBQueryExecuter.executeNoReturnQuery(statement, AlliedMonstersQueries.getDropAlliedMonsterTableQuery());
+        MariaDBQueryExecuter.executeNoReturnQuery(statement, MonsterQueries.getDropMonsterTableQuery());
+        MariaDBQueryExecuter.executeNoReturnQuery(statement, MonsterLootQueries.getDropMonsterLootTableQuery());
+        MariaDBQueryExecuter.executeNoReturnQuery(statement, CharacterQueries.getDropCharacterTableQuery());
+        MariaDBQueryExecuter.executeNoReturnQuery(statement, GoldOfferQueries.getDropGoldOfferClassTableQuery());
+        MariaDBQueryExecuter.executeNoReturnQuery(statement, PlayerPetQueries.getDropPlayerPetTableQuery());
+        MariaDBQueryExecuter.executeNoReturnQuery(statement, PetQueries.getDropPetTableQuery());
+        MariaDBQueryExecuter.executeNoReturnQuery(statement, CharacterClassQueries.getDropCharacterClassTableQuery());
+        MariaDBQueryExecuter.executeNoReturnQuery(statement, PlayerQueries.getDropPlayerTableQuery());
     }
 }

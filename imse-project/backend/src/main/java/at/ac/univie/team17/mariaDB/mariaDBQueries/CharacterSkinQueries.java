@@ -15,9 +15,11 @@ public class CharacterSkinQueries
         return "SELECT * FROM character_skin;";
     }
 
-    public static String getSelectCharacterSkinFromIdQuery(int characterId, int skinId)
+    public static String getSelectCharacterSkinsFromCharacterIdQuery(int characterId)
     {
-        return "SELECT * FROM character_skin WHERE character_id = " + characterId + " AND skin_id = " + skinId + ";";
+        return "SELECT skin.* FROM " +
+                "(SELECT * FROM character_skin WHERE character_id = " + characterId + ") AS bought_skins " +
+                "JOIN skin ON bought_skins.skin_id = skin.skin_id;";
     }
 
     public static String getCreateCharacterSkinTableQuery()

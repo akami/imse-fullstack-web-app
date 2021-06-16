@@ -1,4 +1,4 @@
-package at.ac.univie.team17.mariaDB.mariaDBmodels;
+package at.ac.univie.team17.sharedDataModels;
 
 public class Pet
 {
