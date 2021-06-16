@@ -21,6 +21,11 @@ public class CharacterQueries
         return "SELECT * FROM player_character WHERE character_id = " + id + ";";
     }
 
+    public static String getSelectCharactersFromPlayerIdQuery(int id)
+    {
+        return "SELECT * FROM player_character WHERE player-id = " + id + ";";
+    }
+
     public static String getCreateCharacterTableQuery()
     {
         return "CREATE TABLE player_character (character_id INT, attack INT, lifepoints INT, character_name CHAR(25), player_id INT," +

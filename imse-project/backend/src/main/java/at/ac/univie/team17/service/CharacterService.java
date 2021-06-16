@@ -1,24 +1,39 @@
 package at.ac.univie.team17.service;
 
-import at.ac.univie.team17.MariaDBModel;
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Character;
-import org.springframework.beans.factory.annotation.Autowired;
+import at.ac.univie.team17.MariaDBConnectionHandler;
+import at.ac.univie.team17.mariaDB.MariaDBQueryExecuter;
+import at.ac.univie.team17.mariaDB.MariaDBResultReader;
+import at.ac.univie.team17.mariaDB.mariaDBQueries.CharacterQueries;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.GameCharacter;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class CharacterService {
-    @Autowired
-    private MariaDBModel mariaDBModel;
 
-    public void saveCharacter(Character character) {
-        // TODO @kh character player
+    public void saveCharacter(GameCharacter character) {
+        String query = CharacterQueries.getInsertCharacterQuery(character);
+
+        MariaDBConnectionHandler.setupConnection();
+
+        MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
+
+        MariaDBConnectionHandler.closeConnection();
     }
 
-    public List<Character> getCharacters() {
-        // TODO @kh access data source
-        return Collections.emptyList();
+    public List<GameCharacter> getCharacters(int playerId) {
+        String query = CharacterQueries.getSelectCharactersFromPlayerIdQuery(playerId);
+
+        MariaDBConnectionHandler.setupConnection();
+
+        ResultSet result = MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
+        ArrayList<GameCharacter> characters = MariaDBResultReader.getGameCharactersFromResultSet(result);
+
+        MariaDBConnectionHandler.closeConnection();
+
+        return characters;
     }
 }

@@ -90,7 +90,7 @@ public class MariaDBResultReader
         return null;
     }
 
-    public static ArrayList<Integer> getAlliedMonsterIDsFromResultSet(ResultSet rs) 
+    public static ArrayList<Integer> getAlliedMonsterIDsFromResultSet(ResultSet rs)
     {
         ArrayList<Integer> alliedMonsterIds = new ArrayList<>();
         try
@@ -181,8 +181,9 @@ public class MariaDBResultReader
         {
             while (rs.next())
             {
-                gameCharacters.add(new GameCharacter(rs.getInt("character_id"), rs.getInt("bonus_attack"),
-                        rs.getInt("bonus_lifepoints"), rs.getString("character_class_name")));
+                gameCharacters.add(new GameCharacter(rs.getInt("character_id"), rs.getString("character_name"),
+                        rs.getInt("bonus_attack"), rs.getInt("bonus_lifepoints"),
+                        rs.getInt("player_id"), rs.getInt("character_class_id")));
             }
         } catch (SQLException throwables)
         {

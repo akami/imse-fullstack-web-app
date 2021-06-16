@@ -1,6 +1,6 @@
 package at.ac.univie.team17.controller;
 
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Pet;
+import at.ac.univie.team17.sharedDataModels.Pet;
 import at.ac.univie.team17.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class PetController extends BackendController {
+
     @Autowired
     private PetService petService;
 

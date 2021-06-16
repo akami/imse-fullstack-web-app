@@ -1,6 +1,5 @@
 package at.ac.univie.team17.controller;
 
-import at.ac.univie.team17.mariaDB.mariaDBQueries.PlayerQueries;
 import at.ac.univie.team17.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +13,7 @@ public abstract class BackendController {
     @Autowired
     private PlayerService playerService;
 
-    protected String getPlayerId(String authHeader) {
+    protected int getPlayerId(String authHeader) {
         String base64Auth = authHeader.split(" ")[1];
         String[] authDetails = new String(Base64.getDecoder().decode(base64Auth)).split(":");
 

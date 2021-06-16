@@ -1,29 +1,38 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Col, Container, Jumbotron, ListGroup, Row} from "react-bootstrap";
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import CharacterList from "../components/characterList";
 import Mage from "../assets/mage.png";
 import Fighter from "../assets/fighter.png";
 import Tank from "../assets/tank.png";
 
-const Home = () => {
+const Home = (authDetails) => {
     let history = useHistory();
-    let characters = [{
-        name: "Poppy",
-        charClass: "Mage",
-        attack: 1000,
-        img: Mage
-    },{
-        name: "Darius",
-        charClass: "Fighter",
-        attack: 1000,
-        img: Fighter
-    }, {
-        name: "Björn",
-        charClass: "Tank",
-        attack: 1000,
-        img: Tank
-    }]
+    const [characters, setCharacters] = useState();
+
+
+    useEffect(() =>  {
+        let mounted = true;
+        let url = '/api/characters';
+
+        if (mounted) {
+            (async () => {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Basic' + Buffer.from(authDetails[0] + ":" + authDetails[1]).toString('base64')
+                    }
+                })
+                    .then((response) => {
+                        setCharacters(response);
+                    });
+            })();
+        }
+
+        return function cleanup () {
+            mounted = false;
+        }
+    });
 
     return (
         <Container className="App">
@@ -41,7 +50,8 @@ const Home = () => {
                 </Row>
                 <Row className="align-content-end">
                     <div>
-                        <Button type="button" variant="success" size="lg" onClick={() => history.push("/create")}> Create New Character </Button>
+                        <Button type="button" variant="success" size="lg"
+                                onClick={() => history.push("/create")}> Create New Character </Button>
                     </div>
                 </Row>
             </Col>

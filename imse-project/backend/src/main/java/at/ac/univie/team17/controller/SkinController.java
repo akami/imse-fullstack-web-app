@@ -17,7 +17,7 @@ public class SkinController extends BackendController {
 
     @GetMapping("/skin")
     public List<Skin> getSkins() {
-        return skinService.getSkins();
+        return skinService.getAllSkins();
     }
 
     @PostMapping("/skin")

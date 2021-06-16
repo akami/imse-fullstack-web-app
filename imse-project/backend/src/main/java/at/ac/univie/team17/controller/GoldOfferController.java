@@ -16,8 +16,8 @@ public class GoldOfferController extends BackendController {
     private GoldOfferService goldOfferService;
 
     @GetMapping("/goldOffer")
-    public List<GoldOffer> getGoldOffers() {
-        return goldOfferService.getGoldOffers();
+    public List<GoldOffer> getGoldOffers(int playerId) {
+        return goldOfferService.getGoldOffersByPlayerId(playerId);
     }
 
     @PostMapping("/goldOffer")

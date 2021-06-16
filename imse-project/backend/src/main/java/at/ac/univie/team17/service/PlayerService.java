@@ -1,28 +1,50 @@
 package at.ac.univie.team17.service;
 
-import at.ac.univie.team17.MariaDBModel;
+import at.ac.univie.team17.MariaDBConnectionHandler;
+import at.ac.univie.team17.mariaDB.MariaDBQueryExecuter;
+import at.ac.univie.team17.mariaDB.MariaDBResultReader;
 import at.ac.univie.team17.mariaDB.mariaDBQueries.PlayerQueries;
-import org.springframework.beans.factory.annotation.Autowired;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.Player;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class PlayerService {
-    @Autowired
-    private MariaDBModel mariaDBModel;
 
-    public String getPlayerId(String email, String username) {
-        String query = PlayerQueries.getSelectPlayerIdFromUsernameAndEmailQuery(email, username);
-        ResultSet result = mariaDBModel.query(query);
+    public void savePlayer(Player player) {
+        String query = PlayerQueries.getInsertPlayersQuery(player);
 
-        try {
-            return result.getString(0);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        MariaDBConnectionHandler.setupConnection();
 
-        return null;
+        MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
+
+        MariaDBConnectionHandler.closeConnection();
+    }
+
+    public List<Player> getPlayers() {
+        String query = PlayerQueries.getSelectAllPlayersQuery();
+
+        MariaDBConnectionHandler.setupConnection();
+
+        ResultSet result = MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
+        ArrayList<Player> players = MariaDBResultReader.getPlayersFromResultSet(result);
+
+        MariaDBConnectionHandler.closeConnection();
+
+        return players;
+    }
+
+    public int getPlayerId(String email, String username) {
+        List<Player> players = getPlayers();
+
+        Player player = players.stream()
+                .filter(p -> p.getUsername().equals(username) && p.getEmailAddress().equals(email))
+                .findFirst()
+                .orElse(null);
+
+        return player != null ? player.getPlayerId() : -1;
     }
 }

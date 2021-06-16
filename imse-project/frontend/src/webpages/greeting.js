@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {Button, Col, Container, Form, Row} from 'react-bootstrap';
 
 const Greeting = () => {
     let history = useHistory();
+    const [authDetails, setAuthDetails] = useState(["", ""]);
 
     const fillDb = () => {
         const url = '/api/initialize';
@@ -23,12 +24,11 @@ const Greeting = () => {
             .then((response) => {
                 console.log(response);
             });
-        return response;
-    }
-)
-();
-}
-;
+
+            return response;
+            }
+        )();
+    };
 
 return (
     <div className="App">
@@ -59,16 +59,16 @@ return (
                         <Form>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email"/>
+                                <Form.Control type="email" placeholder="Enter email" onChange={(text) => setAuthDetails([text.target.value, authDetails[1]])}/>
                                 <Form.Text className="text-muted">
                                 </Form.Text>
                             </Form.Group>
 
                             <Form.Group controlId="formBasicUserName">
                                 <Form.Label>Username</Form.Label>
-                                <Form.Control type="username" placeholder="Enter username"/>
+                                <Form.Control type="username" placeholder="Enter username" onChange={(text) => setAuthDetails([authDetails[0], text.target.value])}/>
                             </Form.Group>
-                            <Button type="submit" variant="success" onClick={() => history.push("/home")}
+                            <Button type="submit" variant="success" onClick={() => this.username.history.push("/home")}
                                     style={{marginTop: 16}}> Play Now </Button>
                         </Form>
                     </div>
