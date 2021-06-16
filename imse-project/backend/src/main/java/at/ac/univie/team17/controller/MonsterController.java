@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/monster")
+@RequestMapping("/api")
 public class MonsterController extends BackendController {
     @Autowired
     private MonsterService monsterService;

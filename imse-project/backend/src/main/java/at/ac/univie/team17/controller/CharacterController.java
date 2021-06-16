@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/character")
+@RequestMapping("/api")
 public class CharacterController extends BackendController {
     @Autowired
     private CharacterService characterService;
 
-    @GetMapping("/character")
+    @GetMapping(value = "/character")
     public List<Character> getCharacters() {
         return characterService.getCharacters();
     }

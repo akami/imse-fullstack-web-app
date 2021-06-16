@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/goldOffer")
+@RequestMapping("/api")
 public class GoldOfferController extends BackendController {
     @Autowired
     private GoldOfferService goldOfferService;

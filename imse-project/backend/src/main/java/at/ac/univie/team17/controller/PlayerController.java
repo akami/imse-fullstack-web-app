@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/player")
+@RequestMapping("/api")
 public class PlayerController extends BackendController {
     @Autowired
     private PlayerService playerService;

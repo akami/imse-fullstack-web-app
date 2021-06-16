@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/pet")
+@RequestMapping("/api")
 public class PetController extends BackendController {
     @Autowired
     private PetService petService;

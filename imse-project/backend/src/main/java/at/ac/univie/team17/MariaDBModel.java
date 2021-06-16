@@ -16,12 +16,16 @@ public class MariaDBModel
     private Connection connection = null;
     private Statement statement = null;
 
-    public MariaDBModel()
-    {
+    public void initialize() {
         setupConnection();
-        MariaDBTableDropper.dropMariaDBTables(statement);
         MariaDBTableInitializer.initializeMariaDBTables(statement);
         MariaDBDataInitializer.initializeMariaDBData(statement);
+        closeConnection();
+    }
+
+    public void clear() {
+        setupConnection();
+        MariaDBTableDropper.dropMariaDBTables(statement);
         closeConnection();
     }
 

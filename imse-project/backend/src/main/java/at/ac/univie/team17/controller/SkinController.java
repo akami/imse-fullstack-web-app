@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/skin")
+@RequestMapping("/api")
 public class SkinController extends BackendController {
     @Autowired
     private SkinService skinService;
