@@ -8,7 +8,7 @@ public class SlayedMonsters
     private MonsterLoot monsterLoot;
     private int slayAmount;
 
-    public SlayedMonsters(int monsterId, MonsterLoot monsterLoot, int slayAmount)
+    public SlayedMonsters(int monsterId, MongoMonsterLoot monsterLoot, int slayAmount)
     {
         this.monsterId = monsterId;
         this.monsterLoot = monsterLoot;

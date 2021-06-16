@@ -33,4 +33,9 @@ public class CharacterQueries
     {
         return "DROP TABLE player_character;";
     }
+
+    public static String getSelectCharacterFromPlayerIdQuery(int playerId)
+    {
+        return "SELECT * FROM player_character WHERE player_id = " + playerId + ";";
+    }
 }
