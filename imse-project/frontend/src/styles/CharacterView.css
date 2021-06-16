@@ -1,0 +1,16 @@
+.Character-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #282c34;
+    border-radius: 30px;
+}
+
+.Character-description {
+    padding: 8px;
+}
+
+.Character-image {
+    height: 56px;
+    width: 48px;
+}

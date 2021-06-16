@@ -9,8 +9,8 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - mongo_db
-      - maria_db
+      - mongodb
+      - mariadb
 
   frontend:
     container_name: frontend
@@ -23,7 +23,7 @@ services:
     ports:
       - 3000:3000
 
-  mongo_db:
+  mongodb:
     image: "mongo:latest"
     container_name: mongodb
     restart: always
@@ -36,7 +36,7 @@ services:
       MONGO_INITIAL_ROOT_PASSWORD: mongo
       MONGO_INITIAL_DATABASE: db
 
-  maria_db:
+  mariadb:
       image: "mariadb:10.6"
       container_name: mariadb
       restart: always

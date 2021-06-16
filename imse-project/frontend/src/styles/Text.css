@@ -1,0 +1,35 @@
+.Text-title {
+    font-size: 64px;
+    font-family: 'Rock Salt', cursive;
+    color: #d4e09b;
+}
+
+.Text-subtitle {
+    font-size: x-large;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+}
+
+.Text-subsubtitle {
+    font-size: medium;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+}
+
+.Text-header1 {
+    font-size: 24px;
+    font-family: 'Rock Salt', cursive;
+    color: #b6ad90;
+}
+
+.Text-header2 {
+
+}
+
+.Text-small {
+
+}
+
+.Text-accent {
+
+}
