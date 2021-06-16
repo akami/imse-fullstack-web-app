@@ -5,16 +5,28 @@ import at.ac.univie.team17.mariaDB.MariaDBTableDropper;
 import at.ac.univie.team17.mariaDB.MariaDBTableInitializer;
 import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 @Component
 public class MariaDBModel
 {
     private Connection connection = null;
     private Statement statement = null;
+
+    public ResultSet query(String query) {
+        setupConnection();
+
+        ResultSet resultSet = null;
+        try {
+            resultSet = statement.executeQuery(query);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        closeConnection();
+
+        return resultSet;
+    }
 
     public void initialize() {
         setupConnection();

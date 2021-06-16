@@ -1,19 +1,28 @@
 package at.ac.univie.team17.service;
 
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Player;
+import at.ac.univie.team17.MariaDBModel;
+import at.ac.univie.team17.mariaDB.mariaDBQueries.PlayerQueries;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
-import java.util.List;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 @Component
 public class PlayerService {
-    public void savePlayer(Player player) {
-        // TODO @kh save player
-    }
+    @Autowired
+    private MariaDBModel mariaDBModel;
 
-    public List<Player> getPlayers() {
-        // TODO @kh access data source
-        return Collections.emptyList();
+    public String getPlayerId(String email, String username) {
+        String query = PlayerQueries.getSelectPlayerIdFromUsernameAndEmailQuery(email, username);
+        ResultSet result = mariaDBModel.query(query);
+
+        try {
+            return result.getString(0);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return null;
     }
 }

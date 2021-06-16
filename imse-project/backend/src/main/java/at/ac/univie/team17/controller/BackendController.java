@@ -1,19 +1,23 @@
 package at.ac.univie.team17.controller;
 
-import at.ac.univie.team17.MariaDBModel;
-import at.ac.univie.team17.MongoDBModel;
+import at.ac.univie.team17.mariaDB.mariaDBQueries.PlayerQueries;
+import at.ac.univie.team17.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Base64;
+
 @RestController
 @RequestMapping("/api")
-public abstract class BackendController
-{
+public abstract class BackendController {
     @Autowired
-    protected MariaDBModel mariaDBModel;
+    private PlayerService playerService;
 
-    @Autowired
-    protected  MongoDBModel mongoDBModel;
+    protected String getPlayerId(String authHeader) {
+        String base64Auth = authHeader.split(" ")[1];
+        String[] authDetails = new String(Base64.getDecoder().decode(base64Auth)).split(":");
+
+        return playerService.getPlayerId(authDetails[0], authDetails[1]);
+    }
 }

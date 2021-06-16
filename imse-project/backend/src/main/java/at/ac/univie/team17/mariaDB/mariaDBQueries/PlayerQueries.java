@@ -20,6 +20,11 @@ public class PlayerQueries
         return "SELECT * FROM player WHERE player_id = " + id + ";";
     }
 
+    public static String getSelectPlayerIdFromUsernameAndEmailQuery(String email, String username) {
+        return "SELECT player_id FROM player WHERE email_address = " + email + "" +
+                "AND user_name = " + username + ";";
+    }
+
     public static String getCreatePlayerTableQuery()
     {
         return "CREATE TABLE player(player_id INT, user_name CHAR(30), email_address CHAR(40), PRIMARY KEY (player_id));";
