@@ -13,16 +13,6 @@ import java.util.List;
 
 @Component
 public class SkinService {
-    public void saveSkin(Skin skin) {
-        String query = SkinQueries.getInsertSkinQuery(skin);
-
-        MariaDBConnectionHandler.setupConnection();
-
-        MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
-
-        MariaDBConnectionHandler.closeConnection();
-    }
-
     public List<Skin> getAllSkins() {
         String query = SkinQueries.getSelectAllSkinsQuery();
 

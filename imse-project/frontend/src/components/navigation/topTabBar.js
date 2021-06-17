@@ -3,8 +3,8 @@ import { Tabs, Tab } from 'react-bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import Home from "../../webpages/home";
-import Shop from "../../webpages/shop";
+import Home from "../../webpages/home/home";
+import Shop from "../../webpages/home/shop";
 
 const TopTabBar = () => {
     const [key, setKey] = useState("home");

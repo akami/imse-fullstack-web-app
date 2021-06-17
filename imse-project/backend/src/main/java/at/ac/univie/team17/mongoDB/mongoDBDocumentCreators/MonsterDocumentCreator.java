@@ -1,6 +1,7 @@
 package at.ac.univie.team17.mongoDB.mongoDBDocumentCreators;
 
-import at.ac.univie.team17.mariaDB.mariaDBmodels.*;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.Monster;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.MonsterLoot;
 import org.bson.Document;
 
 import java.util.ArrayList;

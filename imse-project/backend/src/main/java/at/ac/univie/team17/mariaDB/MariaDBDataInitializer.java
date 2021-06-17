@@ -3,7 +3,6 @@ package at.ac.univie.team17.mariaDB;
 import at.ac.univie.team17.mariaDB.mariaDBQueries.*;
 import at.ac.univie.team17.mariaDB.mariaDBmodelData.*;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.*;
-import at.ac.univie.team17.mariaDB.mariaDBmodels.GameCharacter;
 import at.ac.univie.team17.sharedDataModels.Pet;
 
 import java.sql.Statement;

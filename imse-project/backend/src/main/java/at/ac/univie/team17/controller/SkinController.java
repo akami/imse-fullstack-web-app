@@ -3,9 +3,9 @@ package at.ac.univie.team17.controller;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.Skin;
 import at.ac.univie.team17.service.SkinService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -18,12 +18,5 @@ public class SkinController extends BackendController {
     @GetMapping("/skin")
     public List<Skin> getSkins() {
         return skinService.getAllSkins();
-    }
-
-    @PostMapping("/skin")
-    public ResponseEntity saveSkin(@RequestBody Skin skin) {
-        skinService.saveSkin(skin);
-
-        return new ResponseEntity(HttpStatus.OK);
     }
 }

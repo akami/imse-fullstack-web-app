@@ -13,16 +13,6 @@ import java.util.List;
 
 @Component
 public class GoldOfferService {
-    public void saveGoldOffer(GoldOffer goldOffer) {
-        String query = GoldOfferQueries.getInsertGoldOfferQuery(goldOffer);
-
-        MariaDBConnectionHandler.setupConnection();
-
-        MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
-
-        MariaDBConnectionHandler.closeConnection();
-    }
-
     public List<GoldOffer> getGoldOffersByPlayerId(int playerId) {
         String query = GoldOfferQueries.getSelectedGoldOffersFromPlayerIdQuery(playerId);
 

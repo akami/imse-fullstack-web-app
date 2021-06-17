@@ -4,11 +4,8 @@ import at.ac.univie.team17.mariaDB.MariaDBQueryExecuter;
 import at.ac.univie.team17.mariaDB.MariaDBResultReader;
 import at.ac.univie.team17.mariaDB.mariaDBQueries.*;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.*;
-import at.ac.univie.team17.mariaDB.mariaDBmodels.GameCharacter;
 import at.ac.univie.team17.mongoDB.MongoDBExecuter;
 import at.ac.univie.team17.mongoDB.mongoDBDocumentCreators.*;
-import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacterClass;
-import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoSkin;
 import at.ac.univie.team17.sharedDataModels.Pet;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
@@ -23,7 +20,7 @@ public class DataMigrator
     {
         migratePetData(statement, db);
         migratePlayerData(statement, db);
-        migrateCharacterData(statement, db);
+        //migrateCharacterData(statement, db);
         migrateCharacterClassData(statement, db);
         migrateQuestData(statement, db);
         migrateMonsterData(statement, db);
@@ -69,46 +66,46 @@ public class DataMigrator
         MongoDBExecuter.insertDocuments(db, petDocuments, PetDocumentCreator.PET_COLLECTION_NAME);
     }
 
-    private static void migrateCharacterData(Statement statement, MongoDatabase db)
-    {
-        ResultSet rs = MariaDBQueryExecuter.executeReturnQuery(statement, CharacterQueries.getSelectAllCharactersQuery());
-        ArrayList<Document> gameCharacterDocuments = new ArrayList<>();
-
-        ArrayList<GameCharacter> gameCharacters = MariaDBResultReader.getGameCharactersFromResultSet(rs);
-        for (GameCharacter gameCharacter : gameCharacters)
-        {
-            // get skins
-            ResultSet rsSkins = MariaDBQueryExecuter.executeReturnQuery(
-                    statement, CharacterSkinQueries.getSelectCharacterSkinsFromCharacterIdQuery(gameCharacter.getCharacterId()));
-            ArrayList<Skin> boughtSkins = MariaDBResultReader.getSkinsFromResultSet(rsSkins);
-
-            // get class
-            ResultSet rsCharacterClass = MariaDBQueryExecuter.executeReturnQuery(
-                    statement, CharacterSkinQueries.getSelectCharacterSkinsFromCharacterIdQuery(gameCharacter.getCharacterId()));
-            CharacterClass characterClass = MariaDBResultReader.getCharacterClassFromResultSet(rsCharacterClass);
-            // get class skins
-            ResultSet rsClassSkins = MariaDBQueryExecuter.executeReturnQuery(
-                    statement, SkinQueries.getSelectSkinsFromClassIdQuery(characterClass.getClassId()));
-            ArrayList<Skin> classSkins = MariaDBResultReader.getSkinsFromResultSet(rsClassSkins);
-            ArrayList<MongoSkin> mongoClassSkins = MongoSkin.getMongoSkinsFromSkin(classSkins);
-
-            MongoCharacterClass mongoCharacterClass = new MongoCharacterClass(characterClass.getClassId(), characterClass.getBonusAttack(),
-                    characterClass.getBonusLifepoints(), characterClass.getClassName(), mongoClassSkins);
-
-            // get player age TODO
-
-
-            // get quests TODO
-
-
-            // get slayed monsters TODO
-
-
-            gameCharacterDocuments.add(CharacterDocumentCreator.createCharacterDocument(gameCharacter, classSkins));
-        }
-
-        MongoDBExecuter.insertDocuments(db, gameCharacterDocuments, CharacterDocumentCreator.CHARACTER_COLLECTION_NAME);
-    }
+//    private static void migrateCharacterData(Statement statement, MongoDatabase db)
+//    {
+//        ResultSet rs = MariaDBQueryExecuter.executeReturnQuery(statement, CharacterQueries.getSelectAllCharactersQuery());
+//        ArrayList<Document> gameCharacterDocuments = new ArrayList<>();
+//
+//        ArrayList<GameCharacter> gameCharacters = MariaDBResultReader.getGameCharactersFromResultSet(rs);
+//        for (GameCharacter gameCharacter : gameCharacters)
+//        {
+//            // get skins
+//            ResultSet rsSkins = MariaDBQueryExecuter.executeReturnQuery(
+//                    statement, CharacterSkinQueries.getSelectCharacterSkinsFromCharacterIdQuery(gameCharacter.getCharacterId()));
+//            ArrayList<Skin> boughtSkins = MariaDBResultReader.getSkinsFromResultSet(rsSkins);
+//
+//            // get class
+//            ResultSet rsCharacterClass = MariaDBQueryExecuter.executeReturnQuery(
+//                    statement, CharacterSkinQueries.getSelectCharacterSkinsFromCharacterIdQuery(gameCharacter.getCharacterId()));
+//            CharacterClass characterClass = MariaDBResultReader.get(rsCharacterClass);
+//            // get class skins
+//            ResultSet rsClassSkins = MariaDBQueryExecuter.executeReturnQuery(
+//                    statement, SkinQueries.getSelectSkinsFromClassIdQuery(characterClass.getClassId()));
+//            ArrayList<Skin> classSkins = MariaDBResultReader.getSkinsFromResultSet(rsClassSkins);
+//            ArrayList<MongoSkin> mongoClassSkins = MongoSkin.getMongoSkinsFromSkin(classSkins);
+//
+//            MongoCharacterClass mongoCharacterClass = new MongoCharacterClass(characterClass.getClassId(), characterClass.getBonusAttack(),
+//                    characterClass.getBonusLifepoints(), characterClass.getClassName(), mongoClassSkins);
+//
+//            // get player age TODO
+//
+//
+//            // get quests TODO
+//
+//
+//            // get slayed monsters TODO
+//
+//
+//            gameCharacterDocuments.add(CharacterDocumentCreator.createCharacterDocument(gameCharacter, classSkins));
+//        }
+//
+//        MongoDBExecuter.insertDocuments(db, gameCharacterDocuments, CharacterDocumentCreator.CHARACTER_COLLECTION_NAME);
+//    }
 
     private static void migrateCharacterClassData(Statement statement, MongoDatabase db)
     {

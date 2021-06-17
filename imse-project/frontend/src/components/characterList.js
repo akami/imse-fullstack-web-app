@@ -1,12 +1,10 @@
 import React from 'react';
-import Character from "./character";
 
-const CharacterList = ({characters}) => {
+const CharacterList = (characters) => {
+    console.log(characters)
+
     return(
         <div>
-            {characters.map((char, idx) => {
-                return(<Character character={char}/>);
-            })}
         </div>
     );
 };

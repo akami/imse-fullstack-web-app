@@ -2,33 +2,11 @@ import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {Button, Col, Container, Form, Row} from 'react-bootstrap';
 
-const Greeting = () => {
+const Login = () => {
     let history = useHistory();
     const [authDetails, setAuthDetails] = useState(["", ""]);
 
-    const fillDb = () => {
-        const url = '/api/initialize';
-        (async () => {
-            const response = await fetch(url)
-                .then((response) => {
-                    console.log(response);
-                });
-            return response;
-        })();
-    };
 
-    const clearDb = () => {
-        const url = '/api/clear';
-        (async () => {
-            const response = await fetch(url)
-            .then((response) => {
-                console.log(response);
-            });
-
-            return response;
-            }
-        )();
-    };
 
 return (
     <div className="App">
@@ -39,9 +17,8 @@ return (
                 </p>
             </div>
             <div>
+                <Button variant="danger" type="button" onClick={() => history.push("/admin")}> Admin </Button> {' '}
                 <Button variant="success" type="button" onClick={() => history.push("/signup")}> Sign Up</Button> {' '}
-                <Button variant="secondary" type="button" onClick={() => fillDb()}> Fill Db</Button> {' '}
-                <Button variant="secondary" type="button" onClick={() => clearDb()}> Clear Db</Button>
             </div>
         </div>
 
@@ -79,4 +56,4 @@ return (
     </div>
 );
 }
-export default Greeting;
+export default Login;

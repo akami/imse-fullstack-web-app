@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import {Button, Carousel, CarouselItem, Col, Container, Form, Image, Row} from "react-bootstrap";
 
-import Mage from "../assets/mage.png";
-import Fighter from "../assets/fighter.png";
-import Tank from "../assets/tank.png";
+import Mage from "../../assets/mage.png";
+import Fighter from "../../assets/fighter.png";
+import Tank from "../../assets/tank.png";
+
+import {useHistory} from "react-router-dom";
 
 /**
  * TODO @kh:
@@ -13,6 +15,7 @@ import Tank from "../assets/tank.png";
 
 
 const CharacterCreation = () => {
+    let history = useHistory();
     const [selectedClass, setSelectedClass] = useState("Mage");
     const [index, setIndex] = useState(0);
 
@@ -28,7 +31,7 @@ const CharacterCreation = () => {
         }
     };
 
-    const  getImageFromClass = (cl) => {
+    const getImageFromClass = (cl) => {
         if (cl != null) {
             switch (cl) {
                 case "Mage":
@@ -45,18 +48,15 @@ const CharacterCreation = () => {
     }
 
     return (
-        <div className="App">
-        <Container>
+        <Container className="App Home-content" style={{marginTop: 150}}>
+            <p className="Text-header1">Character Creation</p>
             <Row>
-                <p>Character Creation</p>
-            </Row>
-            <Row>
-                <Col md lg="8">
+                <Col md="6">
                     <Image src={getImageFromClass(selectedClass)} width="460" height="500">
                     </Image>
                 </Col>
-                <Col md="auto">
-                    <div className="Creation-form">
+                <Col md="4" style={{paddingTop:100}}>
+                    <div className="Creation-form" >
                         <Form>
                             <Row>
                                 <Form.Group controlId="formCharacterName">
@@ -85,14 +85,13 @@ const CharacterCreation = () => {
                                 <p> Attack: 1000</p>
                             </Row>
                             <Row>
-                                <Button type="submit"> Submit </Button>
+                                <Button type="submit" variant="success" onClick={() => {this.history.replace("/home")}}> Submit </Button>
                             </Row>
-                         </Form>
+                        </Form>
                     </div>
                 </Col>
             </Row>
         </Container>
-        </div>
     );
 };
 export default CharacterCreation;

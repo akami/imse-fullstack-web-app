@@ -1,7 +1,7 @@
 import React from 'react';
 import {Carousel, ListGroup} from "react-bootstrap";
+import ShopList from "../../components/shopList";
 
-import ShopList from "../components/shopList";
 
 const Shop = () => {
     let list = [{

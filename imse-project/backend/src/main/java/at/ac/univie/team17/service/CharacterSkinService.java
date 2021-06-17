@@ -3,8 +3,8 @@ package at.ac.univie.team17.service;
 import at.ac.univie.team17.MariaDBConnectionHandler;
 import at.ac.univie.team17.mariaDB.MariaDBQueryExecuter;
 import at.ac.univie.team17.mariaDB.MariaDBResultReader;
-import at.ac.univie.team17.mariaDB.mariaDBQueries.QuestQueries;
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Quest;
+import at.ac.univie.team17.mariaDB.mariaDBQueries.CharacterSkinQueries;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.Skin;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
@@ -12,17 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class QuestService {
-    public List<Quest> getQuests() {
-        String query = QuestQueries.getSelectAllQuestsQuery();
+public class CharacterSkinService {
+    public List<Skin> getCharacterSkins() {
+        String query = CharacterSkinQueries.getSelectAllCharacterSkinsQuery();
 
         MariaDBConnectionHandler.setupConnection();
 
         ResultSet result = MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
-        ArrayList<Quest> quests = MariaDBResultReader.getQuestsFromResultSet(result);
+        ArrayList<Skin> skins = MariaDBResultReader.getSkinsFromResultSet(result);
 
         MariaDBConnectionHandler.closeConnection();
 
-        return quests;
+        return skins;
     }
 }

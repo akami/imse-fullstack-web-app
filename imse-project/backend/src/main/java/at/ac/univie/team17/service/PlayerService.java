@@ -19,7 +19,7 @@ public class PlayerService {
 
         MariaDBConnectionHandler.setupConnection();
 
-        MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
+        MariaDBQueryExecuter.executeNoReturnQuery(MariaDBConnectionHandler.getStatement(), query);
 
         MariaDBConnectionHandler.closeConnection();
     }

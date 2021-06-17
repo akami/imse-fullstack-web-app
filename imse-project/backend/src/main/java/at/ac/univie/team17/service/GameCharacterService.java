@@ -12,19 +12,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class CharacterService {
+public class GameCharacterService {
 
-    public void saveCharacter(GameCharacter character) {
+    public void saveGameCharacter(GameCharacter character) {
         String query = CharacterQueries.getInsertCharacterQuery(character);
 
         MariaDBConnectionHandler.setupConnection();
 
-        MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
+        MariaDBQueryExecuter.executeNoReturnQuery(MariaDBConnectionHandler.getStatement(), query);
 
         MariaDBConnectionHandler.closeConnection();
     }
 
-    public List<GameCharacter> getCharacters(int playerId) {
+    public List<GameCharacter> getGameCharacters() {
+        String query = CharacterQueries.getSelectAllCharactersQuery();
+
+        MariaDBConnectionHandler.setupConnection();
+
+        ResultSet result = MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
+        ArrayList<GameCharacter> characters = MariaDBResultReader.getGameCharactersFromResultSet(result);
+
+        MariaDBConnectionHandler.closeConnection();
+
+        return characters;
+    }
+
+    public List<GameCharacter> getGameCharactersById(int playerId) {
         String query = CharacterQueries.getSelectCharactersFromPlayerIdQuery(playerId);
 
         MariaDBConnectionHandler.setupConnection();

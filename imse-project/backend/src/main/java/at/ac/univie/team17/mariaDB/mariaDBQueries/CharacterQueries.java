@@ -13,7 +13,7 @@ public class CharacterQueries
 
     public static String getSelectAllCharactersQuery()
     {
-        return "SELECT * FROM character;";
+        return "SELECT * FROM player_character;";
     }
 
     public static String getSelectCharacterFromIdQuery(int id)

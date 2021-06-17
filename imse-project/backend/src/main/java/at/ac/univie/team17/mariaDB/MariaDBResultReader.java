@@ -24,6 +24,21 @@ public class MariaDBResultReader
         return pets;
     }
 
+    public static ArrayList<PlayerPet> getPlayerPetsFromResultSet(ResultSet rs) {
+        ArrayList<PlayerPet> playerPets = new ArrayList<>();
+        try
+        {
+            while (rs.next())
+            {
+                playerPets.add(new PlayerPet(rs.getInt("player_id"), rs.getInt("pet_id")));
+            }
+        } catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return playerPets;
+    }
+
     public static ArrayList<Player> getPlayersFromResultSet(ResultSet rs) {
         ArrayList<Player> players = new ArrayList<>();
         try
@@ -90,6 +105,22 @@ public class MariaDBResultReader
         return null;
     }
 
+    public static ArrayList<QuestReward> getQuestRewardsFromResultSet(ResultSet rs) {
+        ArrayList<QuestReward> questRewards = new ArrayList<>();
+        try
+        {
+            while (rs.next())
+            {
+                questRewards.add(new QuestReward(rs.getInt("quest_reward_id"), rs.getInt("gold_amount"),
+                        rs.getInt("experience_amount")));
+            }
+        } catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return questRewards;
+    }
+
     public static ArrayList<Integer> getAlliedMonsterIDsFromResultSet(ResultSet rs)
     {
         ArrayList<Integer> alliedMonsterIds = new ArrayList<>();
@@ -120,6 +151,23 @@ public class MariaDBResultReader
             throwables.printStackTrace();
         }
         return null;
+    }
+
+    public static ArrayList<MonsterLoot> getMonsterLootsFromResultSet(ResultSet rs) {
+
+        ArrayList<MonsterLoot> monsterLoots = new ArrayList<>();
+        try
+        {
+            while (rs.next())
+            {
+                monsterLoots.add(new MonsterLoot(rs.getInt("monster_loot_id"), rs.getInt("gold_amount"),
+                        rs.getInt("experience_amount")));
+            }
+        } catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return monsterLoots;
     }
 
     public static ArrayList<Monster> getMonstersFromResultSet(ResultSet rs)
@@ -182,7 +230,7 @@ public class MariaDBResultReader
             while (rs.next())
             {
                 gameCharacters.add(new GameCharacter(rs.getInt("character_id"), rs.getString("character_name"),
-                        rs.getInt("bonus_attack"), rs.getInt("bonus_lifepoints"),
+                        rs.getInt("attack"), rs.getInt("lifepoints"),
                         rs.getInt("player_id"), rs.getInt("character_class_id")));
             }
         } catch (SQLException throwables)

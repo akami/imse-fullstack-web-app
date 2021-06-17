@@ -13,10 +13,6 @@ import java.util.List;
 
 @Component
 public class PetService {
-    public void savePet(Pet pet) {
-        // TODO @kh save pet
-    }
-
     public List<Pet> getPets() {
         String query = PetQueries.getSelectAllPetsQuery();
 

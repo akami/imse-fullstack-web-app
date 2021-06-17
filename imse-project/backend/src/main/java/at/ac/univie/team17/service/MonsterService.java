@@ -13,16 +13,6 @@ import java.util.List;
 
 @Component
 public class MonsterService {
-    public void saveMonster(Monster monster) {
-        String query = MonsterQueries.getInsertMonsterQuery(monster);
-
-        MariaDBConnectionHandler.setupConnection();
-
-        MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
-
-        MariaDBConnectionHandler.closeConnection();
-    }
-
     public List<Monster> getMonsters() {
         String query = MonsterQueries.getSelectAllMonstersQuery();
 
