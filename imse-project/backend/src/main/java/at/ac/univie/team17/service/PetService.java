@@ -1,6 +1,6 @@
 package at.ac.univie.team17.service;
 
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Pet;
+import at.ac.univie.team17.sharedDataModels.Pet;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;

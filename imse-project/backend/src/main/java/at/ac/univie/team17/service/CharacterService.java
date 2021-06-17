@@ -1,7 +1,7 @@
 package at.ac.univie.team17.service;
 
 import at.ac.univie.team17.MariaDBModel;
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Character;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.GameCharacter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,11 +13,11 @@ public class CharacterService {
     @Autowired
     private MariaDBModel mariaDBModel;
 
-    public void saveCharacter(Character character) {
+    public void saveCharacter(GameCharacter character) {
         // TODO @kh character player
     }
 
-    public List<Character> getCharacters() {
+    public List<GameCharacter> getCharacters() {
         // TODO @kh access data source
         return Collections.emptyList();
     }

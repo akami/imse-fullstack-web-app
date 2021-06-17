@@ -13,7 +13,7 @@ public class CharacterQueries
 
     public static String getSelectAllCharactersQuery()
     {
-        return "SELECT * FROM character;";
+        return "SELECT * FROM player_character;";
     }
 
     public static String getSelectCharacterFromIdQuery(int id)
@@ -32,5 +32,17 @@ public class CharacterQueries
     public static String getDropCharacterTableQuery()
     {
         return "DROP TABLE player_character;";
+    }
+
+    public static String getSelectCharacterFromPlayerIdQuery(int playerId)
+    {
+        return "SELECT * FROM player_character WHERE player_id = " + playerId + ";";
+    }
+
+    public static String getSelectCharacterClassFromCharacterId(int characterId)
+    {
+        return "SELECT character_class.* FROM " +
+                "(SELECT character_class_id FROM player_character WHERE character_id = " + characterId + ") AS characters_class " +
+                "JOIN character_class ON characters_class.character_class_id = character_class.character_class_id;";
     }
 }

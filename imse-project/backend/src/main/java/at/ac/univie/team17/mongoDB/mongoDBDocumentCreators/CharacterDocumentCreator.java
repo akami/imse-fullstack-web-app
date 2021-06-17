@@ -2,6 +2,7 @@ package at.ac.univie.team17.mongoDB.mongoDBDocumentCreators;
 
 import at.ac.univie.team17.mariaDB.mariaDBmodels.GameCharacter;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.*;
+import com.mongodb.Mongo;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -10,15 +11,15 @@ public class CharacterDocumentCreator
 {
     public static final String CHARACTER_COLLECTION_NAME = "gameCharacter";
 
-    public static Document createCharacterDocument(GameCharacter gameCharacter, ArrayList<MongoSkin> boughtSkins,
-                                                        ArrayList<SlayedMonsters> slayedMonsters, ArrayList<MongoQuest> completedQuests,
-                                                        PlayerAge playerAge, MongoCharacterClass characterClass)
+    public static Document createCharacterDocument(MongoCharacter mongoCharacter, ArrayList<Document> boughtSkins,
+                                                   ArrayList<Document> slayedMonsters, ArrayList<Document> completedQuests,
+                                                   Document playerAge, Document characterClass)
     {
         Document characterDocument = new Document();
-        characterDocument.append("_id", gameCharacter.getCharacterId());
-        characterDocument.append("characterName", gameCharacter.getCharacterName());
-        characterDocument.append("attack", gameCharacter.getAttack());
-        characterDocument.append("lifepointAmount", gameCharacter.getLifepointAmount());
+        characterDocument.append("_id", mongoCharacter.getCharacterId());
+        characterDocument.append("characterName", mongoCharacter.getCharacterName());
+        characterDocument.append("attack", mongoCharacter.getAttack());
+        characterDocument.append("lifepointAmount", mongoCharacter.getLifepointAmount());
         characterDocument.append("characterClass", characterClass);
         characterDocument.append("boughtSkins", boughtSkins);
         characterDocument.append("completedQuests", completedQuests);

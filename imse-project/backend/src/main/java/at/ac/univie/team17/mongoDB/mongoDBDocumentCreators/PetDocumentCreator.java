@@ -3,6 +3,8 @@ package at.ac.univie.team17.mongoDB.mongoDBDocumentCreators;
 import at.ac.univie.team17.sharedDataModels.Pet;
 import org.bson.Document;
 
+import java.util.ArrayList;
+
 public class PetDocumentCreator
 {
     public static final String PET_COLLECTION_NAME = "pet";
@@ -14,5 +16,15 @@ public class PetDocumentCreator
         petDocument.append("petName", pet.getPetName());
         petDocument.append("goldPrice", pet.getGoldPrice());
         return petDocument;
+    }
+
+    public static ArrayList<Document> createPetDocuments(ArrayList<Pet> boughtPets)
+    {
+        ArrayList<Document> petDocuments = new ArrayList<>();
+        for (Pet pet : boughtPets)
+        {
+            petDocuments.add(createPetDocument(pet));
+        }
+        return petDocuments;
     }
 }
