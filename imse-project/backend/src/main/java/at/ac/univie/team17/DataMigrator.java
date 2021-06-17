@@ -46,22 +46,41 @@ public class DataMigrator
             ResultSet rsPets = MariaDBQueryExecuter.executeReturnQuery(
                     statement, PlayerPetQueries.getSelectPlayerPetFromPlayerIdQuery(player.getPlayerId()));
             ArrayList<Pet> boughtPets = MariaDBResultReader.getPetFromResultSet(rsPets);
+            ArrayList<Document> boughtPetDocuments = PetDocumentCreator.createPetDocuments(boughtPets);
 
             // get created characters
             ResultSet rsCharacters = MariaDBQueryExecuter.executeReturnQuery(
                     statement, CharacterQueries.getSelectCharacterFromPlayerIdQuery(player.getPlayerId()));
             ArrayList<GameCharacter> createdCharacters = MariaDBResultReader.getGameCharactersFromResultSet(rsCharacters);
-            ArrayList<MongoCharacter> mongoCharacters = new ArrayList<>();
+            ArrayList<Document> mongoCharacterDocuments = new ArrayList<>();
+
             for (GameCharacter gameCharacter : createdCharacters)
             {
-                mongoCharacters.add(getMongoCharacterFromGameCharacter(gameCharacter, statement));
+                ResultSet rsCompletedQuests = MariaDBQueryExecuter.executeReturnQuery(
+                        statement, CharacterQuestQueries.getSelectCompletedQuestsFromCharacterIdQuery(gameCharacter.getCharacterId()));
+                ArrayList<Quest> completedQuests = MariaDBResultReader.getQuestsFromResultSet(rsCompletedQuests);
+
+                MongoCharacter mongoCharacter = getMongoCharacterFromGameCharacter(gameCharacter, statement);
+                mongoCharacterDocuments.add(getMongoCharacterDocument(mongoCharacter, statement, completedQuests));
             }
 
             // add to documents
-            playerDocuments.add(PlayerDocumentCreator.createPlayerDocument(new MongoPlayer(player.getPlayerId(),player.getUsername(),
-                    player.getAge(), player.getEmailAddress(), boughtPets, mongoCharacters, mongoGoldOffers)));
+            playerDocuments.add(PlayerDocumentCreator.createPlayerDocument(player, mongoGoldOffers, mongoCharacterDocuments,
+                    boughtPetDocuments));
         }
         db.getCollection(PlayerDocumentCreator.PLAYER_COLLECTION_NAME).insertMany(playerDocuments);
+    }
+
+    private static Document getMongoCharacterDocument(MongoCharacter mongoCharacter, Statement statement, ArrayList<Quest> completedQuests)
+    {
+        return CharacterDocumentCreator.createCharacterDocument(mongoCharacter,
+                SkinDocumentCreator.getSkinDocuments(mongoCharacter.getBoughtSkins()),
+                SlayedMonsterDocumentCreator.getSlayedMonsterDocuments(mongoCharacter.getSlayedMonsters()),
+                QuestDocumentCreator.createQuestDocuments(completedQuests,
+                        getMongoQuestRewardFromQuests(statement, completedQuests)),
+                PlayerAgeDocumentCreator.getPlayerAgeDocument(mongoCharacter.getPlayerAge()),
+                CharacterClassDocumentCreator.createCharacterClassDocument(mongoCharacter.getCharacterClass(),
+                        getSkinsFromCharacterClass(statement, mongoCharacter.getCharacterClass().getClassId())));
     }
 
     private static void migratePetData(Statement statement, MongoDatabase db)
@@ -81,19 +100,21 @@ public class DataMigrator
     private static void migrateCharacterData(Statement statement, MongoDatabase db)
     {
         ResultSet rs = MariaDBQueryExecuter.executeReturnQuery(statement, CharacterQueries.getSelectAllCharactersQuery());
-        ArrayList<Document> gameCharacterDocuments = new ArrayList<>();
+        ArrayList<Document> mongoCharacterDocuments = new ArrayList<>();
 
         ArrayList<GameCharacter> gameCharacters = MariaDBResultReader.getGameCharactersFromResultSet(rs);
         for (GameCharacter gameCharacter : gameCharacters)
         {
+            ResultSet rsCompletedQuests = MariaDBQueryExecuter.executeReturnQuery(
+                    statement, CharacterQuestQueries.getSelectCompletedQuestsFromCharacterIdQuery(gameCharacter.getCharacterId()));
+            ArrayList<Quest> completedQuests = MariaDBResultReader.getQuestsFromResultSet(rsCompletedQuests);
+
             MongoCharacter mongoCharacter = getMongoCharacterFromGameCharacter(gameCharacter, statement);
 
-            gameCharacterDocuments.add(CharacterDocumentCreator.createCharacterDocument(gameCharacter,
-                    mongoCharacter.getBoughtSkins(), mongoCharacter.getSlayedMonsters(), mongoCharacter.getCompletedQuests(),
-                    mongoCharacter.getPlayerAge(), mongoCharacter.getCharacterClass()));
+            mongoCharacterDocuments.add(getMongoCharacterDocument(mongoCharacter, statement, completedQuests));
         }
 
-        MongoDBExecuter.insertDocuments(db, gameCharacterDocuments, CharacterDocumentCreator.CHARACTER_COLLECTION_NAME);
+        MongoDBExecuter.insertDocuments(db, mongoCharacterDocuments, CharacterDocumentCreator.CHARACTER_COLLECTION_NAME);
     }
 
     private static MongoCharacter getMongoCharacterFromGameCharacter(GameCharacter gameCharacter, Statement statement)
@@ -106,7 +127,7 @@ public class DataMigrator
 
         // get class
         ResultSet rsCharacterClass = MariaDBQueryExecuter.executeReturnQuery(
-                statement, CharacterSkinQueries.getSelectCharacterSkinsFromCharacterIdQuery(gameCharacter.getCharacterId()));
+                statement, CharacterQueries.getSelectCharacterClassFromCharacterId(gameCharacter.getCharacterId()));
         CharacterClass characterClass = MariaDBResultReader.getCharacterClassFromResultSet(rsCharacterClass);
         // get class skins
         ResultSet rsClassSkins = MariaDBQueryExecuter.executeReturnQuery(
@@ -147,15 +168,19 @@ public class DataMigrator
         ArrayList<CharacterClass> characterClasses = MariaDBResultReader.getCharacterClassesFromResultSet(rs);
         for (CharacterClass characterClass : characterClasses)
         {
-            // get skins
-            ResultSet rsSkins = MariaDBQueryExecuter.executeReturnQuery(
-                    statement, SkinQueries.getSelectSkinsFromClassIdQuery(characterClass.getClassId()));
-            ArrayList<Skin> classSkins = MariaDBResultReader.getSkinsFromResultSet(rsSkins);
-
-            characterClassDocuments.add(CharacterClassDocumentCreator.createCharacterClassDocument(characterClass, classSkins));
+            characterClassDocuments.add(CharacterClassDocumentCreator.createCharacterClassDocument(characterClass,
+                    getSkinsFromCharacterClass(statement, characterClass.getClassId())));
         }
 
         MongoDBExecuter.insertDocuments(db, characterClassDocuments, CharacterClassDocumentCreator.CHARACTER_CLASS_COLLECTION_NAME);
+    }
+
+    private static ArrayList<Skin> getSkinsFromCharacterClass(Statement statement, int characterClassId)
+    {
+        // get skins
+        ResultSet rsSkins = MariaDBQueryExecuter.executeReturnQuery(
+                statement, SkinQueries.getSelectSkinsFromClassIdQuery(characterClassId));
+        return MariaDBResultReader.getSkinsFromResultSet(rsSkins);
     }
 
     private static void migrateQuestData(Statement statement, MongoDatabase db)
@@ -164,17 +189,31 @@ public class DataMigrator
         ArrayList<Document> questDocuments = new ArrayList<>();
 
         ArrayList<Quest> quests = MariaDBResultReader.getQuestsFromResultSet(rs);
+
         for (Quest quest : quests)
         {
-            // get quest reward
-            ResultSet rsQuestReward = MariaDBQueryExecuter.executeReturnQuery(
-                    statement, QuestRewardQueries.getSelectQuestRewardFromIdQuery(quest.getQuestRewardId()));
-            QuestReward questReward = MariaDBResultReader.getQuestRewardFromResultSet(rsQuestReward);
-
-            questDocuments.add(QuestDocumentCreator.createQuestDocument(quest, questReward));
+            questDocuments.add(QuestDocumentCreator.createQuestDocument(quest, getMongoQuestRewardFromQuest(statement, quest)));
         }
 
         MongoDBExecuter.insertDocuments(db, questDocuments, QuestDocumentCreator.QUEST_COLLECTION_NAME);
+    }
+
+    private static ArrayList<MongoQuestReward> getMongoQuestRewardFromQuests(Statement statement, ArrayList<Quest> quests )
+    {
+        ArrayList<MongoQuestReward> mongoQuestRewards = new ArrayList<>();
+        for (Quest quest : quests)
+        {
+            mongoQuestRewards.add(getMongoQuestRewardFromQuest(statement, quest));
+        }
+        return mongoQuestRewards;
+    }
+
+    private static MongoQuestReward getMongoQuestRewardFromQuest(Statement statement, Quest quest)
+    {
+        ResultSet rsQuestReward = MariaDBQueryExecuter.executeReturnQuery(
+                statement, QuestRewardQueries.getSelectQuestRewardFromIdQuery(quest.getQuestRewardId()));
+        QuestReward questReward = MariaDBResultReader.getQuestRewardFromResultSet(rsQuestReward);
+        return MongoQuestReward.getMongoQuestRewardFromQuestReward(questReward);
     }
 
     private static void migrateMonsterData(Statement statement, MongoDatabase db)
@@ -193,7 +232,12 @@ public class DataMigrator
             // get possible allied monster ids
             ResultSet rsAlliedMonsters = MariaDBQueryExecuter.executeReturnQuery(
                     statement, AlliedMonstersQueries.getSelectAlliedMonsterIdsFromIdQuery(monster.getMonsterId()));
-            ArrayList<Integer> alliedMonsters = MariaDBResultReader.getAlliedMonsterIDsFromResultSet(rsAlliedMonsters);
+
+            ArrayList<Integer> alliedMonsters = new ArrayList<>();
+            if (rsAlliedMonsters!= null)
+            {
+                alliedMonsters = MariaDBResultReader.getAlliedMonsterIDsFromResultSet(rsAlliedMonsters);
+            }
 
             monsterDocuments.add(MonsterDocumentCreator.createMonsterDocument(monster, monsterLoot, alliedMonsters));
         }

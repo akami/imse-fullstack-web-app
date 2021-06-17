@@ -1,6 +1,6 @@
 package at.ac.univie.team17.controller;
 
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Character;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.GameCharacter;
 import at.ac.univie.team17.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,12 +16,12 @@ public class CharacterController extends BackendController {
     private CharacterService characterService;
 
     @GetMapping(value = "/character")
-    public List<Character> getCharacters() {
+    public List<GameCharacter> getCharacters() {
         return characterService.getCharacters();
     }
 
     @PostMapping("/character")
-    public ResponseEntity saveCharacter(@RequestBody Character character) {
+    public ResponseEntity saveCharacter(@RequestBody GameCharacter character) {
         characterService.saveCharacter(character);
 
         return new ResponseEntity(HttpStatus.OK);

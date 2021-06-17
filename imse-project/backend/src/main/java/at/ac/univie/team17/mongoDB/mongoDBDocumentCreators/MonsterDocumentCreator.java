@@ -1,6 +1,7 @@
 package at.ac.univie.team17.mongoDB.mongoDBDocumentCreators;
 
 import at.ac.univie.team17.mariaDB.mariaDBmodels.*;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoMonsterLoot;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -18,7 +19,8 @@ public class MonsterDocumentCreator
         questDocument.append("lifepointAmount", monster.getLifepointAmount());
         questDocument.append("challengeRating", monster.getChallengeRating());
         questDocument.append("monsterName", monster.getMonsterName());
-        questDocument.append("monsterLoot", monsterLoot);
+        questDocument.append("monsterLoot", MonsterLootDocumentCreator.getMonsterLootDocument(
+                MongoMonsterLoot.getMongoMonsterLootFromMonsterLoot(monsterLoot)));
         questDocument.append("possibleAlliedMonsters", possibleAlliedMonsters);
         return questDocument;
     }

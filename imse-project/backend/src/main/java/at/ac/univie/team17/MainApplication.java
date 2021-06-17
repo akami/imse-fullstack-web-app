@@ -9,6 +9,9 @@ public class MainApplication
 {
     public static void main(String[] args)
     {
+        MariaDBModel mariaDBModel = new MariaDBModel(); // TODO delete after testing? didnt run mariadb dropper and initializer without this
+        mariaDBModel.initialize(); // TODO delete after testing? didnt run mariadb dropper and initializer without this
         SpringApplication.run(MainApplication.class, args);
+        System.out.println("Done");
     }
 }
