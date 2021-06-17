@@ -28,4 +28,11 @@ public class DatabaseController extends BackendController {
 
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @GetMapping("/migrate")
+    public ResponseEntity migrate() {
+        databaseService.migrate();
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

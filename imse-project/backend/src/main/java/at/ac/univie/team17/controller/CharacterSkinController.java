@@ -1,6 +1,6 @@
 package at.ac.univie.team17.controller;
 
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Skin;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.CharacterSkin;
 import at.ac.univie.team17.service.CharacterSkinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public class CharacterSkinController extends BackendController {
     private CharacterSkinService characterSkinService;
 
     @GetMapping("/character-skin")
-    public List<Skin> getCharacterSkins() {
+    public List<CharacterSkin> getCharacterSkins() {
         return characterSkinService.getCharacterSkins();
     }
 }

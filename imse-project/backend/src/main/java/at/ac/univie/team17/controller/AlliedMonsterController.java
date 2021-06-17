@@ -1,5 +1,6 @@
 package at.ac.univie.team17.controller;
 
+import at.ac.univie.team17.mariaDB.mariaDBmodels.AlliedMonsters;
 import at.ac.univie.team17.service.AlliedMonsterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ public class AlliedMonsterController extends BackendController {
     private AlliedMonsterService alliedMonsterService;
 
     @GetMapping("/allied-monster")
-    public List<Integer> getAlliedMonsters() {
+    public List<AlliedMonsters> getAlliedMonsters() {
         return alliedMonsterService.getAlliedMonsters();
     }
 }

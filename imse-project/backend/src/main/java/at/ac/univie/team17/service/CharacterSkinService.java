@@ -4,7 +4,7 @@ import at.ac.univie.team17.MariaDBConnectionHandler;
 import at.ac.univie.team17.mariaDB.MariaDBQueryExecuter;
 import at.ac.univie.team17.mariaDB.MariaDBResultReader;
 import at.ac.univie.team17.mariaDB.mariaDBQueries.CharacterSkinQueries;
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Skin;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.CharacterSkin;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
@@ -13,16 +13,16 @@ import java.util.List;
 
 @Component
 public class CharacterSkinService {
-    public List<Skin> getCharacterSkins() {
+    public List<CharacterSkin> getCharacterSkins() {
         String query = CharacterSkinQueries.getSelectAllCharacterSkinsQuery();
 
         MariaDBConnectionHandler.setupConnection();
 
         ResultSet result = MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
-        ArrayList<Skin> skins = MariaDBResultReader.getSkinsFromResultSet(result);
+        ArrayList<CharacterSkin> characterSkins = MariaDBResultReader.getCharacterSkinsFromResultSet(result);
 
         MariaDBConnectionHandler.closeConnection();
 
-        return skins;
+        return characterSkins;
     }
 }

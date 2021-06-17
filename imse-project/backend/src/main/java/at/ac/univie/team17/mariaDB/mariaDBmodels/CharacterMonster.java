@@ -1,6 +1,6 @@
 package at.ac.univie.team17.mariaDB.mariaDBmodels;
 
-public class CharacterMonster
+public class  CharacterMonster
 {
     private int monsterId;
     private int characterId;

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useHistory} from "react-router-dom";
-import {Button, Container, Tab, Tabs} from "react-bootstrap";
+import {Button, Col, Container, Row, Tab, Tabs} from "react-bootstrap";
 import ResultList from "../../components/data/resultList";
 
 const Admin = () => {
@@ -31,6 +31,19 @@ const Admin = () => {
         )();
     };
 
+    const migrateDb = () => {
+        const url = '/api/migrate';
+        (async () => {
+                const response = await fetch(url)
+                    .then((response) => {
+                        console.log(response);
+                    });
+
+                return response;
+            }
+        )();
+    };
+
     return (
         <div className="App">
             <div className="Greeting-header-small">
@@ -46,7 +59,17 @@ const Admin = () => {
                 </div>
             </div>
             <Container className="App Home-content" style={{marginTop: 50}}>
-                <p className="Text-header1">Database Overview</p>
+                <Row>
+                    <Col md={2}> </Col>
+                    <Col md={8}>
+                        <p className="Text-header1">Database Overview</p>
+                    </Col>
+                    <Col md={2}>
+                        <Button variant="primary" type="button" onClick={() => migrateDb()}> Migrate </Button> {' '}
+                    </Col>
+
+                </Row>
+
                 <Tabs activeKey={selectedTab} id="database" onSelect={(key) => setSelectedTab(key)}>
                     <Tab eventKey="players" title="Players" id="players">
                         <ResultList url={'/api/player'}
@@ -78,6 +101,11 @@ const Admin = () => {
                                     headers={['Skin ID', 'Class ID', 'Skin Name', 'Gold Price']}
                                     fieldNames={['skinId', 'classId', 'skinName', 'goldPrice']}/>
                     </Tab>
+                    <Tab eventKey="character-skins" title="Character Skins" id="character-skins">
+                        <ResultList url={'/api/character-skin'}
+                                    headers={['Character ID', 'Skin ID']}
+                                    fieldNames={['characterId', 'skinId']}/>
+                    </Tab>
                     <Tab eventKey="quests" title="Quests" id="quests">
                         <ResultList url={'/api/quest'}
                                     headers={['Quest ID', 'Quest Name', 'Client Name', 'Quest Reward ID']}
@@ -92,6 +120,16 @@ const Admin = () => {
                         <ResultList url={'/api/monster'}
                                     headers={['Monster ID', 'Monster Name', 'Attack', 'Life Point Amount', 'Challenge Rating', 'Monster Loot ID']}
                                     fieldNames={['monsterId', 'monsterName', 'attack', 'lifepointAmount', 'challengeRating', 'monsterLootId']}/>
+                    </Tab>
+                    <Tab eventKey="allied-monsters" title="Allied Monsters" id="allied-monsters">
+                        <ResultList url={'/api/allied-monster'}
+                                    headers={['Monster1 ID', 'Monster2 ID']}
+                                    fieldNames={['monsterId1', 'monsterId2']}/>
+                    </Tab>
+                    <Tab eventKey="character-monsters" title="Slayed Monsters" id="character-monsters">
+                        <ResultList url={'/api/character-monster'}
+                                    headers={['Monster ID', 'Character ID', 'Slayed Amount']}
+                                    fieldNames={['monsterId', 'characterId', 'slayAmount']}/>
                     </Tab>
                     <Tab eventKey="monster-loot" title="Monster Loot" id="monster-loot">
                         <ResultList url={'/api/monster-loot'}

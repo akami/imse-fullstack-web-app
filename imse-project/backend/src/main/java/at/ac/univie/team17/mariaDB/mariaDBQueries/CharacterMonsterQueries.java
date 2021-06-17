@@ -12,7 +12,7 @@ public class CharacterMonsterQueries
 
     public static String getSelectAllCharacterMonstersQuery()
     {
-        return "SELECT * FROM character;";
+        return "SELECT * FROM character_monster;";
     }
 
     public static String getSelectCharacterMonsterFromIdQuery(int characterId, int monsterId)

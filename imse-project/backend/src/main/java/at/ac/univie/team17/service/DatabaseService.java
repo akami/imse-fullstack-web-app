@@ -12,4 +12,8 @@ public class DatabaseService {
     public void clear() {
         MariaDBModel.clear();
     }
+
+    public void migrate() {
+        // TODO @kh @stif
+    }
 }

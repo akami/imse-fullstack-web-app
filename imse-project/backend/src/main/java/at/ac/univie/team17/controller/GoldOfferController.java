@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+// TODO @ĸh
+
 @RestController
 @RequestMapping("/api")
 public class GoldOfferController extends BackendController {

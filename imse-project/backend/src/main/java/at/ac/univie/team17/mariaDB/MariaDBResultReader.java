@@ -138,6 +138,37 @@ public class MariaDBResultReader
         }
         return alliedMonsterIds;
     }
+    public static ArrayList<AlliedMonsters> getAlliedMonstersFromResultSet(ResultSet rs)
+    {
+        ArrayList<AlliedMonsters> alliedMonsters = new ArrayList<>();
+        try
+        {
+            while (rs.next())
+            {
+                alliedMonsters.add(new AlliedMonsters(rs.getInt("monster_id1"), rs.getInt("monster_id2")));
+            }
+        } catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return alliedMonsters;
+    }
+
+    public static ArrayList<CharacterMonster> getCharacterMonstersFromResultSet(ResultSet rs)
+    {
+        ArrayList<CharacterMonster> characterMonsters = new ArrayList<>();
+        try
+        {
+            while (rs.next())
+            {
+                characterMonsters.add(new CharacterMonster(rs.getInt("monster_id"), rs.getInt("character_id"), rs.getInt("slay_amount")));
+            }
+        } catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return characterMonsters;
+    }
 
     public static MonsterLoot getMonsterLootFromResultSet(ResultSet rs)
     {
@@ -205,6 +236,23 @@ public class MariaDBResultReader
             throwables.printStackTrace();
         }
         return skins;
+    }
+
+    // TODO @stif check if okay
+    public static ArrayList<CharacterSkin> getCharacterSkinsFromResultSet(ResultSet rs)
+    {
+        ArrayList<CharacterSkin> characterSkins = new ArrayList<>();
+        try
+        {
+            while (rs.next())
+            {
+                characterSkins.add(new CharacterSkin(rs.getInt("skin_id"), rs.getInt("character_id")));
+            }
+        } catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return characterSkins;
     }
 
     public static ArrayList<CharacterClass> getCharacterClassesFromResultSet(ResultSet rs)
