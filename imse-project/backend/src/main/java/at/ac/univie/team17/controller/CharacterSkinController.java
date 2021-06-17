@@ -15,7 +15,7 @@ public class CharacterSkinController extends BackendController {
     @Autowired
     private CharacterSkinService characterSkinService;
 
-    @GetMapping("/pet")
+    @GetMapping("/character-skin")
     public List<Skin> getCharacterSkins() {
         return characterSkinService.getCharacterSkins();
     }

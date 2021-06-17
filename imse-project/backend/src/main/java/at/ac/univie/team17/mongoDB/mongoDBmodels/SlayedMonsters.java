@@ -5,10 +5,10 @@ import at.ac.univie.team17.mariaDB.mariaDBmodels.MonsterLoot;
 public class SlayedMonsters
 {
     private int monsterId;
-    private MonsterLoot monsterLoot;
+    private MongoMonsterLoot monsterLoot;
     private int slayAmount;
 
-    public SlayedMonsters(int monsterId, MonsterLoot monsterLoot, int slayAmount)
+    public SlayedMonsters(int monsterId, MongoMonsterLoot monsterLoot, int slayAmount)
     {
         this.monsterId = monsterId;
         this.monsterLoot = monsterLoot;
@@ -20,7 +20,7 @@ public class SlayedMonsters
         return monsterId;
     }
 
-    public MonsterLoot getMonsterLoot()
+    public MongoMonsterLoot getMonsterLoot()
     {
         return monsterLoot;
     }

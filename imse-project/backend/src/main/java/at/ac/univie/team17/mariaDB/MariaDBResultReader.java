@@ -1,6 +1,8 @@
 package at.ac.univie.team17.mariaDB;
 
 import at.ac.univie.team17.mariaDB.mariaDBmodels.*;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoMonsterLoot;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.SlayedMonsters;
 import at.ac.univie.team17.sharedDataModels.Pet;
 
 import java.sql.ResultSet;
@@ -230,8 +232,8 @@ public class MariaDBResultReader
             while (rs.next())
             {
                 gameCharacters.add(new GameCharacter(rs.getInt("character_id"), rs.getString("character_name"),
-                        rs.getInt("attack"), rs.getInt("lifepoints"),
-                        rs.getInt("player_id"), rs.getInt("character_class_id")));
+                        rs.getInt("attack"), rs.getInt("lifepoints"), rs.getInt("player_id"),
+                        rs.getInt("character_class_id")));
             }
         } catch (SQLException throwables)
         {
@@ -239,5 +241,56 @@ public class MariaDBResultReader
         }
         return gameCharacters;
 
+    }
+
+    public static CharacterClass getCharacterClassFromResultSet(ResultSet rs)
+    {
+        try
+        {
+            while (rs.next())
+            {
+                return new CharacterClass(rs.getInt("character_class_id"), rs.getInt("bonus_attack"),
+                        rs.getInt("bonus_lifepoints"), rs.getString("character_class_name"));
+            }
+        } catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Player getPlayerFromResultSet(ResultSet rs)
+    {
+        try
+        {
+            while (rs.next())
+            {
+                return new Player(rs.getInt("player_id"), rs.getString("user_name"),
+                        rs.getInt("age"), rs.getString("email_address"));
+            }
+        } catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ArrayList<SlayedMonsters> getSlayedMonstersFromResultSet(ResultSet rs)
+    {
+        ArrayList<SlayedMonsters> slayedMonsters = new ArrayList<>();
+        try
+        {
+            while (rs.next())
+            {
+                MongoMonsterLoot monsterLoot = new MongoMonsterLoot(rs.getInt("gold_amount"),
+                        rs.getInt("experience_amount"));
+                slayedMonsters.add(new SlayedMonsters(rs.getInt("monster_id"), monsterLoot,
+                        rs.getInt("slay_amount")));
+            }
+        } catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return slayedMonsters;
     }
 }

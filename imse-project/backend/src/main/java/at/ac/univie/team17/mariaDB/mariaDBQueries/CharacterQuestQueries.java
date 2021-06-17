@@ -32,4 +32,11 @@ public class CharacterQuestQueries
     {
         return "DROP TABLE character_quest;";
     }
+
+    public static String getSelectCompletedQuestsFromCharacterIdQuery(int characterId)
+    {
+        return "SELECT quest.* FROM " +
+                "(SELECT * FROM character_quest WHERE character_id = " + characterId + ") AS completed_quests " +
+                "JOIN quest ON completed_quests.quest_id = quest.quest_id;";
+    }
 }
