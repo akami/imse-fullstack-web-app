@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
-import {useHistory} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 
-const SignUp = () => {
+const SignUp = ({props}) => {
     let history = useHistory();
+    let location = useLocation();
 
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -29,6 +30,9 @@ const SignUp = () => {
             setSuccess(response.ok);
             setInProgress(true);
         })();
+        if (success) {
+            history.push("/home/");
+        }
     };
 
     return (

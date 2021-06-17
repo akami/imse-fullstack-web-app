@@ -19,7 +19,7 @@ const Root = () => {
             <Route exact path="/" component={Login}/>
             <Route exact path="/signup" component={SignUp}/>
             <Route exact path="/admin" component={Admin}/>
-            <Route exact path="/home" component={TopTabBar}/>
+            <Route exact path="/home/" component={TopTabBar}/>
             <Route exact path="/create" component={CharacterCreation}/>
             <Route exact path="/quests" component={Quests}/>
             <Route exact path="/start" component={QuestContext}/>

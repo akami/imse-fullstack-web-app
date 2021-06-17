@@ -2,15 +2,36 @@ import React from 'react';
 import {Button, Col, Container, Figure, Row} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
 
-const Character= ({character}) => {
+import Mage from "../assets/mage.png";
+import Fighter from "../assets/fighter.png";
+import Tank from "../assets/tank.png";
+
+const Character = (character) => {
  let history = useHistory();
+
+ const getImageFromClassId = () => {
+     switch (character.characterClassID) {
+         case 0:
+             return (Mage);
+             break;
+         case 1:
+             return (Fighter);
+             break;
+         case 2:
+             return (Tank);
+             break;
+         default:
+             return (Mage);
+     }
+ }
+
     return(
         <Container className=" Character-container" style={{paddingBottom: 16}}>
             <Row style={{backgroundColor: "white"}}>
                 <Col md="auto">
                     <Row>
                         <Figure>
-                            <Figure.Image src={character.img} width="172" height="180"/>
+                            <Figure.Image src={getImageFromClassId()} width="172" height="180"/>
                         </Figure>
                     </Row>
                     <Row>

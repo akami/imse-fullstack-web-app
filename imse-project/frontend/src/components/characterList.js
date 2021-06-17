@@ -1,10 +1,18 @@
 import React from 'react';
+import Character from "./character";
 
 const CharacterList = (characters) => {
-    console.log(characters)
 
-    return(
+    return (
         <div>
+            {
+                Array.from(characters).map((char) => {
+                    return (
+                        <Character character={char}/>
+                    );
+                })
+
+            }
         </div>
     );
 };

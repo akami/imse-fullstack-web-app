@@ -10,23 +10,20 @@ const Admin = () => {
     const fillDb = () => {
         const url = '/api/initialize';
         (async () => {
-            const response = await fetch(url)
+            await fetch(url)
                 .then((response) => {
                     console.log(response);
                 });
-            return response;
         })();
     };
 
     const clearDb = () => {
         const url = '/api/clear';
         (async () => {
-                const response = await fetch(url)
+                await fetch(url)
                     .then((response) => {
                         console.log(response);
                     });
-
-                return response;
             }
         )();
     };
@@ -34,12 +31,10 @@ const Admin = () => {
     const migrateDb = () => {
         const url = '/api/migrate';
         (async () => {
-                const response = await fetch(url)
+                await fetch(url)
                     .then((response) => {
                         console.log(response);
                     });
-
-                return response;
             }
         )();
     };

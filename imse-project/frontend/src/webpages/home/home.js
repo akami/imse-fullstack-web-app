@@ -1,36 +1,28 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Col, Container, Jumbotron, ListGroup, Row} from "react-bootstrap";
-import {useHistory} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 
 import CharacterList from "../../components/characterList";
+import Cookies from "universal-cookie/lib";
 
-import Mage from "../../assets/mage.png";
-import Fighter from "../../assets/fighter.png";
-import Tank from "../../assets/tank.png";
+const Home = () => {
+    const history = useHistory();
+    const cookies = new Cookies();
 
-const Home = (authDetails) => {
-    let history = useHistory();
     const [show, setShow] = useState(false);
-    const [characters, setCharacters] = useState([]);
 
+    const [characters, setCharacters] = useState([]);
+    const [playerId, setPlayerId] = useState(cookies.get('playerId'));
 
     useEffect(() =>  {
         let timer = setTimeout(() => setShow(true), 1);
         let mounted = true;
 
-        let url = '/api/character';
-
         if (mounted) {
             (async () => {
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Basic ' + Buffer.from(authDetails[0] + ":" + authDetails[1]).toString('base64')
-                    }
-                })
-                    .then((response) => {
-                        setCharacters(response.body);
-                    });
+            await fetch('/api/character/' + playerId)
+                .then((response) => response.json())
+                .then((json) => setCharacters(json));
             })();
         }
 
@@ -45,7 +37,7 @@ const Home = (authDetails) => {
             <Col md={0.5}> </Col>
             <Col md="auto" className="Home-content">
                 <Row>
-                    <p className="Text-header1">Your Characters</p>
+                    <p className="Text-header1">Your Characters {playerId}</p>
                 </Row>
                 <Row>
                     <Jumbotron>
