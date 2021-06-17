@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 public class PlayerService {
 
-    public void savePlayer(Player player) {
+    public void createPlayer(Player player) {
         String query = PlayerQueries.getInsertPlayersQuery(player);
 
         MariaDBConnectionHandler.setupConnection();

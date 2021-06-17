@@ -28,8 +28,8 @@ public class GameCharacterController extends BackendController {
     }
 
     @PostMapping("/character")
-    public ResponseEntity saveGameCharacter(@RequestBody GameCharacter gameCharacter) {
-        gameCharacterService.saveGameCharacter(gameCharacter);
+    public ResponseEntity createGameCharacter(@RequestBody GameCharacter gameCharacter) {
+        gameCharacterService.createGameCharacter(gameCharacter);
 
         return new ResponseEntity(HttpStatus.OK);
     }

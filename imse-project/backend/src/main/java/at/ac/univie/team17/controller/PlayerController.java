@@ -21,8 +21,8 @@ public class PlayerController extends BackendController {
     }
 
     @PostMapping("/player")
-    public ResponseEntity savePlayer(@RequestBody Player player) {
-        playerService.savePlayer(player);
+    public ResponseEntity createPlayer(@RequestBody Player player) {
+        playerService.createPlayer(player);
 
         return new ResponseEntity(HttpStatus.OK);
     }

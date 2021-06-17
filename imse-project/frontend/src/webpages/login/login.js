@@ -31,16 +31,9 @@ return (
                     <p className="Text-subsubtitle">by Katharina Höckner & Stefan
                         Tschurtschenthaler</p>
                 </Col>
-                <Col md={3} style={{paddingTop: 280}}>
+                <Col md={3} style={{paddingTop: 300}}>
                     <div className="Greeting-login-card">
                         <Form>
-                            <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" onChange={(text) => setAuthDetails([text.target.value, authDetails[1]])}/>
-                                <Form.Text className="text-muted">
-                                </Form.Text>
-                            </Form.Group>
-
                             <Form.Group controlId="formBasicUserName">
                                 <Form.Label>Username</Form.Label>
                                 <Form.Control type="username" placeholder="Enter username" onChange={(text) => setAuthDetails([authDetails[0], text.target.value])}/>

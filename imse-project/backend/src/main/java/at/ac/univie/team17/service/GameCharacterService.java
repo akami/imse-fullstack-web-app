@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 public class GameCharacterService {
 
-    public void saveGameCharacter(GameCharacter character) {
+    public void createGameCharacter(GameCharacter character) {
         String query = CharacterQueries.getInsertCharacterQuery(character);
 
         MariaDBConnectionHandler.setupConnection();

@@ -1,8 +1,8 @@
 FROM node:13.12.0-alpine
 
-WORKDIR /usr/src/myapp
+WORKDIR /usr/src/
 
-ENV PATH /myapp/node_modules/.bin:$PATH
+ENV PATH /usr/src/node_modules/.bin:$PATH
 
 COPY . .
 

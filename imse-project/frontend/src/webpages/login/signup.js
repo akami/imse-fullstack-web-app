@@ -1,10 +1,35 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
 
 const SignUp = () => {
     let history = useHistory();
-    const [authDetails, setAuthDetails] = useState("", "");
+
+    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
+    const [age, setAge] = useState("");
+
+    const [inProgress, setInProgress] = useState(false);
+    const [success, setSuccess] = useState(false);
+
+    const signup = () => {
+        (async () => {
+            const response = await fetch('/api/player', {
+                method: 'POST',
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    emailAddress: email,
+                    username: username,
+                    age: age
+                })
+            });
+
+            setSuccess(response.ok);
+            setInProgress(true);
+        })();
+    };
 
     return (
         <div className="App">
@@ -26,17 +51,29 @@ const SignUp = () => {
                             <Form>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" onChange={(text) => setAuthDetails([text.target.value, authDetails[1]])}/>
+                                    <Form.Control type="email" placeholder="Enter email"
+                                                  onChange={(text) => setEmail(text.target.value)}/>
                                     <Form.Text className="text-muted">
                                     </Form.Text>
                                 </Form.Group>
 
                                 <Form.Group controlId="formBasicUserName">
                                     <Form.Label>Username</Form.Label>
-                                    <Form.Control type="username" placeholder="Enter username" onChange={(text) => setAuthDetails([authDetails[0], text.target.value])}/>
+                                    <Form.Control type="username" placeholder="Enter username"
+                                                  onChange={(text) => setUsername(text.target.value)}/>
                                 </Form.Group>
-                                <Button type="submit" variant="success" onClick={() => history.push("/home")}
-                                        style={{marginTop: 16}}> Sign Up </Button>
+
+                                <Form.Group controlId="formBasicAge">
+                                    <Form.Label>Age</Form.Label>
+                                    <Form.Control type="age" placeholder="Enter age"
+                                                  onChange={(text) => setAge(text.target.value)}/>
+                                </Form.Group>
+
+                                <Button type="button" variant="success" onClick={() => signup()}> Sign
+                                    Up </Button>
+
+                                {inProgress && success && <p>Signup was successful!</p>}
+                                {inProgress && !success && <p>Signup was unsuccessful!</p>}
                             </Form>
                         </div>
                     </Col>
