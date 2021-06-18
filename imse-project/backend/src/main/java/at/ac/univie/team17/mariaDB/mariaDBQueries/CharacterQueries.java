@@ -6,8 +6,7 @@ public class CharacterQueries
 {
     public static String getInsertCharacterQuery(GameCharacter gameCharacter)
     {
-        return "INSERT INTO player_character (character_id, attack, lifepoints, character_name, player_id, character_class_id) VALUES ('" +
-                gameCharacter.getCharacterId() + "', '" + gameCharacter.getAttack() + "', '" + gameCharacter.getLifepointAmount() +
+        return "INSERT INTO player_character (attack, lifepoints, character_name, player_id, character_class_id) VALUES ('" + gameCharacter.getAttack() + "', '" + gameCharacter.getLifepointAmount() +
                 "', '" + gameCharacter.getCharacterName() + "', '" + gameCharacter.getPlayerId() + "', '" + gameCharacter.getCharacterClassId()+ "');";
     }
 
@@ -23,12 +22,12 @@ public class CharacterQueries
 
     public static String getSelectCharactersFromPlayerIdQuery(int id)
     {
-        return "SELECT * FROM player_character WHERE player-id = " + id + ";";
+        return "SELECT * FROM player_character WHERE player_id = " + id + ";";
     }
 
     public static String getCreateCharacterTableQuery()
     {
-        return "CREATE TABLE player_character (character_id INT, attack INT, lifepoints INT, character_name CHAR(25), player_id INT," +
+        return "CREATE TABLE player_character (character_id INT NOT NULL AUTO_INCREMENT, attack INT, lifepoints INT, character_name CHAR(25), player_id INT," +
                 " character_class_id INT, PRIMARY KEY (character_id), CONSTRAINT player_character_fk_player FOREIGN KEY (player_id) " +
                 "REFERENCES player(player_id) ON DELETE CASCADE ON UPDATE RESTRICT, CONSTRAINT player_character_fk_character_class FOREIGN " +
                 "KEY (character_class_id) REFERENCES character_class(character_class_id) ON DELETE CASCADE ON UPDATE RESTRICT);";

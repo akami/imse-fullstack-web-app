@@ -1,14 +1,16 @@
 import React from 'react';
 import Character from "./character";
 
-const CharacterList = (characters) => {
-
+const CharacterList = ({characters}) => {
     return (
         <div>
             {
-                Array.from(characters).map((char) => {
+
+                Array.isArray(characters) &&
+                characters.length >= 1 &&
+                characters.map((character) => {
                     return (
-                        <Character character={char}/>
+                        <Character character={character}/>
                     );
                 })
 
