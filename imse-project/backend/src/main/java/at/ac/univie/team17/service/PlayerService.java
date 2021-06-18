@@ -47,4 +47,15 @@ public class PlayerService {
 
         return player != null ? player.getPlayerId() : -1;
     }
+
+    public Player getPlayerByUsername(String username) {
+        List<Player> players = getPlayers();
+
+        Player player = players.stream()
+                .filter(p -> p.getUsername().equals(username))
+                .findFirst()
+                .orElse(null);
+
+        return player;
+    }
 }

@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -23,7 +22,7 @@ public class GameCharacterController extends BackendController {
 
 
     @GetMapping(value = "/character/{playerId}")
-    public List<GameCharacter> getGameCharacters(@PathParam("playerId") int playerId) {
+    public List<GameCharacter> getGameCharacters(@PathVariable("playerId") Integer playerId) {
         return gameCharacterService.getGameCharactersById(playerId);
     }
 
