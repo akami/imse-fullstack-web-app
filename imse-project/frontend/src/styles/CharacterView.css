@@ -1,9 +1,7 @@
 .Character-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     background-color: #282c34;
-    border-radius: 30px;
+    border-radius: 10px;
 }
 
 .Character-description {
