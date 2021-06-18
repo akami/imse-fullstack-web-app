@@ -25,4 +25,17 @@ public class SkinService {
 
         return skins;
     }
+
+    public List<Skin> getSkinsFromClassId(int classId) {
+        String query = SkinQueries.getSelectSkinFromIdQuery(classId);
+
+        MariaDBConnectionHandler.setupConnection();
+
+        ResultSet result = MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
+        ArrayList<Skin> skins = MariaDBResultReader.getSkinsFromResultSet(result);
+
+        MariaDBConnectionHandler.closeConnection();
+
+        return skins;
+    }
 }

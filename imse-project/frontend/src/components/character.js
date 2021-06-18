@@ -8,8 +8,10 @@ import Knight from "../assets/knight.png";
 import Priest from "../assets/priest.png";
 import Ranger from "../assets/ranger.png";
 import Thief from "../assets/thief.png";
+import Cookies from "universal-cookie/lib";
 
 const Character = ({character}) => {
+    const cookies = new Cookies();
     let history = useHistory();
 
     const getImageFromClassId = (classId) => {
@@ -51,6 +53,11 @@ const Character = ({character}) => {
         return undefined;
     }
 
+    const redirectToSkinsView = (classId) => {
+        cookies.set('classId', classId, {path: '/'});
+        history.push("/skins");
+    }
+
     return (
         <Container style={{padding: 8}}>
             <div className="Character-container">
@@ -80,7 +87,7 @@ const Character = ({character}) => {
                                     </Button> {' '}
                             </Row>
                             <Row style={{marginTop: 16}}>
-                                <Button variant="secondary" type="button" > View Skins</Button>
+                                <Button variant="secondary" type="button"  onClick={redirectToSkinsView(character.characterClassId)}> View Skins</Button>
                             </Row>
                             <Row style={{marginTop: 8}}>
                                 <Button  variant="secondary" type="button"> View Pets</Button>

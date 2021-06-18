@@ -10,6 +10,7 @@ import TopTabBar from "../components/navigation/topTabBar";
 import CharacterCreation from "../webpages/home/characterCreation";
 import Quests from "../webpages/home/quests";
 import QuestContext from "../webpages/home/questContext";
+import CharacterSkins from "./home/characterSkins";
 
 import Admin from "./admin/admin";
 
@@ -23,6 +24,7 @@ const Root = () => {
             <Route exact path="/create" component={CharacterCreation}/>
             <Route exact path="/quests" component={Quests}/>
             <Route exact path="/start" component={QuestContext}/>
+            <Route exact path="/skins" component={CharacterSkins}/>
         </Router>
     );
 };
