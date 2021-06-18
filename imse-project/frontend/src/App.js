@@ -3,6 +3,7 @@ import './styles/Greetings.css';
 import './styles/Creation.css';
 import './styles/Text.css'
 import './styles/Home.css';
+import './styles/CharacterView.css';
 
 import React, { useState, useEffect } from 'react';
 

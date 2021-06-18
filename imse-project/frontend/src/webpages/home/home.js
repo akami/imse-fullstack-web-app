@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Col, Container, Jumbotron, ListGroup, Row} from "react-bootstrap";
+import {Button, Col, Container, Row} from "react-bootstrap";
 import {useHistory} from 'react-router-dom';
 
 import CharacterList from "../../components/characterList";

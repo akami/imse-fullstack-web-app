@@ -8,8 +8,10 @@ import Knight from "../assets/knight.png";
 import Priest from "../assets/priest.png";
 import Ranger from "../assets/ranger.png";
 import Thief from "../assets/thief.png";
+import Cookies from "universal-cookie/lib";
 
 const Character = ({character}) => {
+    const cookies = new Cookies();
     let history = useHistory();
 
     const getImageFromClassId = (classId) => {
@@ -51,36 +53,49 @@ const Character = ({character}) => {
         return undefined;
     }
 
-    return (
-        <Container className=" Character-container" style={{paddingBottom: 16}}>
-            <Row style={{backgroundColor: "white"}}>
-                <Col md="auto">
-                    <Row>
-                        <Figure>
-                            <Image src={getImageFromClassId(character.characterClassId)} width="172" height="180"/>
-                        </Figure>
-                    </Row>
-                    <Row>
-                        <Button variant="secondary" type="button"> View Skins</Button>
-                        <Button style={{marginTop: 8}} variant="secondary" type="button"> View Pets</Button>
-                    </Row>
+    const redirectToSkinsView = (classId) => {
+        cookies.set('classId', classId, {path: '/'});
+        history.push("/skins");
+    }
 
-                </Col>
-                <Col md={8}>
-                    <div className="Character-description">
-                        <p>{character.characterName}</p>
-                        <p>{character.attack}</p>
-                        <p>{character.lifepointAmount}</p>
-                        <p>{getClassNameFromClassId(character.characterClassId)}</p>
-                    </div>
-                </Col>
-                <Col md={2} className="d-flex justify-content-lg-center">
-                    <div>
-                        <Button variant="primary" type="button" onClick={() => history.push("/quests")}>Start
-                            Game</Button>
-                    </div>
-                </Col>
-            </Row>
+    return (
+        <Container style={{padding: 8}}>
+            <div className="Character-container">
+                <Row>
+                    <Col md={4}>
+                        <Figure>
+                            <Image src={getImageFromClassId(character.characterClassId)} width="280" height="300"/>
+                        </Figure>
+                    </Col>
+                    <Col md={4} style={{paddingTop: 16}}>
+                        <div className="Creation-form" >
+                            <p className="Text-header2">{character.characterName}</p>
+                            <p className="Text-subtitle">{getClassNameFromClassId(character.characterClassId)}</p>
+                            <p> Attack: <span style={{color: '#d62828'}}> {character.attack} </span></p>
+                            <p> Life Points: <span style={{color: '#40916c'}}> {character.lifepointAmount}</span></p>
+                        </div>
+                    </Col>
+                    <Col md={4} className="d-flex justify-content-lg-center" style={{paddingTop: 16}}>
+                        <div>
+                            <Row style={{marginTop: 50}}>
+                                    <Button
+                                        variant="primary"
+                                        type="button"
+                                        onClick={() => history.push("/quests")}
+                                    >
+                                        Start Game
+                                    </Button> {' '}
+                            </Row>
+                            <Row style={{marginTop: 16}}>
+                                <Button variant="secondary" type="button"  onClick={redirectToSkinsView(character.characterClassId)}> View Skins</Button>
+                            </Row>
+                            <Row style={{marginTop: 8}}>
+                                <Button  variant="secondary" type="button"> View Pets</Button>
+                            </Row>
+                        </div>
+                    </Col>
+                </Row>
+            </div>
         </Container>
     );
 };
