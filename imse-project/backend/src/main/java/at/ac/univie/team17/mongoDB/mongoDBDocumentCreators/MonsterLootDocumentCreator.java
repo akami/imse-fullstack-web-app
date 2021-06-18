@@ -13,4 +13,9 @@ public class MonsterLootDocumentCreator
         monsterLootDocument.append("experienceAmount", monsterLoot.getExperienceAmount());
         return monsterLootDocument;
     }
+
+    public static MongoMonsterLoot getMonsterLootFromDocument(Document document)
+    {
+        return new MongoMonsterLoot(document.getInteger("goldAmount"), document.getInteger("experienceAmount"));
+    }
 }

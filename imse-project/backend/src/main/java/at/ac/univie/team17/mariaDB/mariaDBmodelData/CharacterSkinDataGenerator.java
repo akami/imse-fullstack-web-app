@@ -14,7 +14,11 @@ public class CharacterSkinDataGenerator
         Random random = new Random();
         for (int i = 0; i < characterSkinsAmount; ++i)
         {
-            characterSkins.add(new CharacterSkin(random.nextInt(characterAmount), random.nextInt(skinAmount)));
+            CharacterSkin characterSkin = new CharacterSkin(random.nextInt(characterAmount) + 1, random.nextInt(skinAmount));
+            if (!characterSkins.contains(characterSkin))
+            {
+                characterSkins.add(characterSkin);
+            }
         }
         return characterSkins;
     }

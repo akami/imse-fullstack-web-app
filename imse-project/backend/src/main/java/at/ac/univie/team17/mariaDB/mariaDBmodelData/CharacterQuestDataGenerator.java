@@ -14,7 +14,7 @@ public class CharacterQuestDataGenerator
         Random random = new Random();
         for (int i = 0; i < characterQuestAmount; ++i)
         {
-            characterQuests.add(new CharacterQuest(random.nextInt(characterAmount), random.nextInt(questAmount)));
+            characterQuests.add(new CharacterQuest(random.nextInt(characterAmount) + 1, random.nextInt(questAmount)));
         }
         return characterQuests;
     }

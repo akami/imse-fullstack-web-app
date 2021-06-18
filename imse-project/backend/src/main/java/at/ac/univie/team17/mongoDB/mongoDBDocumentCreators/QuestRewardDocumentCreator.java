@@ -13,4 +13,9 @@ public class QuestRewardDocumentCreator
         questRewardDocument.append("experienceAmount", questReward.getExperienceAmount());
         return questRewardDocument;
     }
+
+    public static MongoQuestReward getQuestRewardFromDocument(Document document)
+    {
+        return new MongoQuestReward(document.getInteger("goldAmount"), document.getInteger("experienceAmount"));
+    }
 }

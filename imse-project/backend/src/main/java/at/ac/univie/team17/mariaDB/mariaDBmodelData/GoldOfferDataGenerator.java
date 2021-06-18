@@ -25,7 +25,7 @@ public class GoldOfferDataGenerator
                 successful = random.nextBoolean();
             }
             goldOffers.add(new GoldOffer(i, accepted, successful,random.nextInt(GOLD_RANGE) + MINIMAL_GOLD,
-                    random.nextInt(playerAmount)));
+                    random.nextInt(playerAmount) + 1));
         }
         return goldOffers;
     }

@@ -22,7 +22,7 @@ public class CharacterDataGenerator
         for (int i = 0; i < characterAmount; ++i)
         {
             gameCharacters.add(new GameCharacter(i, stringCreator.name().firstName(), random.nextInt(ATTACK_RANGE) + MINIMAL_ATTACK,
-                    random.nextInt(LIFEPOINTS_RANGE) + MINIMAL_LIFEPOINTS, random.nextInt(playerAmount),
+                    random.nextInt(LIFEPOINTS_RANGE) + MINIMAL_LIFEPOINTS, random.nextInt(playerAmount) + 1,
                     random.nextInt(characterClassAmount)));
         }
         return gameCharacters;

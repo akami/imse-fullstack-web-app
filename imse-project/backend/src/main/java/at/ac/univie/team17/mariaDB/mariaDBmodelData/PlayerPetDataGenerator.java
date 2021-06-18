@@ -14,7 +14,12 @@ public class PlayerPetDataGenerator
         Random random = new Random();
         for (int i = 0; i < playerPetsAmount; ++i)
         {
-            playerPets.add(new PlayerPet(random.nextInt(playerAmount), random.nextInt(petAmount)));
+            PlayerPet playerPet = new PlayerPet(random.nextInt(playerAmount) + 1, random.nextInt(petAmount));
+            if (!playerPets.contains(playerPet))
+            {
+                playerPets.add(playerPet);
+            }
+
         }
         return playerPets;
     }

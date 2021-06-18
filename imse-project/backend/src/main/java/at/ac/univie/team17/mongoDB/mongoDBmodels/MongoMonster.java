@@ -1,7 +1,5 @@
 package at.ac.univie.team17.mongoDB.mongoDBmodels;
 
-import at.ac.univie.team17.mariaDB.mariaDBmodels.MonsterLoot;
-
 import java.util.ArrayList;
 
 public class MongoMonster
@@ -11,11 +9,11 @@ public class MongoMonster
     private int attack;
     private int lifepointAmount;
     private int challengeRating;
-    private MonsterLoot monsterLoot;
-    private ArrayList<MongoMonster> possibleAlliedMonsters;
+    private MongoMonsterLoot monsterLoot;
+    private ArrayList<Integer> possibleAlliedMonsters;
 
     public MongoMonster(int monsterId, String monsterName, int attack, int lifepointAmount, int challengeRating,
-                        MonsterLoot monsterLoot, ArrayList<MongoMonster> possibleAlliedMonsters)
+                        MongoMonsterLoot monsterLoot, ArrayList<Integer> possibleAlliedMonsters)
     {
         this.monsterId = monsterId;
         this.monsterName = monsterName;
@@ -51,12 +49,12 @@ public class MongoMonster
         return challengeRating;
     }
 
-    public MonsterLoot getMonsterLoot()
+    public MongoMonsterLoot getMonsterLoot()
     {
         return monsterLoot;
     }
 
-    public ArrayList<MongoMonster> getPossibleAlliedMonsters()
+    public ArrayList<Integer> getPossibleAlliedMonsters()
     {
         return possibleAlliedMonsters;
     }

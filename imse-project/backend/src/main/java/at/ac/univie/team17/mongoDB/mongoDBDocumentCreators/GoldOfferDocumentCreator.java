@@ -4,6 +4,7 @@ import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoGoldOffer;
 import org.bson.Document;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GoldOfferDocumentCreator
 {
@@ -25,5 +26,21 @@ public class GoldOfferDocumentCreator
             documents.add(createGoldOfferDocument(goldOffer));
         }
         return documents;
+    }
+
+    public static ArrayList<MongoGoldOffer> getGoldOffersFromDocument(ArrayList<Document> documents)
+    {
+        ArrayList<MongoGoldOffer> mongoGoldOffers = new ArrayList<>();
+        for (Document document : documents)
+        {
+            mongoGoldOffers.add(getGoldOfferFromDocument(document));
+        }
+        return mongoGoldOffers;
+    }
+
+    public static MongoGoldOffer getGoldOfferFromDocument(Document document)
+    {
+        return new MongoGoldOffer(document.getBoolean("accepted"), document.getBoolean("successful"),
+                document.getInteger("goldAmount"));
     }
 }

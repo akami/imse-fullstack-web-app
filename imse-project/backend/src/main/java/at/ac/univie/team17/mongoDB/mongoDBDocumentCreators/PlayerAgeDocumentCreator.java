@@ -12,4 +12,9 @@ public class PlayerAgeDocumentCreator
         playerAgeDocument.append("age", playerAge.getAge());
         return playerAgeDocument;
     }
+
+    public static PlayerAge getPlayerAgeFromDocument(Document document)
+    {
+        return new PlayerAge(document.getInteger("_id"), document.getInteger("age"));
+    }
 }

@@ -1,10 +1,18 @@
 package at.ac.univie.team17.service;
 
+import at.ac.univie.team17.ActiveDatabase;
 import at.ac.univie.team17.MariaDBConnectionHandler;
+import at.ac.univie.team17.MongoDBConnectionHandler;
 import at.ac.univie.team17.mariaDB.MariaDBQueryExecuter;
 import at.ac.univie.team17.mariaDB.MariaDBResultReader;
 import at.ac.univie.team17.mariaDB.mariaDBQueries.PlayerQueries;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.Player;
+import at.ac.univie.team17.mongoDB.MongoDBExecuter;
+import at.ac.univie.team17.mongoDB.mongoDBDocumentCreators.PlayerDocumentCreator;
+import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoPlayerQueries;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoPlayer;
+import org.bson.Document;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
@@ -14,14 +22,30 @@ import java.util.List;
 @Component
 public class PlayerService {
 
+    @Autowired
+    private ActiveDatabase activeDatabase;
+
     public void createPlayer(Player player) {
-        String query = PlayerQueries.getInsertPlayersQuery(player);
+        if (activeDatabase.isMariadbActive())
+        {
+            String query = PlayerQueries.getInsertPlayersQuery(player);
 
-        MariaDBConnectionHandler.setupConnection();
+            MariaDBConnectionHandler.setupConnection();
 
-        MariaDBQueryExecuter.executeNoReturnQuery(MariaDBConnectionHandler.getStatement(), query);
+            MariaDBQueryExecuter.executeNoReturnQuery(MariaDBConnectionHandler.getStatement(), query);
 
-        MariaDBConnectionHandler.closeConnection();
+            MariaDBConnectionHandler.closeConnection();
+        } else
+        {
+            Document playerDocument = PlayerDocumentCreator.createPlayerDocument(player, new ArrayList<>(),
+                    new ArrayList<>(), new ArrayList<>());
+
+            MongoDBConnectionHandler.setupConnection();
+
+            MongoDBExecuter.insertDocument(MongoDBConnectionHandler.getDb(), playerDocument, PlayerDocumentCreator.PLAYER_COLLECTION_NAME);
+
+            MongoDBConnectionHandler.closeConnection();
+        }
     }
 
     public List<Player> getPlayers() {
@@ -34,6 +58,13 @@ public class PlayerService {
 
         MariaDBConnectionHandler.closeConnection();
 
+        return players;
+    }
+
+    public List<MongoPlayer> getMongoPlayers() {
+        MongoDBConnectionHandler.setupConnection();
+        List<MongoPlayer> players = MongoPlayerQueries.getMongoPlayers();
+        MongoDBConnectionHandler.closeConnection();
         return players;
     }
 

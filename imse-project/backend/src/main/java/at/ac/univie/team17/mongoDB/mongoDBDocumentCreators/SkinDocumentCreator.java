@@ -1,5 +1,6 @@
 package at.ac.univie.team17.mongoDB.mongoDBDocumentCreators;
 
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoGoldOffer;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoSkin;
 import org.bson.Document;
 
@@ -24,5 +25,20 @@ public class SkinDocumentCreator
         skinDocument.append("skinName", skin.getSkinName());
         skinDocument.append("goldPrice", skin.getGoldPrice());
         return skinDocument;
+    }
+
+    public static ArrayList<MongoSkin> getSkinsFromDocument(ArrayList<Document> documents)
+    {
+        ArrayList<MongoSkin> mongoSkins = new ArrayList<>();
+        for (Document document : documents)
+        {
+            mongoSkins.add(getSkinFromDocument(document));
+        }
+        return mongoSkins;
+    }
+
+    public static MongoSkin getSkinFromDocument(Document document)
+    {
+        return new MongoSkin(document.getInteger("_id"), document.getString("skinName"), document.getInteger("goldPrice"));
     }
 }

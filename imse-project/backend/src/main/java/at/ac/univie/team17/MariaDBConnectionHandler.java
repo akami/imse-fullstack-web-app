@@ -39,11 +39,6 @@ public class MariaDBConnectionHandler
         }
     }
 
-    public static Connection getConnection()
-    {
-        return connection;
-    }
-
     public static Statement getStatement()
     {
         return statement;

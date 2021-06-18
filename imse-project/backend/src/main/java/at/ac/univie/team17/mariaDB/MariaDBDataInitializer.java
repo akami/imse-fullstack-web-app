@@ -31,10 +31,10 @@ public class MariaDBDataInitializer
         ArrayList<GameCharacter> gameCharacters = CharacterDataGenerator.generateCharacterData(30, players.size(), characterClasses.size());
         insertCharactersInMariaDB(statement, gameCharacters);
 
-        ArrayList<MonsterLoot> monsterLoots = MonsterLootDataGenerator.generateMonsterLootData(120);
+        ArrayList<MonsterLoot> monsterLoots = MonsterLootDataGenerator.generateMonsterLootData(20);
         insertMonsterLootsInMariaDB(statement, monsterLoots);
 
-        ArrayList<Monster> monsters = MonsterDataGenerator.generateMonsterData(20);
+        ArrayList<Monster> monsters = MonsterDataGenerator.generateMonsterData(monsterLoots.size());
         insertMonstersInMariaDB(statement, monsters);
 
         ArrayList<AlliedMonsters> alliedMonsters = AlliedMonstersDataGenerator.generateAlliedMonstersData(20, monsters.size());

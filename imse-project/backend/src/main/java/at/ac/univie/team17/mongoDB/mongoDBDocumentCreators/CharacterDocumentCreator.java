@@ -1,10 +1,9 @@
 package at.ac.univie.team17.mongoDB.mongoDBDocumentCreators;
 
-import at.ac.univie.team17.mariaDB.mariaDBmodels.GameCharacter;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.*;
-import com.mongodb.Mongo;
 import org.bson.Document;
 
+import javax.print.Doc;
 import java.util.ArrayList;
 
 public class CharacterDocumentCreator
@@ -26,5 +25,30 @@ public class CharacterDocumentCreator
         characterDocument.append("slayedMonsters", slayedMonsters);
         characterDocument.append("playerAge", playerAge);
         return characterDocument;
+    }
+
+    public static ArrayList<MongoCharacter> getCharactersFromDocuments(ArrayList<Document> documents)
+    {
+        ArrayList<MongoCharacter> mongoCharacters = new ArrayList<>();
+        for (Document document : documents)
+        {
+            mongoCharacters.add(getCharacterFromDocument(document));
+        }
+        return mongoCharacters;
+    }
+
+    public static MongoCharacter getCharacterFromDocument(Document document)
+    {
+        ArrayList<MongoQuest> completedQuests = QuestDocumentCreator.getQuestsFromDocument(
+                (ArrayList<Document>) document.get("completedQuests"));
+        ArrayList<MongoSkin> boughtSkins = SkinDocumentCreator.getSkinsFromDocument(
+                (ArrayList<Document>) document.get("boughtSkins"));
+        ArrayList<SlayedMonsters> slayedMonsters = SlayedMonsterDocumentCreator.getSlayedMonstersFromDocument(
+                (ArrayList<Document>) document.get("slayedMonsters"));
+        PlayerAge playerAge = PlayerAgeDocumentCreator.getPlayerAgeFromDocument((Document)document.get("playerAge"));
+        MongoCharacterClass characterClass = CharacterClassDocumentCreator.getCharacterClassFromDocument((Document)document.get("characterClass"));
+
+        return new MongoCharacter(document.getInteger("_id"), document.getString("characterName"), document.getInteger("attack"),
+                document.getInteger("lifepointAmount"), characterClass, boughtSkins, completedQuests, slayedMonsters, playerAge);
     }
 }

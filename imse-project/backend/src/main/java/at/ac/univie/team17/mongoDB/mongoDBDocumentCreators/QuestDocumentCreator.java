@@ -2,6 +2,7 @@ package at.ac.univie.team17.mongoDB.mongoDBDocumentCreators;
 
 import at.ac.univie.team17.mariaDB.mariaDBmodels.Quest;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.QuestReward;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoGoldOffer;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoQuest;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoQuestReward;
 import org.bson.Document;
@@ -31,5 +32,24 @@ public class QuestDocumentCreator
             questDocuments.add(createQuestDocument(completedQuests.get(i), mongoQuestRewardFromQuests.get(i)));
         }
         return questDocuments;
+    }
+
+    public static ArrayList<MongoQuest> getQuestsFromDocument(ArrayList<Document> documents)
+    {
+        ArrayList<MongoQuest> quests = new ArrayList<>();
+        for (Document document : documents)
+        {
+            quests.add(getQuestFromDocument(document));
+        }
+        return quests;
+    }
+
+    public static MongoQuest getQuestFromDocument(Document document)
+    {
+        MongoQuestReward mongoQuestReward = QuestRewardDocumentCreator.getQuestRewardFromDocument(
+                (Document) document.get("questReward"));
+
+        return new MongoQuest(document.getInteger("_id"), document.getString("questName"),
+                document.getString("clientName"), mongoQuestReward);
     }
 }

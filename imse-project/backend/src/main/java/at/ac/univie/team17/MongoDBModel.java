@@ -4,16 +4,23 @@ import at.ac.univie.team17.mongoDB.MongoDBCollectionDropper;
 
 public class MongoDBModel
 {
-    public MongoDBModel()
+    public static void initialize()
     {
-        MongoDBConnectionHandler.setupConnection();
+        clear();
 
-        MongoDBCollectionDropper.dropMongoDBCollections(MongoDBConnectionHandler.getDb());
+        MongoDBConnectionHandler.setupConnection();
 
         MariaDBConnectionHandler.setupConnection();
         DataMigrator.migrateData(MariaDBConnectionHandler.getStatement(), MongoDBConnectionHandler.getDb());
         MariaDBConnectionHandler.closeConnection();
 
+        MongoDBConnectionHandler.closeConnection();
+    }
+
+    public static void clear()
+    {
+        MongoDBConnectionHandler.setupConnection();
+        MongoDBCollectionDropper.dropMongoDBCollections(MongoDBConnectionHandler.getDb());
         MongoDBConnectionHandler.closeConnection();
     }
 }

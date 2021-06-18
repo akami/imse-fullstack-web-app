@@ -65,8 +65,7 @@ public class DataMigrator
             }
 
             // add to documents
-            playerDocuments.add(PlayerDocumentCreator.createPlayerDocument(player, mongoGoldOffers, mongoCharacterDocuments,
-                    boughtPetDocuments));
+            playerDocuments.add(PlayerDocumentCreator.createPlayerDocument(player, mongoGoldOffers, boughtPetDocuments, mongoCharacterDocuments));
         }
         db.getCollection(PlayerDocumentCreator.PLAYER_COLLECTION_NAME).insertMany(playerDocuments);
     }
