@@ -26,6 +26,20 @@ public class MongoPlayer
         this.mongoGoldOffers = mongoGoldOffers;
     }
 
+    @Override
+    public String toString()
+    {
+        return "MongoPlayer{" +
+                "playerId=" + playerId +
+                ", username='" + username + '\'' +
+                ", age=" + age +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", boughtPets=" + boughtPets +
+                ", createdCharacters=" + createdCharacters +
+                ", mongoGoldOffers=" + mongoGoldOffers +
+                '}';
+    }
+
     public int getPlayerId()
     {
         return playerId;

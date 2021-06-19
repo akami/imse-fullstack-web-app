@@ -1,6 +1,7 @@
 package at.ac.univie.team17.controller;
 
 import at.ac.univie.team17.mariaDB.mariaDBmodels.CharacterClass;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacterClass;
 import at.ac.univie.team17.service.CharacterClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +16,13 @@ public class CharacterClassController extends BackendController {
     @Autowired
     private CharacterClassService classService;
 
-    @GetMapping(value = "/class")
+    @GetMapping(value = "/maria/class")
     public List<CharacterClass> getCharacterClasses() {
         return classService.getCharacterClasses();
+    }
+
+    @GetMapping(value = "/mongo/class")
+    public List<MongoCharacterClass> getMongoCharacterClasses() {
+        return classService.getMongoCharacterClasses();
     }
 }

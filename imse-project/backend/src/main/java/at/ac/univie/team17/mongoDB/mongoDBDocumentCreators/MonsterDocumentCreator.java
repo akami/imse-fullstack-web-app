@@ -1,6 +1,7 @@
 package at.ac.univie.team17.mongoDB.mongoDBDocumentCreators;
 
 import at.ac.univie.team17.mariaDB.mariaDBmodels.*;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoAlliedMonsters;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoMonster;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoMonsterLoot;
 import org.bson.Document;
@@ -43,5 +44,10 @@ public class MonsterDocumentCreator
         return new MongoMonster(document.getInteger("_id"), document.getString("monsterName"), document.getInteger("attack"),
                 document.getInteger("lifepointAmount"), document.getInteger("challengeRating"), monsterLoot,
                 (ArrayList<Integer>) document.get("possibleAlliedMonsters"));
+    }
+
+    public static MongoAlliedMonsters getAlliedMonstersFromDocument(Document document)
+    {
+        return new MongoAlliedMonsters(document.getInteger("_id"), (ArrayList<Integer>) document.get("possibleAlliedMonsters"));
     }
 }

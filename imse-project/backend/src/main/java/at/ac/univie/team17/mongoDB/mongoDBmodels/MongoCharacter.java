@@ -29,6 +29,22 @@ public class MongoCharacter
         this.playerAge = playerAge;
     }
 
+    @Override
+    public String toString()
+    {
+        return "MongoCharacter{" +
+                "characterId=" + characterId +
+                ", characterName='" + characterName + '\'' +
+                ", attack=" + attack +
+                ", lifepointAmount=" + lifepointAmount +
+                ", characterClass=" + characterClass +
+                ", boughtSkins=" + boughtSkins +
+                ", completedQuests=" + completedQuests +
+                ", slayedMonsters=" + slayedMonsters +
+                ", playerAge=" + playerAge +
+                '}';
+    }
+
     public int getCharacterId()
     {
         return characterId;

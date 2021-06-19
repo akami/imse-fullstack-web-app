@@ -1,10 +1,22 @@
 package at.ac.univie.team17.service;
 
 import at.ac.univie.team17.MariaDBConnectionHandler;
+import at.ac.univie.team17.MongoDBConnectionHandler;
 import at.ac.univie.team17.mariaDB.MariaDBQueryExecuter;
 import at.ac.univie.team17.mariaDB.MariaDBResultReader;
 import at.ac.univie.team17.mariaDB.mariaDBQueries.CharacterQueries;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.GameCharacter;
+import at.ac.univie.team17.mongoDB.MongoDBExecuter;
+import at.ac.univie.team17.mongoDB.mongoDBDocumentCreators.CharacterDocumentCreator;
+import at.ac.univie.team17.mongoDB.mongoDBDocumentCreators.PlayerAgeDocumentCreator;
+import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoCharacterClassQueries;
+import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoCharacterQueries;
+import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoPlayerQueries;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacter;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacterClass;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoPlayer;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.PlayerAge;
+import org.bson.Document;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
@@ -37,6 +49,14 @@ public class GameCharacterService {
         return characters;
     }
 
+    public List<MongoCharacter> getMongoCharacters()
+    {
+        MongoDBConnectionHandler.setupConnection();
+        List<MongoCharacter> characters = MongoCharacterQueries.getMongoCharacters();
+        MongoDBConnectionHandler.closeConnection();
+        return characters;
+    }
+
     public List<GameCharacter> getGameCharactersById(int playerId) {
         String query = CharacterQueries.getSelectCharactersFromPlayerIdQuery(playerId);
 
@@ -48,5 +68,27 @@ public class GameCharacterService {
         MariaDBConnectionHandler.closeConnection();
 
         return characters;
+    }
+
+    public List<MongoCharacter> getMongoCharactersByPlayerId(Integer playerId)
+    {
+        List<MongoCharacter> mongoCharacters = MongoPlayerQueries.getMongoCharactersFromPlayer(playerId);
+        return mongoCharacters;
+    }
+
+    public void createMongoCharacter(GameCharacter gameCharacter, int age)
+    {
+        Document playerAgeDocument = PlayerAgeDocumentCreator.getPlayerAgeDocument(new PlayerAge(gameCharacter.getPlayerId(), age));
+        Document characterClassDocument = MongoCharacterClassQueries.getCharacterClassFromId(gameCharacter.getCharacterClassId());
+        Document mongoCharacter = CharacterDocumentCreator.createCharacterDocument(
+                CharacterDocumentCreator.getMongoCharacterFromCharacter(gameCharacter), new ArrayList<>(), new ArrayList<>(),
+                new ArrayList<>(), playerAgeDocument, characterClassDocument);
+
+        MongoDBConnectionHandler.setupConnection();
+        // insert into characters
+        MongoDBExecuter.insertDocument(MongoDBConnectionHandler.getDb(), mongoCharacter, CharacterDocumentCreator.CHARACTER_COLLECTION_NAME);
+        // insert into player's characters
+        MongoPlayerQueries.insertMongoCharacterInPlayer(mongoCharacter, gameCharacter.getPlayerId());
+        MongoDBConnectionHandler.closeConnection();
     }
 }

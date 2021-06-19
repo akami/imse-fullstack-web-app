@@ -38,4 +38,12 @@ public class PlayerDocumentCreator
         return new MongoPlayer(document.getInteger("_id"), document.getString("username"), document.getInteger("age"),
                 document.getString("emailAddress"), boughtPets, createdCharacters, goldOffers);
     }
+
+    public static MongoPlayer getMongoPlayerWithCharactersFromDocument(Document document)
+    {
+        ArrayList<MongoCharacter> createdCharacters = CharacterDocumentCreator.getCharactersFromDocuments(
+                (ArrayList<Document>)document.get("characters"));
+
+        return new MongoPlayer(0, "", 0,"", new ArrayList<>(), createdCharacters, new ArrayList<>());
+    }
 }

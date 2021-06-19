@@ -1,5 +1,6 @@
 package at.ac.univie.team17.mongoDB.mongoDBDocumentCreators;
 
+import at.ac.univie.team17.mariaDB.mariaDBmodels.GameCharacter;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.*;
 import org.bson.Document;
 
@@ -50,5 +51,11 @@ public class CharacterDocumentCreator
 
         return new MongoCharacter(document.getInteger("_id"), document.getString("characterName"), document.getInteger("attack"),
                 document.getInteger("lifepointAmount"), characterClass, boughtSkins, completedQuests, slayedMonsters, playerAge);
+    }
+
+    public static MongoCharacter getMongoCharacterFromCharacter(GameCharacter gameCharacter)
+    {
+        return new MongoCharacter(gameCharacter.getCharacterId(), gameCharacter.getCharacterName(), gameCharacter.getAttack(),
+                gameCharacter.getLifepointAmount(), null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), null);
     }
 }
