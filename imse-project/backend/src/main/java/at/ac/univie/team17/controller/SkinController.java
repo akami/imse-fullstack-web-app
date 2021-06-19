@@ -5,10 +5,7 @@ import at.ac.univie.team17.mongoDB.mongoDBmodels.CharacterClassMongoSkins;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoSkin;
 import at.ac.univie.team17.service.SkinService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,5 +35,28 @@ public class SkinController extends BackendController {
     public List<MongoSkin> getMongoSkinsFromClassId(@PathVariable Integer classId)
     {
         return skinService.getMongoSkinsFromClassId(classId);
+    }
+
+    @GetMapping("/maria/skin/character/{characterId}")
+    public List<Skin> getAvailableSkinsFromCharacterId(@PathVariable Integer characterId) {
+        return skinService.getAvailableSkinsFromCharacterId(characterId);
+    }
+
+    @GetMapping("/mongo/skin/character/{characterId}")
+    public List<MongoSkin> getAvailableMongoSkinsFromCharacterId(@PathVariable Integer characterId)
+    {
+        return skinService.getAvailableMongoSkinsFromCharacterId(characterId);
+    }
+
+    @PostMapping("/maria/skin/purchase/{characterId}/{skinId}")
+    public void addBoughtSkinToCharacter(@PathVariable Integer characterId, @PathVariable Integer skinId)
+    {
+        skinService.addSkinToCharacter(characterId, skinId);
+    }
+
+    @PutMapping("/mongo/skin/purchase/{characterId}")
+    public void addBoughtMongoSkinToMongoCharacter(@PathVariable Integer characterId, @RequestBody MongoSkin mongoSkin)
+    {
+        skinService.addMongoSkinToMongoCharacter(characterId, mongoSkin);
     }
 }

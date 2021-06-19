@@ -33,4 +33,17 @@ public class CharacterSkinQueries
     {
         return "DROP TABLE character_skin;";
     }
+
+    public static String getSelectAvailableCharacterSkinsToBuyQuery(Integer characterId)
+    {
+        return  "SELECT * FROM " +
+                "(SELECT skin_id AS skin_id, skin.character_class_id AS character_class_id, skin_name, gold_price FROM " +
+                "((SELECT character_class_id FROM player_character WHERE character_id = " + characterId + ") AS characters_class " +
+                "JOIN skin ON characters_class.character_class_id = skin.character_class_id)) AS all_class_skins " +
+                "EXCEPT " +
+                "SELECT * FROM " +
+                "(SELECT skin.skin_id AS skin_id, character_class_id AS character_class_id, skin_name, gold_price FROM " +
+                "((SELECT skin_id FROM character_skin WHERE character_id = " + characterId + ") AS character_bought_skin_ids " +
+                "JOIN skin ON character_bought_skin_ids.skin_id = skin.skin_id)) AS already_bought_character_skins;";
+    }
 }

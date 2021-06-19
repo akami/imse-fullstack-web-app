@@ -50,7 +50,7 @@ public class MariaDBDataInitializer
         insertSkinsInMariaDB(statement, skins);
 
         ArrayList<CharacterSkin> characterSkins = CharacterSkinDataGenerator.generateCharacterSkinsData(
-                5, gameCharacters.size(), skins.size());
+                20, gameCharacters, skins);
         insertCharacterSkinsInMariaDB(statement, characterSkins);
 
         ArrayList<CharacterQuest> characterQuests = CharacterQuestDataGenerator.generateCharacterQuestData(

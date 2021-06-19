@@ -1,14 +1,19 @@
 package at.ac.univie.team17.mongoDB.mongoDBQueries;
 
 import at.ac.univie.team17.MongoDBConnectionHandler;
+import at.ac.univie.team17.mongoDB.mongoDBDocumentCreators.CharacterClassDocumentCreator;
 import at.ac.univie.team17.mongoDB.mongoDBDocumentCreators.CharacterDocumentCreator;
+import at.ac.univie.team17.mongoDB.mongoDBDocumentCreators.SkinDocumentCreator;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.CharacterSlayedMonsters;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacter;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacterSkin;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoSkin;
 import com.mongodb.Block;
 import com.mongodb.client.model.Projections;
+import com.mongodb.client.model.Updates;
 import org.bson.Document;
 
+import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,5 +76,38 @@ public class MongoCharacterQueries
 
         MongoDBConnectionHandler.closeConnection();
         return mongoCharacterSkins;
+    }
+
+    public static List<MongoSkin> getAvailableMongoSkinsFromCharacterId(Integer characterId)
+    {
+        final List<MongoSkin>[] mongoCharacterSkins = new List[]{new ArrayList<>()};
+        final List<MongoSkin>[] allClassSkins =  new List[]{new ArrayList<>()};
+
+        MongoDBConnectionHandler.setupConnection();
+
+        MongoDBConnectionHandler.getDb().getCollection(CharacterDocumentCreator.CHARACTER_COLLECTION_NAME)
+                .find(eq("_id", characterId)).projection(Projections.include("characterClass", "boughtSkins")).
+                forEach((Block<Document>) document ->
+                {
+                    mongoCharacterSkins[0] = (SkinDocumentCreator.getSkinsFromDocument((ArrayList<Document>) document.get("boughtSkins")));
+                    allClassSkins[0] = CharacterClassDocumentCreator.getCharacterClassFromDocument(
+                            (Document) document.get("characterClass")).getSkins();
+                });
+
+        MongoDBConnectionHandler.closeConnection();
+
+        allClassSkins[0].removeAll(mongoCharacterSkins[0]);
+        return allClassSkins[0];
+    }
+
+    public static void addBoughtSkinToCharacter(Integer characterId, MongoSkin mongoSkin)
+    {
+        Document skinDoc = SkinDocumentCreator.createSkinDocument(mongoSkin);
+
+        MongoDBConnectionHandler.setupConnection();
+        MongoDBConnectionHandler.getDb().getCollection(CharacterDocumentCreator.CHARACTER_COLLECTION_NAME).updateOne(
+                eq("_id", characterId), Updates.push("Data", skinDoc));
+
+        MongoDBConnectionHandler.closeConnection();
     }
 }

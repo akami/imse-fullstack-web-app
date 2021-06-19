@@ -15,7 +15,7 @@ public class SkinQueries
         return "SELECT * FROM skin;";
     }
 
-    public static String getSelectSkinFromIdQuery(int id)
+    public static String getSelectSkinFromSkinIdQuery(int id)
     {
         return "SELECT * FROM skin WHERE skin_id = " + id + ";";
     }
