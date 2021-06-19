@@ -62,7 +62,7 @@ public class MongoQuest
         return clientName;
     }
 
-    public MongoQuestReward getQuestRewardId()
+    public MongoQuestReward getQuestReward()
     {
         return questReward;
     }

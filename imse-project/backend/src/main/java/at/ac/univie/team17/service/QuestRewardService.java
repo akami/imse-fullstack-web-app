@@ -3,10 +3,10 @@ package at.ac.univie.team17.service;
 import at.ac.univie.team17.MariaDBConnectionHandler;
 import at.ac.univie.team17.mariaDB.MariaDBQueryExecuter;
 import at.ac.univie.team17.mariaDB.MariaDBResultReader;
-import at.ac.univie.team17.mariaDB.mariaDBQueries.QuestQueries;
 import at.ac.univie.team17.mariaDB.mariaDBQueries.QuestRewardQueries;
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Quest;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.QuestReward;
+import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoQuestQueries;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoQuestRewardWithIds;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
@@ -26,5 +26,11 @@ public class QuestRewardService {
         MariaDBConnectionHandler.closeConnection();
 
         return questRewards;
+    }
+
+    public List<MongoQuestRewardWithIds> getMongoQuestRewards()
+    {
+        List<MongoQuestRewardWithIds> mongoQuestRewards = MongoQuestQueries.getMongoQuestRewardsWithIds();
+        return mongoQuestRewards;
     }
 }

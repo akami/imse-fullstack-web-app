@@ -5,6 +5,10 @@ import at.ac.univie.team17.mariaDB.MariaDBQueryExecuter;
 import at.ac.univie.team17.mariaDB.MariaDBResultReader;
 import at.ac.univie.team17.mariaDB.mariaDBQueries.MonsterQueries;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.Monster;
+import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoMonsterQueries;
+import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoPlayerQueries;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoGoldOffer;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoMonster;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
@@ -24,5 +28,11 @@ public class MonsterService {
         MariaDBConnectionHandler.closeConnection();
 
         return monsters;
+    }
+
+    public List<MongoMonster> getMongoMonsters()
+    {
+        List<MongoMonster> mongoMonsters = MongoMonsterQueries.getMongoMonsters();
+        return mongoMonsters;
     }
 }

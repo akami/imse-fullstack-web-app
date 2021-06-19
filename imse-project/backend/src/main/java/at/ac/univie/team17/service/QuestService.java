@@ -1,10 +1,15 @@
 package at.ac.univie.team17.service;
 
 import at.ac.univie.team17.MariaDBConnectionHandler;
+import at.ac.univie.team17.MongoDBConnectionHandler;
 import at.ac.univie.team17.mariaDB.MariaDBQueryExecuter;
 import at.ac.univie.team17.mariaDB.MariaDBResultReader;
 import at.ac.univie.team17.mariaDB.mariaDBQueries.QuestQueries;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.Quest;
+import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoPlayerQueries;
+import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoQuestQueries;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoPlayer;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoQuest;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
@@ -23,6 +28,12 @@ public class QuestService {
 
         MariaDBConnectionHandler.closeConnection();
 
+        return quests;
+    }
+
+    public List<MongoQuest> getMongoQuests()
+    {
+        List<MongoQuest> quests = MongoQuestQueries.getMongoQuests();
         return quests;
     }
 }

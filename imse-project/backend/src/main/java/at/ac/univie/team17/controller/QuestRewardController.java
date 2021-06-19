@@ -2,6 +2,7 @@ package at.ac.univie.team17.controller;
 
 import at.ac.univie.team17.mariaDB.mariaDBmodels.Quest;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.QuestReward;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoQuestRewardWithIds;
 import at.ac.univie.team17.service.QuestRewardService;
 import at.ac.univie.team17.service.QuestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,13 @@ public class QuestRewardController extends BackendController {
     @Autowired
     private QuestRewardService questRewardService;
 
-    @GetMapping("/quest-reward")
+    @GetMapping("/maria/quest-reward")
     public List<QuestReward> getQuestRewards() {
         return questRewardService.getQuestRewards();
+    }
+
+    @GetMapping("/mongo/quest-reward")
+    public List<MongoQuestRewardWithIds> getMongoQuestRewards() {
+        return questRewardService.getMongoQuestRewards();
     }
 }

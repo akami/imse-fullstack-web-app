@@ -15,8 +15,13 @@ public class PetController extends BackendController {
     @Autowired
     private PetService petService;
 
-    @GetMapping("/pet")
+    @GetMapping("/maria/pet")
     public List<Pet> getPets() {
         return petService.getPets();
+    }
+
+    @GetMapping("/mongo/pet")
+    public List<Pet> getMongoPets() {
+        return petService.getMongoPets();
     }
 }

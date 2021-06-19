@@ -5,6 +5,11 @@ import at.ac.univie.team17.mariaDB.MariaDBQueryExecuter;
 import at.ac.univie.team17.mariaDB.MariaDBResultReader;
 import at.ac.univie.team17.mariaDB.mariaDBQueries.SkinQueries;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.Skin;
+import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoCharacterClassQueries;
+import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoMonsterQueries;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.CharacterClassMongoSkins;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoMonster;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoSkin;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
@@ -37,5 +42,17 @@ public class SkinService {
         MariaDBConnectionHandler.closeConnection();
 
         return skins;
+    }
+
+    public List<CharacterClassMongoSkins> getAllMongoSkins()
+    {
+        List<CharacterClassMongoSkins> mongoSkins = MongoCharacterClassQueries.getAllMongoSkins();
+        return mongoSkins;
+    }
+
+    public List<MongoSkin> getMongoSkinsFromClassId(Integer classId)
+    {
+        List<MongoSkin> mongoSkins = MongoCharacterClassQueries.getMongoSkinsFromClassId(classId);
+        return mongoSkins;
     }
 }

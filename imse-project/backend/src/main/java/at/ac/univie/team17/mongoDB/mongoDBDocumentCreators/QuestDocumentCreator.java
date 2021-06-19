@@ -52,4 +52,12 @@ public class QuestDocumentCreator
         return new MongoQuest(document.getInteger("_id"), document.getString("questName"),
                 document.getString("clientName"), mongoQuestReward);
     }
+
+    public static MongoQuest getMongoQuestWithQuestRewardFromDocument(Document document)
+    {
+        MongoQuestReward mongoQuestReward = QuestRewardDocumentCreator.getQuestRewardFromDocument(
+                (Document) document.get("questReward"));
+
+        return new MongoQuest(document.getInteger("_id"), "", "", mongoQuestReward);
+    }
 }

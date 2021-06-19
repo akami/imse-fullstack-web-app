@@ -6,6 +6,7 @@ import org.bson.Document;
 
 import javax.print.Doc;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CharacterDocumentCreator
 {
@@ -57,5 +58,19 @@ public class CharacterDocumentCreator
     {
         return new MongoCharacter(gameCharacter.getCharacterId(), gameCharacter.getCharacterName(), gameCharacter.getAttack(),
                 gameCharacter.getLifepointAmount(), null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), null);
+    }
+
+    public static CharacterSlayedMonsters getCharacterSlayedMonstersFromDocument(Document document)
+    {
+        ArrayList<SlayedMonsters> slayedMonsters = SlayedMonsterDocumentCreator.getSlayedMonstersFromDocument(
+                (ArrayList<Document>) document.get("slayedMonsters"));
+        return new CharacterSlayedMonsters(document.getInteger("_id"), slayedMonsters);
+    }
+
+    public static MongoCharacterSkin getCharacterSkinsFromDocument(Document document)
+    {
+        ArrayList<MongoSkin> boughtSkins = SkinDocumentCreator.getSkinsFromDocument(
+                (ArrayList<Document>) document.get("boughtSkins"));
+        return new MongoCharacterSkin(document.getInteger("_id"), boughtSkins);
     }
 }

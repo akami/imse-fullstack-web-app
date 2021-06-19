@@ -1,16 +1,14 @@
 package at.ac.univie.team17.mongoDB.mongoDBmodels;
 
-public class SlayedMonsters
+public class MongoMonsterLootWithIds
 {
     private int monsterId;
     private MongoMonsterLoot monsterLoot;
-    private int slayAmount;
 
-    public SlayedMonsters(int monsterId, MongoMonsterLoot monsterLoot, int slayAmount)
+    public MongoMonsterLootWithIds(int monsterId, MongoMonsterLoot monsterLoot)
     {
         this.monsterId = monsterId;
         this.monsterLoot = monsterLoot;
-        this.slayAmount = slayAmount;
     }
 
     public int getMonsterId()
@@ -21,10 +19,5 @@ public class SlayedMonsters
     public MongoMonsterLoot getMonsterLoot()
     {
         return monsterLoot;
-    }
-
-    public int getSlayAmount()
-    {
-        return slayAmount;
     }
 }

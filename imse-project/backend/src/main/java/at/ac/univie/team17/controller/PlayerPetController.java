@@ -1,6 +1,7 @@
 package at.ac.univie.team17.controller;
 
 import at.ac.univie.team17.mariaDB.mariaDBmodels.PlayerPet;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoPlayerPet;
 import at.ac.univie.team17.service.PetService;
 import at.ac.univie.team17.service.PlayerPetService;
 import at.ac.univie.team17.sharedDataModels.Pet;
@@ -17,8 +18,14 @@ public class PlayerPetController extends BackendController {
     @Autowired
     private PlayerPetService playerPetService;
 
-    @GetMapping("/player-pet")
+    @GetMapping("/maria/player-pet")
     public List<PlayerPet> getPlayerPets() {
         return playerPetService.getPlayerPets();
+    }
+
+    @GetMapping("/mongo/player-pet")
+    public List<MongoPlayerPet> getMongoPlayerPets()
+    {
+        return playerPetService.getMongoPlayerPets();
     }
 }

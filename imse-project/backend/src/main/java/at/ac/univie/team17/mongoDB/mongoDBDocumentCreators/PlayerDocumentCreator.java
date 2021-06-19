@@ -46,4 +46,19 @@ public class PlayerDocumentCreator
 
         return new MongoPlayer(0, "", 0,"", new ArrayList<>(), createdCharacters, new ArrayList<>());
     }
+
+    public static MongoPlayer getMongoPlayerWithGoldOffersFromDocument(Document document)
+    {
+        ArrayList<MongoGoldOffer> goldOffers = GoldOfferDocumentCreator.getGoldOffersFromDocument(
+                (ArrayList<Document>)document.get("goldOffers"));
+
+        return new MongoPlayer(0, "", 0,"", new ArrayList<>(), new ArrayList<>(), goldOffers);
+    }
+
+    public static MongoPlayer getMongoPlayerWithPetsFromDocument(Document document)
+    {
+        ArrayList<Pet> pets = PetDocumentCreator.getPetsFromDocuments((ArrayList<Document>)document.get("boughtPets"));
+
+        return new MongoPlayer(0, "", 0,"", pets, new ArrayList<>(), new ArrayList<>());
+    }
 }

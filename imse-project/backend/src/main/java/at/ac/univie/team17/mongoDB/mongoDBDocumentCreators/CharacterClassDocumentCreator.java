@@ -6,6 +6,7 @@ import at.ac.univie.team17.mongoDB.mongoDBmodels.*;
 import org.bson.Document;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CharacterClassDocumentCreator
 {
@@ -49,5 +50,17 @@ public class CharacterClassDocumentCreator
 
         return new MongoCharacterClass(documents.getInteger("_id"), documents.getInteger("bonusAttack"),
                 documents.getInteger("bonusLifepoints"), documents.getString("className"), skins);
+    }
+
+    public static MongoCharacterClass getCharacterClassWithSkinsFromDocument(Document documents)
+    {
+        ArrayList<MongoSkin> skins = SkinDocumentCreator.getSkinsFromDocument((ArrayList<Document>)documents.get("skins"));
+
+        return new MongoCharacterClass(documents.getInteger("_id"), 0, 0, "", skins);
+    }
+
+    public static List<MongoSkin> getSkinsFromCharacterClassFromDocument(Document documents)
+    {
+        return SkinDocumentCreator.getSkinsFromDocument((ArrayList<Document>)documents.get("skins"));
     }
 }
