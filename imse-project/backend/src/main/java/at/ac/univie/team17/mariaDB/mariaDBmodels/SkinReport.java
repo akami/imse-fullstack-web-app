@@ -2,21 +2,21 @@ package at.ac.univie.team17.mariaDB.mariaDBmodels;
 
 public class SkinReport
 {
-    private int chracterClassId;
+    private int characterClassId;
     private int skinId;
     private String skinName;
     private int boughtAmount;
 
-    public SkinReport(int chracterClassId, int skinId, String skinName, int boughtAmount)
+    public SkinReport(int characterClassId, int skinId, String skinName, int boughtAmount)
     {
-        this.chracterClassId = chracterClassId;
+        this.characterClassId = characterClassId;
         this.skinId = skinId;
         this.skinName = skinName;
         this.boughtAmount = boughtAmount;
     }
 
-    public int getChracterClassId() {
-        return chracterClassId;
+    public int getCharacterClassId() {
+        return characterClassId;
     }
 
     public int getSkinId() {
@@ -34,7 +34,7 @@ public class SkinReport
     @Override
     public String toString() {
         return "SkinReport{" +
-                "chracterClassId=" + chracterClassId +
+                "chracterClassId=" + characterClassId +
                 ", skinId=" + skinId +
                 ", skinName='" + skinName + '\'' +
                 ", boughtAmount=" + boughtAmount +

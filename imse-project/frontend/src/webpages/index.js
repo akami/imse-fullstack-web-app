@@ -13,6 +13,7 @@ import QuestContext from "../webpages/home/questContext";
 import CharacterSkins from "./home/characterSkins";
 
 import Admin from "./admin/admin";
+import AdminReports from "./admin/adminreports";
 
 const Root = () => {
     return (
@@ -20,6 +21,7 @@ const Root = () => {
             <Route exact path="/" component={Login}/>
             <Route exact path="/signup" component={SignUp}/>
             <Route exact path="/admin" component={Admin}/>
+            <Route exact path="/admin/reports" component={AdminReports}/>
             <Route exact path="/home/" component={TopTabBar}/>
             <Route exact path="/create" component={CharacterCreation}/>
             <Route exact path="/quests" component={Quests}/>
