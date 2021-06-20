@@ -9,6 +9,11 @@ public class CharacterMonsterQueries
         return "INSERT INTO character_monster (character_id, monster_id, slay_amount) VALUES ('" + characterMonster.getCharacterId() + "', '" +
                 characterMonster.getMonsterId() + "', '" + characterMonster.getSlayAmount() + "');";
     }
+    public static String getUpdateCharacterMonsterQuery(int characterId, int monsterId)
+    {
+        return "UPDATE character_monster SET slay_amount = slay_amount + 1 WHERE character_id = " + characterId +
+                " AND monster_id = " + monsterId + ";";
+    }
 
     public static String getSelectAllCharacterMonstersQuery()
     {

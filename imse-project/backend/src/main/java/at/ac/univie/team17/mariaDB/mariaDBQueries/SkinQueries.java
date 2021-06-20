@@ -36,4 +36,15 @@ public class SkinQueries
     {
         return "SELECT * FROM skin WHERE character_class_id = " + classId + ";";
     }
+
+    public static String getSkinReportQuery()
+    {
+        return "SELECT skin.character_class_id, skin.skin_id, skin_name, COUNT(*) AS bought_amount FROM " +
+                "((SELECT player_id FROM player WHERE age < 31 AND age > 17) AS audience_players " +
+                "JOIN player_character ON player_character.player_id = audience_players.player_id " +
+                "JOIN character_skin ON player_character.character_id = character_skin.character_id " +
+                "JOIN skin ON character_skin.skin_id = skin.skin_id " +
+                ") " +
+                "GROUP BY skin.character_class_id, skin.skin_id;";
+    }
 }

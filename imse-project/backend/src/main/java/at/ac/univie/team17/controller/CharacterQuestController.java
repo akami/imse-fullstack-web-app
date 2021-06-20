@@ -15,7 +15,6 @@ public class CharacterQuestController extends BackendController {
     @Autowired
     private CharacterQuestService characterQuestService;
 
-    // TODO @kh
     @GetMapping("/character-quest")
     public List<Quest> getCharacterQuests() {
         return characterQuestService.getCharacterQuests();

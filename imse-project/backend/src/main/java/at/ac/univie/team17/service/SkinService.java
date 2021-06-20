@@ -7,10 +7,12 @@ import at.ac.univie.team17.mariaDB.mariaDBQueries.CharacterSkinQueries;
 import at.ac.univie.team17.mariaDB.mariaDBQueries.SkinQueries;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.CharacterSkin;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.Skin;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.SkinReport;
 import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoCharacterClassQueries;
 import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoCharacterQueries;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.CharacterClassMongoSkins;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoSkin;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoSkinReport;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
@@ -89,5 +91,25 @@ public class SkinService {
     public void addMongoSkinToMongoCharacter(Integer characterId, MongoSkin mongoSkin)
     {
         MongoCharacterQueries.addBoughtSkinToCharacter(characterId, mongoSkin);
+    }
+
+    public List<SkinReport> getSkinReport()
+    {
+        String query = SkinQueries.getSkinReportQuery();
+
+        MariaDBConnectionHandler.setupConnection();
+
+        ResultSet result = MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
+        ArrayList<SkinReport> skinReports = MariaDBResultReader.getSkinReportsFromResultSet(result);
+
+        MariaDBConnectionHandler.closeConnection();
+
+        return skinReports;
+    }
+
+    public List<MongoSkinReport> getMongoSkinReport()
+    {
+        List<MongoSkinReport> mongoSkinReports = MongoCharacterQueries.getMongoSkinReports();
+        return mongoSkinReports;
     }
 }

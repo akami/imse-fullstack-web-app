@@ -238,7 +238,6 @@ public class MariaDBResultReader
         return skins;
     }
 
-    // TODO @stif check if okay
     public static ArrayList<CharacterSkin> getCharacterSkinsFromResultSet(ResultSet rs)
     {
         ArrayList<CharacterSkin> characterSkins = new ArrayList<>();
@@ -340,5 +339,37 @@ public class MariaDBResultReader
             throwables.printStackTrace();
         }
         return slayedMonsters;
+    }
+
+    public static Integer getPlayerGoldAmountFromResultSet(ResultSet rs)
+    {
+        try
+        {
+            while (rs.next())
+            {
+                return(rs.getInt("total_gold"));
+            }
+        } catch (Exception throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ArrayList<SkinReport> getSkinReportsFromResultSet(ResultSet rs)
+    {
+        ArrayList<SkinReport> skinReports = new ArrayList<>();
+        try
+        {
+            while (rs.next())
+            {
+                skinReports.add(new SkinReport(rs.getInt("character_class_id"), rs.getInt("skin_id"),
+                       rs.getString("skin_name"), rs.getInt("bought_amount")));
+            }
+        } catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return skinReports;
     }
 }

@@ -50,4 +50,14 @@ public class PlayerController extends BackendController {
         playerService.createMongoPlayer(player);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @GetMapping("/maria/player/gold/{playerId}")
+    public Integer getGoldAmountOfPlayer(@PathVariable("playerId") Integer playerId) {
+        return playerService.getGoldAmountOfPlayer(playerId);
+    }
+
+    @GetMapping("/mongo/player/gold/{playerId}")
+    public Integer getGoldAmountOfMongoPlayer(@PathVariable("playerId") Integer playerId) {
+        return playerService.getGoldAmountOfMongoPlayer(playerId);
+    }
 }

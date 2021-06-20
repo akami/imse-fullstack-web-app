@@ -14,7 +14,6 @@ import java.util.List;
 @Component
 public class CharacterQuestService {
 
-    // TODO @kh
     public List<Quest> getCharacterQuests() {
         String query = CharacterQuestQueries.getSelectAllCharacterQuestsQuery();
 

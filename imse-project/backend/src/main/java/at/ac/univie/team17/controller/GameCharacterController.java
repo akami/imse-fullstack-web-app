@@ -37,13 +37,13 @@ public class GameCharacterController extends BackendController {
         return gameCharacterService.getMongoCharactersByPlayerId(playerId);
     }
 
-    @PostMapping("/maria/character")
+    @PostMapping("/maria/character/create")
     public ResponseEntity createGameCharacter(@RequestBody GameCharacter gameCharacter) {
         gameCharacterService.createGameCharacter(gameCharacter);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PostMapping("/mongo/character")
+    @PostMapping("/mongo/character/create")
     public ResponseEntity createMongoCharacter(@RequestBody GameCharacter gameCharacter, @RequestBody Integer age)
     {
         gameCharacterService.createMongoCharacter(gameCharacter, age);

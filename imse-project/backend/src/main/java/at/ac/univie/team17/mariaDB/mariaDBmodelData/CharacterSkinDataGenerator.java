@@ -19,7 +19,7 @@ public class CharacterSkinDataGenerator
         {
             CharacterSkin characterSkin = new CharacterSkin(random.nextInt(characters.size()) + 1, random.nextInt(skins.size()));
             if (!characterSkins.contains(characterSkin) &&
-                    skins.get(characterSkin.getSkinId()).getClassId() == characters.get(characterSkin.getCharacterId()).getCharacterClassId())
+                    skins.get(characterSkin.getSkinId()).getClassId() == characters.get(characterSkin.getCharacterId() - 1).getCharacterClassId())
             {
                 characterSkins.add(characterSkin);
             }
