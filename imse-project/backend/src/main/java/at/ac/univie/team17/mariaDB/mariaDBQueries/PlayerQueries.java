@@ -34,7 +34,19 @@ public class PlayerQueries
     {
         return "SELECT 200 + monster_loot_gold + quest_reward_gold + gold_offer_gold - bought_pets_gold - bought_skins_gold " +
                 "AS player_gold_amount FROM " +
-                "(SELECT " +
+                "(" + // start bought pets
+                "(SELECT SUM(gold_price) AS bought_pets_gold FROM " +
+                "((SELECT pet_id FROM player_pet WHERE player_id = " + playerId + ") AS players_pets" +
+                "JOIN pet ON pet.pet_id = players_pets.pet_id)) AS players_pets_gold " +
+                "JOIN " + // end bought pets; start gold offers
+                "(SELECT SUM(gold_amount) AS gold_offer_gold FROM " +
+                "gold_offer WHERE player_id = " + playerId + ") AS players_gold_offers_gold " +
+                "JOIN " + // end gold offers;
+                "" +
+                "" +
+                "" +
+                "" +
+                "" +
                 ") AS gold_table;";
     }
 }
