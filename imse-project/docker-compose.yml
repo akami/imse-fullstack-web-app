@@ -27,7 +27,6 @@ services:
   mongodb:
     image: "mongo:latest"
     container_name: mongodb
-    network_mode: host
     restart: always
     volumes:
       - mongo_db:/data/db
@@ -41,7 +40,6 @@ services:
   mariadb:
       image: "mariadb:10.6"
       container_name: mariadb
-      network_mode: host
       restart: always
       volumes:
         - maria_db:/var/lib/mysql
