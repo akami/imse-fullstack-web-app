@@ -2,20 +2,20 @@ package at.ac.univie.team17.mariaDB.mariaDBmodels;
 
 public class CharacterClassReport
 {
-    private int chracterClassId;
+    private int characterClassId;
     private String characterClassName;
     private int characterAmount;
 
-    public CharacterClassReport(int chracterClassId, String characterClassName, int characterAmount)
+    public CharacterClassReport(int characterClassId, String characterClassName, int characterAmount)
     {
-        this.chracterClassId = chracterClassId;
+        this.characterClassId = characterClassId;
         this.characterClassName = characterClassName;
         this.characterAmount = characterAmount;
     }
 
-    public int getChracterClassId()
+    public int getCharacterClassId()
     {
-        return chracterClassId;
+        return characterClassId;
     }
 
     public String getCharacterClassName()

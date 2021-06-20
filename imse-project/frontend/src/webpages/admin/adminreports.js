@@ -32,10 +32,25 @@ const AdminReports = () => {
                 </Row>
 
                 <Tabs activeKey={selectedTab} id="database" onSelect={(key) => setSelectedTab(key)}>
-                    <Tab eventKey="popular-skins" title="Popular Skins" id="popular-skins">
+                    <Tab eventKey="popular-skins-maria" title="Popular Skins MariaDb" id="popular-skins-maria">
                         <ResultList url={'/api/maria/skin/report'}
                                     headers={['Class ID', 'Skin ID', 'Skin Name', 'Amount Bought']}
                                     fieldNames={['characterClassId', 'skinId', 'skinName', 'boughtAmount']}/>
+                    </Tab>
+                    <Tab eventKey="popular-skins-mongo" title="Popular Skins MongoDb" id="popular-skins-mongo">
+                        <ResultList url={'/api/mongo/skin/report'}
+                                    headers={['Skin ID', 'Amount Bought']}
+                                    fieldNames={['skinId', 'boughtAmount']}/>
+                    </Tab>
+                    <Tab eventKey="popular-classes-maria" title="Popular Classes MariaDb" id="popular-classes-maria">
+                        <ResultList url={'/api/maria/class/report'}
+                                    headers={['Class ID', 'Class Name', 'Amount Created']}
+                                    fieldNames={['characterClassId', 'characterClassName', 'characterAmount']}/>
+                    </Tab>
+                    <Tab eventKey="popular-classes-mongo" title="Popular Classes MongoDb" id="popular-classes-mongo">
+                        <ResultList url={'/api/mongo/class/report'}
+                                    headers={['Class ID', 'Amount Created']}
+                                    fieldNames={['classId', 'counter']}/>
                     </Tab>
                 </Tabs>
             </Container>
