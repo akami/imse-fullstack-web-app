@@ -4,7 +4,7 @@ WORKDIR /usr/src/
 
 ENV PATH /usr/src/node_modules/.bin:$PATH
 
-COPY . .
+COPY ./frontend/ .
 
 RUN npm install
 
