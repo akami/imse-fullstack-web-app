@@ -44,4 +44,9 @@ public class SlayedMonsters
     {
         return slayAmount;
     }
+
+    public void increaseSlayAmount()
+    {
+        ++slayAmount;
+    }
 }

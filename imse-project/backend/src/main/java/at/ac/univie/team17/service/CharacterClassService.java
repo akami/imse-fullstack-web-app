@@ -5,7 +5,10 @@ import at.ac.univie.team17.MongoDBConnectionHandler;
 import at.ac.univie.team17.mariaDB.MariaDBQueryExecuter;
 import at.ac.univie.team17.mariaDB.MariaDBResultReader;
 import at.ac.univie.team17.mariaDB.mariaDBQueries.CharacterClassQueries;
+import at.ac.univie.team17.mariaDB.mariaDBQueries.SkinQueries;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.CharacterClass;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.CharacterClassReport;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.SkinReport;
 import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoCharacterClassQueries;
 import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoCharacterQueries;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacter;
@@ -37,5 +40,19 @@ public class CharacterClassService {
         List<MongoCharacterClass> classes = MongoCharacterClassQueries.getCharacterClasses();
         MongoDBConnectionHandler.closeConnection();
         return classes;
+    }
+
+    public List<CharacterClassReport> getCharacterClassReport()
+    {
+        String query = CharacterClassQueries.getClassReportQuery();
+
+        MariaDBConnectionHandler.setupConnection();
+
+        ResultSet result = MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
+        ArrayList<CharacterClassReport> classReports = MariaDBResultReader.getCharacterClassReportsFromResultSet(result);
+
+        MariaDBConnectionHandler.closeConnection();
+
+        return classReports;
     }
 }

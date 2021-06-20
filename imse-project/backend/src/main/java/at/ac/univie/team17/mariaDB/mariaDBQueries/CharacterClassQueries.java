@@ -31,4 +31,15 @@ public class CharacterClassQueries
     {
         return "DROP TABLE character_class;";
     }
+
+    public static String getClassReportQuery()
+    {
+        return "SELECT class.character_class_id, character_class_name, COUNT(*) AS chosen_amount FROM " +
+                "((SELECT player_id FROM player WHERE age < 31 AND age > 17) AS audience_players " +
+                "JOIN player_character ON player_character.player_id = audience_players.player_id " +
+                "JOIN character_class ON player_character.character_class_id = character_class.character_class_id " +
+                ") " +
+                "GROUP BY class.character_class_id " +
+                "ORDER BY chosen_amount;";
+    }
 }

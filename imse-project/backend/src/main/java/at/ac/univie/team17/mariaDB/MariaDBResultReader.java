@@ -372,4 +372,21 @@ public class MariaDBResultReader
         }
         return skinReports;
     }
+
+    public static ArrayList<CharacterClassReport> getCharacterClassReportsFromResultSet(ResultSet rs)
+    {
+        ArrayList<CharacterClassReport> classReports = new ArrayList<>();
+        try
+        {
+            while (rs.next())
+            {
+                classReports.add(new CharacterClassReport(rs.getInt("character_class_id"),
+                        rs.getString("character_class_name"), rs.getInt("chosen_amount")));
+            }
+        } catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return classReports;
+    }
 }

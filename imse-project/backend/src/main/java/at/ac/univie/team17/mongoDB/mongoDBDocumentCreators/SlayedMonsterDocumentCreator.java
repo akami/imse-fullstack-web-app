@@ -20,7 +20,7 @@ public class SlayedMonsterDocumentCreator
         return slayedMonsterDocuments;
     }
 
-    private static Document createSlayedMonsterDocument(SlayedMonsters slayedMonster)
+    public static Document createSlayedMonsterDocument(SlayedMonsters slayedMonster)
     {
         Document slayerMonsterDocument = new Document();
         slayerMonsterDocument.append("_id", slayedMonster.getMonsterId());

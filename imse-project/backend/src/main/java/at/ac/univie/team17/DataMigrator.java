@@ -52,20 +52,15 @@ public class DataMigrator
             ResultSet rsCharacters = MariaDBQueryExecuter.executeReturnQuery(
                     statement, CharacterQueries.getSelectCharacterFromPlayerIdQuery(player.getPlayerId()));
             ArrayList<GameCharacter> createdCharacters = MariaDBResultReader.getGameCharactersFromResultSet(rsCharacters);
-            ArrayList<Document> mongoCharacterDocuments = new ArrayList<>();
+            ArrayList<Integer> mongoCharacterIds = new ArrayList<>();
 
             for (GameCharacter gameCharacter : createdCharacters)
             {
-                ResultSet rsCompletedQuests = MariaDBQueryExecuter.executeReturnQuery(
-                        statement, CharacterQuestQueries.getSelectCompletedQuestsFromCharacterIdQuery(gameCharacter.getCharacterId()));
-                ArrayList<Quest> completedQuests = MariaDBResultReader.getQuestsFromResultSet(rsCompletedQuests);
-
-                MongoCharacter mongoCharacter = getMongoCharacterFromGameCharacter(gameCharacter, statement);
-                mongoCharacterDocuments.add(getMongoCharacterDocument(mongoCharacter, statement, completedQuests));
+                mongoCharacterIds.add(gameCharacter.getCharacterId());
             }
 
             // add to documents
-            playerDocuments.add(PlayerDocumentCreator.createPlayerDocument(player, mongoGoldOffers, boughtPetDocuments, mongoCharacterDocuments));
+            playerDocuments.add(PlayerDocumentCreator.createPlayerDocument(player, mongoGoldOffers, boughtPetDocuments, mongoCharacterIds));
         }
         db.getCollection(PlayerDocumentCreator.PLAYER_COLLECTION_NAME).insertMany(playerDocuments);
     }

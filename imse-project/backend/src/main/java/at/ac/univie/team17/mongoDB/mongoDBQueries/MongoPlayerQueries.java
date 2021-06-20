@@ -34,11 +34,11 @@ public class MongoPlayerQueries
         return mongoPlayers;
     }
 
-    public static List<MongoCharacter> getMongoCharactersFromPlayer(Integer playerId)
+    public static List<Integer> getMongoCharacterIdsFromPlayer(Integer playerId)
     {
         MongoDBConnectionHandler.setupConnection();
 
-        final List<MongoCharacter>[] mongoCharacters = new List[]{new ArrayList<>()};
+        final List<Integer>[] mongoCharacters = new List[]{new ArrayList<>()};
 
         MongoDBConnectionHandler.getDb().getCollection(PlayerDocumentCreator.PLAYER_COLLECTION_NAME)
                 .find(eq("_id", playerId)).projection(Projections.include("characters")).forEach((Block<Document>) document ->

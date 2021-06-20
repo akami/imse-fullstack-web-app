@@ -34,11 +34,10 @@ public class CharacterMonsterController extends BackendController {
         characterMonsterService.addSlayedMonsterToGameCharacter(characterId, monsterId);
     }
 
-    @PostMapping("/mongo/character-monster/{playerId}/{characterId}")
-    public void addSlayedMonsterToMongoCharacter(@PathVariable("playerId") Integer playerId,
-                                                 @PathVariable("characterId") Integer characterId,
+    @PostMapping("/mongo/character-monster/{characterId}")
+    public void addSlayedMonsterToMongoCharacter(@PathVariable("characterId") Integer characterId,
                                                  @RequestBody MongoMonster monsterId)
     {
-        characterMonsterService.addSlayedMonsterToMongoCharacter(playerId, characterId, monsterId);
+        characterMonsterService.addSlayedMonsterToMongoCharacter(characterId, monsterId);
     }
 }

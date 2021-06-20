@@ -62,13 +62,21 @@ public class CharacterMonsterService {
         MariaDBConnectionHandler.closeConnection();
     }
 
-    public void addSlayedMonsterToMongoCharacter(Integer playerId, Integer characterId, MongoMonster mongoMonster)
+    public void addSlayedMonsterToMongoCharacter(Integer characterId, MongoMonster mongoMonster)
     {
         List<SlayedMonsters> characterSlayedMonsters = MongoCharacterQueries.getCharacterSlayedMonstersFromCharacter(characterId);
-        if (characterSlayedMonsters.contains(new SlayedMonsters(mongoMonster.getMonsterId(), null, 0)))
+
+        boolean exists = false;
+        for (SlayedMonsters slayedMonsters : characterSlayedMonsters)
         {
-            // TODO
-        } else
+            if (slayedMonsters.getMonsterId() == mongoMonster.getMonsterId())
+            {
+                exists = true;
+                slayedMonsters.increaseSlayAmount();
+                MongoCharacterQueries.updateSlayedMonster(characterId, slayedMonsters);
+            }
+        }
+        if (!exists)
         {
             MongoCharacterQueries.addSlayedMonster(characterId, mongoMonster);
         }

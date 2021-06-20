@@ -72,7 +72,12 @@ public class GameCharacterService {
 
     public List<MongoCharacter> getMongoCharactersByPlayerId(Integer playerId)
     {
-        List<MongoCharacter> mongoCharacters = MongoPlayerQueries.getMongoCharactersFromPlayer(playerId);
+        List<MongoCharacter> mongoCharacters = new ArrayList<>();
+        List<Integer> mongoCharacterIds = MongoPlayerQueries.getMongoCharacterIdsFromPlayer(playerId);
+        for (Integer id : mongoCharacterIds)
+        {
+            mongoCharacters.add(MongoCharacterQueries.getMongoCharacterFromId(id));
+        }
         return mongoCharacters;
     }
 

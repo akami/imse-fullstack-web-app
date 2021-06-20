@@ -1,5 +1,6 @@
 package at.ac.univie.team17.mongoDB.mongoDBmodels;
 
+import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoCharacterQueries;
 import at.ac.univie.team17.sharedDataModels.Pet;
 
 import java.util.ArrayList;
@@ -11,11 +12,11 @@ public class MongoPlayer
     private int age;
     private String emailAddress;
     private ArrayList<Pet> boughtPets;
-    private ArrayList<MongoCharacter> createdCharacters;
+    private ArrayList<Integer> createdCharacters;
     private ArrayList<MongoGoldOffer> mongoGoldOffers;
 
     public MongoPlayer(int playerId, String username, int age, String emailAddress, ArrayList<Pet> boughtPets,
-                       ArrayList<MongoCharacter> createdCharacters, ArrayList<MongoGoldOffer> mongoGoldOffers)
+                       ArrayList<Integer> createdCharacters, ArrayList<MongoGoldOffer> mongoGoldOffers)
     {
         this.playerId = playerId;
         this.username = username;
@@ -60,7 +61,7 @@ public class MongoPlayer
         return boughtPets;
     }
 
-    public ArrayList<MongoCharacter> getCreatedCharacters()
+    public ArrayList<Integer> getCreatedCharacters()
     {
         return createdCharacters;
     }
@@ -87,8 +88,9 @@ public class MongoPlayer
         {
             petGold += pet.getGoldPrice();
         }
-        for (MongoCharacter mongoCharacter : createdCharacters)
+        for (Integer mongoCharacterid : createdCharacters)
         {
+            MongoCharacter mongoCharacter = MongoCharacterQueries.getMongoCharacterFromId(mongoCharacterid);
             for (MongoSkin skin : mongoCharacter.getBoughtSkins())
             {
                 skinGold += skin.getGoldPrice();

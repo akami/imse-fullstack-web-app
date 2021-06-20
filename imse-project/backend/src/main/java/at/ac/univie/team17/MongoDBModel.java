@@ -1,6 +1,8 @@
 package at.ac.univie.team17;
 
 import at.ac.univie.team17.mongoDB.MongoDBCollectionDropper;
+import at.ac.univie.team17.mongoDB.MongoIndexCreator;
+import at.ac.univie.team17.mongoDB.MongoIndexDropper;
 
 public class MongoDBModel
 {
@@ -14,7 +16,7 @@ public class MongoDBModel
         DataMigrator.migrateData(MariaDBConnectionHandler.getStatement(), MongoDBConnectionHandler.getDb());
         MariaDBConnectionHandler.closeConnection();
 
-        // TODO create indices
+        MongoIndexCreator.createIndices();
 
         MongoDBConnectionHandler.closeConnection();
     }
@@ -22,6 +24,7 @@ public class MongoDBModel
     public static void clear()
     {
         MongoDBConnectionHandler.setupConnection();
+        MongoIndexDropper.dropIndices();
         MongoDBCollectionDropper.dropMongoDBCollections(MongoDBConnectionHandler.getDb());
         MongoDBConnectionHandler.closeConnection();
     }

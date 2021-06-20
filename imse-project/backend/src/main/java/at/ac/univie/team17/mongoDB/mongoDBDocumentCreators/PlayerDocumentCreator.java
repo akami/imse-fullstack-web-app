@@ -14,7 +14,7 @@ public class PlayerDocumentCreator
     public static final String PLAYER_COLLECTION_NAME = "player";
 
     public static Document createPlayerDocument(Player player, ArrayList<MongoGoldOffer> goldOffers, ArrayList<Document> boughtPets,
-                                                ArrayList<Document> characters)
+                                                ArrayList<Integer> characters)
     {
         Document playerDocument = new Document();
         playerDocument.append("_id", player.getPlayerId());
@@ -32,8 +32,7 @@ public class PlayerDocumentCreator
         ArrayList<MongoGoldOffer> goldOffers = GoldOfferDocumentCreator.getGoldOffersFromDocument(
                 (ArrayList<Document>) document.get("goldOffers"));
         ArrayList<Pet> boughtPets = PetDocumentCreator.getPetsFromDocuments((ArrayList<Document>) document.get("boughtPets"));
-        ArrayList<MongoCharacter> createdCharacters = CharacterDocumentCreator.getCharactersFromDocuments(
-                (ArrayList<Document>)document.get("characters"));
+        ArrayList<Integer> createdCharacters = (ArrayList<Integer>)document.get("characters");
 
         return new MongoPlayer(document.getInteger("_id"), document.getString("username"), document.getInteger("age"),
                 document.getString("emailAddress"), boughtPets, createdCharacters, goldOffers);
@@ -41,8 +40,7 @@ public class PlayerDocumentCreator
 
     public static MongoPlayer getMongoPlayerWithCharactersFromDocument(Document document)
     {
-        ArrayList<MongoCharacter> createdCharacters = CharacterDocumentCreator.getCharactersFromDocuments(
-                (ArrayList<Document>)document.get("characters"));
+        ArrayList<Integer> createdCharacters = (ArrayList<Integer>)document.get("characters");
 
         return new MongoPlayer(0, "", 0,"", new ArrayList<>(), createdCharacters, new ArrayList<>());
     }

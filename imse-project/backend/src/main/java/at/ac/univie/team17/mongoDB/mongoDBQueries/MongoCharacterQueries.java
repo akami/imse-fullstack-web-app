@@ -10,7 +10,6 @@ import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Updates;
 import org.bson.Document;
 
-import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -137,22 +136,60 @@ public class MongoCharacterQueries
 
     public static List<MongoSkinReport> getMongoSkinReports()
     {
-        return new ArrayList<>();
-        /* TODO
+        List<MongoSkinReport> mongoSkinReports = new ArrayList<>();
+
+        MongoDBConnectionHandler.setupConnection();
+        // TODO
         MongoDBConnectionHandler.getDb().getCollection(CharacterDocumentCreator.CHARACTER_COLLECTION_NAME).aggregate(Arrays.asList(
                 Aggregates.match(lt("playerAge.age", 31)),
                 Aggregates.match(gt("playerAge.age", 17)),
-                Aggregates.unwind("boughtSkins"),
-                Aggregates.group("_id", Accumulators.first("$boughtSkins", ))
-                )).forEach();
-        */
+                Aggregates.unwind("$boughtSkins"),
+                Aggregates.group("_id", Accumulators.first("skin", "boughtSkins")),
+                Aggregates.group("_id", Accumulators.sum("skin", 1))
+                )).forEach((Block<Document>) document ->
+                mongoSkinReports.add(MongoSkinReportDocumentCreator.getMongoSkinReportsFromDocument(document)));
 
+        MongoDBConnectionHandler.closeConnection();
 
+        return mongoSkinReports;
 
         // db.character.aggregate([
         // {"$unwind" : "$boughtSkins"} ,
         // { "$group" : {"_id" : {"characterId" : "characterId"} , { "skin" : {"$first" : "$boughtSkins"}}}} ,
         // { "$group" : { "_id" : { "$skin.skinId" } , { "skinName" : { "$first" : "$skin.skinName"}} , { "count" : {"$sum" : 1}}}}
         // ])
+    }
+
+    public static MongoCharacter getMongoCharacterFromId(Integer mongoCharacterid)
+    {
+        final MongoCharacter[] mongoCharacter = new MongoCharacter[1];
+
+        MongoDBConnectionHandler.setupConnection();
+
+        MongoDBConnectionHandler.getDb().getCollection(CharacterDocumentCreator.CHARACTER_COLLECTION_NAME)
+                .find(eq("_id", mongoCharacterid)).forEach((Block<Document>) document ->
+                mongoCharacter[0] = (CharacterDocumentCreator.getCharacterFromDocument(document)));
+
+        MongoDBConnectionHandler.closeConnection();
+        return mongoCharacter[0];
+    }
+
+    public static void updateSlayedMonster(Integer characterId, SlayedMonsters slayedMonsters)
+    {
+        MongoDBConnectionHandler.setupConnection();
+
+
+        MongoDBConnectionHandler.getDb().getCollection(CharacterDocumentCreator.CHARACTER_COLLECTION_NAME).aggregate(
+                Arrays.asList(
+                        eq("_id", characterId),
+                        eq("slayedMonsters._id", slayedMonsters.getMonsterId()),
+                        Updates.pull("slayedMonsters._id", slayedMonsters.getMonsterId())));
+
+        MongoDBConnectionHandler.getDb().getCollection(CharacterDocumentCreator.CHARACTER_COLLECTION_NAME).aggregate(
+                Arrays.asList(
+                        eq("_id", characterId),
+                        Updates.push("slayedMonsters", SlayedMonsterDocumentCreator.createSlayedMonsterDocument(slayedMonsters))));
+
+        MongoDBConnectionHandler.closeConnection();
     }
 }
