@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import {Button, Col, Container, Form, Row, Alert} from "react-bootstrap";
 import {useHistory, useLocation} from "react-router-dom";
+import Cookies from "universal-cookie/lib";
 
 const SignUp = ({props}) => {
     let history = useHistory();
     let location = useLocation();
+    let cookies = new Cookies();
 
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -13,21 +15,39 @@ const SignUp = ({props}) => {
     const [inProgress, setInProgress] = useState(false);
     const [success, setSuccess] = useState(false);
 
-    const [database, setDatabase] = useState("maria");
+    const [database, setDatabase] = useState(cookies.get('database'));
 
     const signup = () => {
         (async () => {
-            const response = await fetch('/api/' + database + '/player/', {
-                method: 'POST',
-                headers: {
-                    "Content-type": "application/json"
-                },
-                body: JSON.stringify({
-                    emailAddress: email,
-                    username: username,
-                    age: age
-                })
-            });
+            let response;
+            if (database.equals('maria')) {
+                 response = await fetch('/api/' + database + '/player/', {
+                    method: 'POST',
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        emailAddress: email,
+                        username: username,
+                        age: age
+                    })
+                });
+            } else if (database.equals('mongo')) {
+                response = await fetch('/api/' + database + '/player/', {
+                    method: 'POST',
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        age: age,
+                        emailAddress: email,
+                        boughtPets: [],
+                        createdCharacters: [],
+                        mongoGoldOffers: []
+                    })
+                });
+            }
 
             setSuccess(response.ok);
             setInProgress(true);
@@ -35,6 +55,24 @@ const SignUp = ({props}) => {
         if (success) {
             history.push("/home/");
         }
+    };
+
+    const login = () => {
+        (async () => {
+            const playerId = await fetch('/api/' + database + '/player/' + username)
+                .then((response) => response.json())
+                .then((json) => {
+                    return json.playerId;
+                });
+
+            if (playerId !== undefined) {
+                cookies.set('playerId', playerId, {path: '/'});
+
+                history.push('/home/');
+            } else {
+                setSuccess(false);
+            }
+        })();
     };
 
     return (
@@ -78,8 +116,15 @@ const SignUp = ({props}) => {
                                 <Button type="button" variant="success" onClick={() => signup()}> Sign
                                     Up </Button>
 
-                                {inProgress && success && <p>Signup was successful!</p>}
-                                {inProgress && !success && <p>Signup was unsuccessful!</p>}
+                                {inProgress && success &&
+                                    <div>
+                                        <Alert variant="success" style={{marginTop: 16}}>Signup was successful!</Alert>
+                                        <Button variant="danger" onClick={() => login()}>Play Now</Button>
+                                    </div>
+                                }
+
+                                {inProgress && !success &&
+                                <Alert variant="danger" style={{marginTop: 16}}>Signup was unsuccessful!</Alert>}
                             </Form>
                         </div>
                     </Col>

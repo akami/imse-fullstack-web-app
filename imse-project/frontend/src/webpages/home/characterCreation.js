@@ -76,19 +76,39 @@ const CharacterCreation = () => {
 
     const createCharacter = () => {
         (async () => {
-            const response = await fetch('/api/' + database + '/character/create', {
-                method: 'POST',
-                headers: {
-                    "Content-type": "application/json"
-                },
-                body: JSON.stringify({
-                    characterName: characterName,
-                    attack: selectedClass.bonusAttack + 100,
-                    lifepointAmount: selectedClass.bonusLifepoints + 100,
-                    playerId: playerId,
-                    characterClassId: selectedClass.classId
-                })
-            });
+            let response;
+            if (database === 'maria') {
+                response = await fetch('/api/' + database + '/character/create', {
+                    method: 'POST',
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        characterName: characterName,
+                        attack: selectedClass.bonusAttack + 100,
+                        lifepointAmount: selectedClass.bonusLifepoints + 100,
+                        playerId: playerId,
+                        characterClassId: selectedClass.classId
+                    })
+                });
+            } else if (database === 'mongo') {
+                response = await fetch('/api/' + database + '/character/create', {
+                    method: 'POST',
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        characterName: characterName,
+                        attack: selectedClass.bonusAttack + 100,
+                        lifepointAmount: selectedClass.bonusLifepoints + 100,
+                        characterClass: [{
+                            bonusAttack: selectedClass.bonusAttack,
+                            bonusLifepoints: selectedClass.bonusLifepoints,
+                            className: selectedClass.className
+                        }]
+                    })
+                });
+            }
 
             history.goBack();
         })();

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState} from 'react';
 import {Button, Col, Container, Figure, Image, Row} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
 
@@ -13,6 +13,8 @@ import Cookies from "universal-cookie/lib";
 const Character = ({character}) => {
     const cookies = new Cookies();
     let history = useHistory();
+
+    const [database, setDatabase] = useState(cookies.get('database'));
 
     const getImageFromClassId = (classId) => {
         switch (classId) {
@@ -64,13 +66,13 @@ const Character = ({character}) => {
                 <Row>
                     <Col md={4}>
                         <Figure>
-                            <Image src={getImageFromClassId(character.characterClassId)} width="280" height="300"/>
+                            <Image src={getImageFromClassId((database === 'maria') ? character.characterClassId : character.characterClass.classId)} width="280" height="300"/>
                         </Figure>
                     </Col>
                     <Col md={4} style={{paddingTop: 16}}>
                         <div className="Creation-form" >
                             <p className="Text-header2">{character.characterName}</p>
-                            <p className="Text-subtitle">{getClassNameFromClassId(character.characterClassId)}</p>
+                            <p className="Text-subtitle">{getClassNameFromClassId((database === 'maria') ? character.characterClassId : character.characterClass.classId)}</p>
                             <p> Attack: <span style={{color: '#d62828'}}> {character.attack} </span></p>
                             <p> Life Points: <span style={{color: '#40916c'}}> {character.lifepointAmount}</span></p>
                         </div>
@@ -78,23 +80,15 @@ const Character = ({character}) => {
                     <Col md={4} className="d-flex justify-content-lg-center" style={{paddingTop: 16}}>
                         <div>
                             <Row style={{marginTop: 50}}>
-                                    <Button
-                                        variant="primary"
-                                        type="button"
-                                        onClick={() => history.push("/quests")}
-                                    >
-                                        Start Game
-                                    </Button> {' '}
                             </Row>
                             <Row style={{marginTop: 16}}>
                                 <Button variant="secondary"
                                         type="button"
-                                        onClick={() => redirectToSkinsView(character.characterClassId, character.characterId)}
+                                        onClick={() => redirectToSkinsView((database === 'maria') ? character.characterClassId : character.characterClass.classId, character.characterId)}
                                 > View Skins
                                 </Button>
                             </Row>
                             <Row style={{marginTop: 8}}>
-                                <Button  variant="secondary" type="button"> View Pets</Button>
                             </Row>
                         </div>
                     </Col>
