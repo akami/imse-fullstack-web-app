@@ -20,7 +20,7 @@ const SignUp = ({props}) => {
     const signup = () => {
         (async () => {
             let response;
-            if (database.equals('maria')) {
+            if (database === 'maria') {
                  response = await fetch('/api/' + database + '/player/', {
                     method: 'POST',
                     headers: {
@@ -32,7 +32,7 @@ const SignUp = ({props}) => {
                         age: age
                     })
                 });
-            } else if (database.equals('mongo')) {
+            } else if (database === 'mongo') {
                 response = await fetch('/api/' + database + '/player/', {
                     method: 'POST',
                     headers: {
@@ -113,7 +113,7 @@ const SignUp = ({props}) => {
                                                   onChange={(text) => setAge(text.target.value)}/>
                                 </Form.Group>
 
-                                <Button type="button" variant="success" onClick={() => signup()}> Sign
+                                <Button type="button" variant="success" style={{marginTop: 16}} onClick={() => signup()}> Sign
                                     Up </Button>
 
                                 {inProgress && success &&
