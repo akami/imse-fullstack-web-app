@@ -10,9 +10,7 @@ import at.ac.univie.team17.mongoDB.MongoDBExecuter;
 import at.ac.univie.team17.mongoDB.mongoDBDocumentCreators.PlayerDocumentCreator;
 import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoPlayerQueries;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoPlayer;
-import com.mongodb.Mongo;
 import org.bson.Document;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
@@ -96,7 +94,7 @@ public class PlayerService {
         return player;
     }
 
-    /*
+
     public Integer getGoldAmountOfPlayer(Integer playerId)
     {
         String query = PlayerQueries.getGoldAmountFromPlayer(playerId);
@@ -104,12 +102,10 @@ public class PlayerService {
         MariaDBConnectionHandler.setupConnection();
 
         ResultSet result = MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
-        Integer goldAMount = MariaDBResultReader.getIntegerFromResultSet(result);
+        Integer goldAMount = MariaDBResultReader.getPlayerGoldAmountFromResultSet(result);
 
         MariaDBConnectionHandler.closeConnection();
 
         return goldAMount;
     }
-
-     */
 }

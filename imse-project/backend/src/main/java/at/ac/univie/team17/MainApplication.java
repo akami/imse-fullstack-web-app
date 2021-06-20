@@ -1,5 +1,6 @@
 package at.ac.univie.team17;
 
+import at.ac.univie.team17.service.PlayerService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,5 +10,6 @@ public class MainApplication
     public static void main(String[] args)
     {
         SpringApplication.run(MainApplication.class, args);
+        System.out.println(new PlayerService().getGoldAmountOfPlayer(1));
     }
 }

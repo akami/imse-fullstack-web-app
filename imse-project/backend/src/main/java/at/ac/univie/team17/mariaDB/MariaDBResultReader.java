@@ -341,4 +341,19 @@ public class MariaDBResultReader
         }
         return slayedMonsters;
     }
+
+    public static Integer getPlayerGoldAmountFromResultSet(ResultSet rs)
+    {
+        try
+        {
+            while (rs.next())
+            {
+                return rs.getInt("player_gold_amount");
+            }
+        } catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
 }
