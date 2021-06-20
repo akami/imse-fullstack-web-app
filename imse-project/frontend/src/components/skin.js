@@ -130,23 +130,25 @@ const Skin = ({skin}) => {
     }
 
     return (
-        <Col md="auto" className="Character-container" styles={{paddingLeft: 8, paddingRight: 8}}>
-            <Image src={getSkinsImage(skin.classId, skin.skinId)} width={300} height={380}/>
-            <p className="Text-header2">{skin.skinName}</p>
-            <Container>
-                <Row>
-                    <Col>
-                        <div>
-                            <Image src={Coins} width={10} height={10}/>
-                            <p className="Text-subsubtitle">{skin.goldPrice}</p>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-            {bought
-                ? <Button type="button" variant="secondary">Select</Button>
-                : <Button type="button" variant="success" onClick={() => buySkin()}>Buy</Button>
-            }
+        <Col md="4" >
+            <div className="Character-container">
+                <Image src={getSkinsImage(skin.classId, skin.skinId)} width={'auto'} height={'250px'} />
+                <p className="Text-header2">{skin.skinName}</p>
+                <Container>
+                    <Row>
+                        <Col>
+                            <div>
+                                <Image src={Coins} width={10} height={'auto'}/> {' '}
+                                <span className="Text-subsubtitle">{skin.goldPrice}</span>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
+                {bought
+                    ? <Button type="button" variant="secondary">Select</Button>
+                    : <Button type="button" variant="success" onClick={() => buySkin()}>Buy</Button>
+                }
+            </div>
         </Col>
     );
 };

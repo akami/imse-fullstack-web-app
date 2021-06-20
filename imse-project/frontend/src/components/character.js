@@ -56,7 +56,7 @@ const Character = ({character}) => {
 
     const redirectToSkinsView = (classId, characterId) => {
         cookies.set('classId', classId, {path: '/'});
-        cookies.set('characterId', characterId, {path:'/'});
+        cookies.set('characterId', characterId, {path: '/'});
         history.push("/skins");
     }
 
@@ -66,11 +66,13 @@ const Character = ({character}) => {
                 <Row>
                     <Col md={4}>
                         <Figure>
-                            <Image src={getImageFromClassId((database === 'maria') ? character.characterClassId : character.characterClass.classId)} width="280" height="300"/>
+                            <Image
+                                src={getImageFromClassId((database === 'maria') ? character.characterClassId : character.characterClass.classId)}
+                                width="280" height="300"/>
                         </Figure>
                     </Col>
                     <Col md={4} style={{paddingTop: 16}}>
-                        <div className="Creation-form" >
+                        <div className="Creation-form">
                             <p className="Text-header2">{character.characterName}</p>
                             <p className="Text-subtitle">{getClassNameFromClassId((database === 'maria') ? character.characterClassId : character.characterClass.classId)}</p>
                             <p> Attack: <span style={{color: '#d62828'}}> {character.attack} </span></p>
@@ -82,11 +84,13 @@ const Character = ({character}) => {
                             <Row style={{marginTop: 50}}>
                             </Row>
                             <Row style={{marginTop: 16}}>
-                                <Button variant="secondary"
-                                        type="button"
-                                        onClick={() => redirectToSkinsView((database === 'maria') ? character.characterClassId : character.characterClass.classId, character.characterId)}
-                                > View Skins
-                                </Button>
+                                <div>
+                                    <Button variant="secondary"
+                                            type="button"
+                                            onClick={() => redirectToSkinsView((database === 'maria') ? character.characterClassId : character.characterClass.classId, character.characterId)}
+                                    > View Skins
+                                    </Button>
+                                </div>
                             </Row>
                             <Row style={{marginTop: 8}}>
                             </Row>
