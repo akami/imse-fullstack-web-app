@@ -34,12 +34,10 @@ public class CharacterClassController extends BackendController {
     {
         return classService.getCharacterClassReport();
     }
-/*
+
     @GetMapping("/mongo/class/report")
     public List<MongoCharacterClassReport> getMongoCharacterClassReport()
     {
         return classService.getMongoCharacterClassReport();
     }
-
- */
 }

@@ -4,10 +4,7 @@ import at.ac.univie.team17.MongoDBConnectionHandler;
 import at.ac.univie.team17.mongoDB.mongoDBDocumentCreators.*;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.*;
 import com.mongodb.Block;
-import com.mongodb.client.model.Accumulators;
-import com.mongodb.client.model.Aggregates;
-import com.mongodb.client.model.Projections;
-import com.mongodb.client.model.Updates;
+import com.mongodb.client.model.*;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -139,25 +136,20 @@ public class MongoCharacterQueries
         List<MongoSkinReport> mongoSkinReports = new ArrayList<>();
 
         MongoDBConnectionHandler.setupConnection();
-        // TODO
+
         MongoDBConnectionHandler.getDb().getCollection(CharacterDocumentCreator.CHARACTER_COLLECTION_NAME).aggregate(Arrays.asList(
                 Aggregates.match(lt("playerAge.age", 31)),
                 Aggregates.match(gt("playerAge.age", 17)),
                 Aggregates.unwind("$boughtSkins"),
-                Aggregates.group("_id", Accumulators.first("skin", "boughtSkins")),
-                Aggregates.group("_id", Accumulators.sum("skin", 1))
+                Aggregates.group("$_id", Accumulators.first("skins", "$boughtSkins")),
+                Aggregates.group("$skins._id", Accumulators.sum("counter", 1)),
+                Aggregates.sort(Sorts.descending("counter"))
                 )).forEach((Block<Document>) document ->
                 mongoSkinReports.add(MongoSkinReportDocumentCreator.getMongoSkinReportsFromDocument(document)));
 
         MongoDBConnectionHandler.closeConnection();
 
         return mongoSkinReports;
-
-        // db.character.aggregate([
-        // {"$unwind" : "$boughtSkins"} ,
-        // { "$group" : {"_id" : {"characterId" : "characterId"} , { "skin" : {"$first" : "$boughtSkins"}}}} ,
-        // { "$group" : { "_id" : { "$skin.skinId" } , { "skinName" : { "$first" : "$skin.skinName"}} , { "count" : {"$sum" : 1}}}}
-        // ])
     }
 
     public static MongoCharacter getMongoCharacterFromId(Integer mongoCharacterid)

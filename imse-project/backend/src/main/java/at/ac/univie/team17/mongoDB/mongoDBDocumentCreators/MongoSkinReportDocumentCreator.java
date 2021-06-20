@@ -7,6 +7,7 @@ public class MongoSkinReportDocumentCreator
 {
     public static MongoSkinReport getMongoSkinReportsFromDocument(Document document)
     {
-        return new MongoSkinReport(document.getInteger("_id"), document.getInteger("skin"));
+        System.out.println("test: " + document.getString("skinName"));
+        return new MongoSkinReport(document.getInteger("_id"), document.getInteger("counter"));
     }
 }

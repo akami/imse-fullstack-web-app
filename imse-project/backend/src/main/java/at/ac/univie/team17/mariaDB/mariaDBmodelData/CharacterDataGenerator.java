@@ -8,9 +8,9 @@ import java.util.Random;
 
 public class CharacterDataGenerator
 {
-    private static final int MINIMAL_ATTACK = 5;
+    private static final int MINIMAL_ATTACK = 105;
     private static final int ATTACK_RANGE = 5;
-    private static final int MINIMAL_LIFEPOINTS = 10;
+    private static final int MINIMAL_LIFEPOINTS = 110;
     private static final int LIFEPOINTS_RANGE = 10;
 
     public static ArrayList<GameCharacter> generateCharacterData(int characterAmount, int playerAmount, int characterClassAmount)
