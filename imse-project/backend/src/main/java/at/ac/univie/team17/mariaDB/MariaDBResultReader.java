@@ -246,7 +246,7 @@ public class MariaDBResultReader
         {
             while (rs.next())
             {
-                characterSkins.add(new CharacterSkin(rs.getInt("skin_id"), rs.getInt("character_id")));
+                characterSkins.add(new CharacterSkin(rs.getInt("character_id"), rs.getInt("skin_id")));
             }
         } catch (SQLException throwables)
         {

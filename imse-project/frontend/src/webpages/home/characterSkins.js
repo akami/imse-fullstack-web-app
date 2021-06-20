@@ -17,40 +17,34 @@ const CharacterSkins = () => {
         (async () => {
             await fetch('/api/' + database + '/skin/' + classId)
                 .then((response) => response.json())
-                .then((json) => setSkins(json))
-                .then((json) => console.log(json));
+                .then((json) => setSkins(json));
         })();
     }, [classId]);
 
     return(
-        <Container className="App">
-            <Col md={0.5}> </Col>
-            <Col md="auto" className="Home-content">
-                <Row>
-                    <p className="Text-header1">Available Skins</p>
-                </Row>
-                <Row>
-                    <SkinList list={skins}/>
-                </Row>
-                <Row className="align-content-end">
-                </Row>
-            </Col>
-            <Col md={0.5}> </Col>
-            <div>
-                {
-                    Array.isArray(skins) &&
-                    skins.length >= 1 &&
-                    skins.map((skin) => {
-                        return (
-                            <p>{skin.skinName}: {skin.goldPrice}</p>
-                        );
-                    })
-
-                }
-
+        <div className="App">
+            <div className="Creation-header">
+                <div>
+                    <Button type="button" variant="secondary" onClick={() => history.goBack()}> Go Back</Button> {' '}
+                </div>
             </div>
+        <Container className="App Home-content">
+            <Row>
+                <Col md={0.5}> </Col>
+                <Col md="auto" >
+                    <Container>
+                        <Row>
+                            <p className="Text-header1">Available Skins for Your Character</p>
+                        </Row>
+                        <SkinList skins={skins}/>
+                        <Row className="align-content-end">
+                        </Row>
+                    </Container>
+                </Col>
+                <Col md={0.5}> </Col>
+            </Row>
         </Container>
-
+    </div>
     );
 }
 export default CharacterSkins;

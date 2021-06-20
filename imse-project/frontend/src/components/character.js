@@ -52,8 +52,9 @@ const Character = ({character}) => {
         return undefined;
     }
 
-    const redirectToSkinsView = (classId) => {
+    const redirectToSkinsView = (classId, characterId) => {
         cookies.set('classId', classId, {path: '/'});
+        cookies.set('characterId', characterId, {path:'/'});
         history.push("/skins");
     }
 
@@ -86,7 +87,11 @@ const Character = ({character}) => {
                                     </Button> {' '}
                             </Row>
                             <Row style={{marginTop: 16}}>
-                                <Button variant="secondary" type="button"  onClick={() => redirectToSkinsView(character.characterClassId)}> View Skins</Button>
+                                <Button variant="secondary"
+                                        type="button"
+                                        onClick={() => redirectToSkinsView(character.characterClassId, character.characterId)}
+                                > View Skins
+                                </Button>
                             </Row>
                             <Row style={{marginTop: 8}}>
                                 <Button  variant="secondary" type="button"> View Pets</Button>

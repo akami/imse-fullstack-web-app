@@ -120,7 +120,7 @@ public class DataMigrator
     {
         // get skins
         ResultSet rsSkins = MariaDBQueryExecuter.executeReturnQuery(
-                statement, CharacterSkinQueries.getSelectCharacterSkinsFromCharacterIdQuery(gameCharacter.getCharacterId()));
+                statement, CharacterSkinQueries.getSelectSkinsFromCharacterIdQuery(gameCharacter.getCharacterId()));
         ArrayList<Skin> boughtSkins = MariaDBResultReader.getSkinsFromResultSet(rsSkins);
         ArrayList<MongoSkin> mongoBoughtSkins = MongoSkin.getMongoSkinsFromSkin(boughtSkins);
 

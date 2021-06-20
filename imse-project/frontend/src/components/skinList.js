@@ -1,9 +1,10 @@
 import React from 'react';
 import Skin from "./skin";
+import {Row} from "react-bootstrap";
 
 const SkinList = ({skins}) => {
     return (
-        <div>
+        <Row>
             {
                 Array.isArray(skins) &&
                 skins.length >= 1 &&
@@ -14,7 +15,7 @@ const SkinList = ({skins}) => {
                 })
 
             }
-        </div>
+        </Row>
     );
 };
 export default SkinList;
