@@ -1,11 +1,18 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
 import {Button, Col, Container, Row, Tab, Tabs} from "react-bootstrap";
 import ResultList from "../../components/data/resultList";
+import Cookies from "universal-cookie/lib";
 
 const Admin = () => {
     let history = useHistory();
+    let cookies = new Cookies();
+
     const [selectedTab, setSelectedTab] = useState('players');
+    const [database, setDatabase] = useState(cookies.get('database'));
+
+    // reload page on database change
+    useEffect(() => {}, [database])
 
     const fillDb = () => {
         const url = '/api/initialize';
@@ -37,6 +44,10 @@ const Admin = () => {
                     });
             }
         )();
+
+        // set cookie to opposite database
+        cookies.set('database', (database === 'maria' ? 'mongo' : 'maria'), {path: '/'});
+        setDatabase(cookies.get('database'));
     };
 
     return (
@@ -48,6 +59,7 @@ const Admin = () => {
                     </p>
                 </div>
                 <div>
+                    <Button variant="primary" type="button" onClick={() => history.push("/admin/reports")}> Reports</Button> {' '}
                     <Button variant="success" type="button" onClick={() => fillDb()}> Fill Db</Button> {' '}
                     <Button variant="success" type="button" onClick={() => clearDb()}> Clear Db</Button> {' '}
                     <Button variant="secondary" type="button" onClick={() => history.push("")}> Go Back </Button> {' '}
@@ -60,7 +72,7 @@ const Admin = () => {
                         <p className="Text-header1">Database Overview</p>
                     </Col>
                     <Col md={2}>
-                        <Button variant="primary" type="button" onClick={() => migrateDb()}> Migrate </Button> {' '}
+                        <Button variant="primary" type="button" onClick={() => migrateDb()}> To {cookies.get('database')}</Button> {' '}
                     </Col>
 
                 </Row>
