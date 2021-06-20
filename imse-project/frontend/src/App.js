@@ -5,34 +5,11 @@ import './styles/Text.css'
 import './styles/Home.css';
 import './styles/CharacterView.css';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import Root from './webpages';
-function App() {
-  const [characters, setCharacters] = useState([]);
-  //
-  // useEffect(() => {
-  //     let mounted = true;
-  //
-  //     if (mounted) {
-  //         // TODO @kh
-  //         // (async () => {
-  //         //     let response = await fetch('/api/characters');
-  //         //     let body = await response.json();
-  //         // })();
-  //
-  //
-  //         setTimeout(() => {
-  //             // do nothing and wait for 3 seconds
-  //         }, 3000)
-  //     }
-  //
-  //     return () =>  {
-  //         mounted = false;
-  //     }
-  //
-  // },[]);
 
+function App() {
   return (
         <div>
             <Root/>
