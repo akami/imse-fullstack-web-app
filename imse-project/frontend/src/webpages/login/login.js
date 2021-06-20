@@ -11,9 +11,17 @@ const Login = () => {
 
     const [success, setSuccess] = useState(true);
 
+    const [database, setDatabase] = useState(cookies.get('database'));
+
+    useEffect(() => {
+        if (cookies.get('database') === undefined) {
+            cookies.set('database', 'maria', {path: '/'});
+        }
+    }, [database]);
+
     const login = () => {
         (async () => {
-            const playerId = await fetch('/api/player/' + username)
+            const playerId = await fetch('/api/' + database + '/player/' + username)
                 .then((response) => response.json())
                 .then((json) => {
                      return json.playerId;

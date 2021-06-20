@@ -13,9 +13,11 @@ const SignUp = ({props}) => {
     const [inProgress, setInProgress] = useState(false);
     const [success, setSuccess] = useState(false);
 
+    const [database, setDatabase] = useState("maria");
+
     const signup = () => {
         (async () => {
-            const response = await fetch('/api/player', {
+            const response = await fetch('/api/' + database + '/player/', {
                 method: 'POST',
                 headers: {
                     "Content-type": "application/json"

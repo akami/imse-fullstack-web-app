@@ -102,11 +102,11 @@ public class PlayerService {
         MariaDBConnectionHandler.setupConnection();
 
         ResultSet result = MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
-        Integer goldAMount = MariaDBResultReader.getPlayerGoldAmountFromResultSet(result);
+        Integer goldAmount = MariaDBResultReader.getPlayerGoldAmountFromResultSet(result);
 
         MariaDBConnectionHandler.closeConnection();
 
-        return goldAMount;
+        return goldAmount;
     }
 
     public Integer getGoldAmountOfMongoPlayer(Integer playerId)

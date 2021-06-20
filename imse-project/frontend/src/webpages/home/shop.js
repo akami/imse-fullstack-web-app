@@ -2,7 +2,7 @@ import React from 'react';
 import {Carousel, ListGroup} from "react-bootstrap";
 import ShopList from "../../components/shopList";
 
-
+// TODO @kh
 const Shop = () => {
     let list = [{
         name: "buy me"

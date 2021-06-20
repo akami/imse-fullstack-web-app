@@ -3,6 +3,7 @@ import {Button, Col, Container, Row} from "react-bootstrap";
 import {useHistory} from 'react-router-dom';
 
 import CharacterList from "../../components/characterList";
+import Gold from "../../components/gold";
 import Cookies from "universal-cookie/lib";
 
 const Home = () => {
@@ -11,16 +12,26 @@ const Home = () => {
 
     const [characters, setCharacters] = useState([]);
     const [playerId] = useState(cookies.get('playerId'));
+    const [database, setDatabase] = useState(cookies.get('database'));
 
     useEffect(() => {
         (async () => {
-            await fetch('/api/character/' + playerId)
+            await fetch('/api/' + database + '/character/' + playerId)
                 .then((response) => response.json())
                 .then((json) => setCharacters(json));
         })();
     }, [playerId]);
 
     return (
+        <div className="App">
+            <div className="Creation-header2">
+                <div>
+                    <Gold/>
+                </div>
+                <div>
+                    <Button type="button" variant="danger" onClick={() => history.goBack()}> Log Out</Button> {' '}
+                </div>
+            </div>
         <Container className="App">
             <Col md={0.5}> </Col>
             <Col md="auto" className="Home-content">
@@ -39,6 +50,7 @@ const Home = () => {
             </Col>
             <Col md={0.5}> </Col>
         </Container>
+        </div>
     );
 }
 export default Home;
