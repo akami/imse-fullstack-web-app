@@ -1,14 +1,13 @@
 package at.ac.univie.team17.controller;
 
 import at.ac.univie.team17.mariaDB.mariaDBmodels.CharacterSkin;
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Player;
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Skin;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacterSkin;
 import at.ac.univie.team17.service.CharacterSkinService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 

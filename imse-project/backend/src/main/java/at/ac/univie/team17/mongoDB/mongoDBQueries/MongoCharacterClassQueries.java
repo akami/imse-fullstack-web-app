@@ -1,10 +1,10 @@
 package at.ac.univie.team17.mongoDB.mongoDBQueries;
 
 import at.ac.univie.team17.MongoDBConnectionHandler;
-import at.ac.univie.team17.mariaDB.mariaDBmodels.CharacterClass;
 import at.ac.univie.team17.mongoDB.mongoDBDocumentCreators.CharacterClassDocumentCreator;
-import at.ac.univie.team17.mongoDB.mongoDBDocumentCreators.PlayerDocumentCreator;
-import at.ac.univie.team17.mongoDB.mongoDBmodels.*;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.CharacterClassMongoSkins;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacterClass;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoSkin;
 import com.mongodb.Block;
 import com.mongodb.client.model.Projections;
 import org.bson.Document;

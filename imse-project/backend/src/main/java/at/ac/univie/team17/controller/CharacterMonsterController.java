@@ -3,7 +3,6 @@ package at.ac.univie.team17.controller;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.CharacterMonster;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.CharacterSlayedMonsters;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoMonster;
-import at.ac.univie.team17.mongoDB.mongoDBmodels.SlayedMonsters;
 import at.ac.univie.team17.service.CharacterMonsterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

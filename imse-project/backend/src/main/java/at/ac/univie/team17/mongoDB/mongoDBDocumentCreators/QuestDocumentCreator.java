@@ -1,8 +1,6 @@
 package at.ac.univie.team17.mongoDB.mongoDBDocumentCreators;
 
 import at.ac.univie.team17.mariaDB.mariaDBmodels.Quest;
-import at.ac.univie.team17.mariaDB.mariaDBmodels.QuestReward;
-import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoGoldOffer;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoQuest;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoQuestReward;
 import org.bson.Document;
@@ -59,5 +57,15 @@ public class QuestDocumentCreator
                 (Document) document.get("questReward"));
 
         return new MongoQuest(document.getInteger("_id"), "", "", mongoQuestReward);
+    }
+
+    public static Document createQuestDocument(MongoQuest mongoQuest)
+    {
+        Document questDocument = new Document();
+        questDocument.append("_id", mongoQuest.getQuestId());
+        questDocument.append("questName", mongoQuest.getQuestName());
+        questDocument.append("clientName", mongoQuest.getClientName());
+        questDocument.append("questReward", mongoQuest.getQuestReward());
+        return questDocument;
     }
 }

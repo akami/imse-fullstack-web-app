@@ -389,4 +389,20 @@ public class MariaDBResultReader
         }
         return classReports;
     }
+
+    public static ArrayList<CharacterQuest> getCharacterQuestsFromResultSet(ResultSet rs)
+    {
+        ArrayList<CharacterQuest> characterQuests = new ArrayList<>();
+        try
+        {
+            while (rs.next())
+            {
+                characterQuests.add(new CharacterQuest(rs.getInt("character_id"), rs.getInt("quest_id")));
+            }
+        } catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+        return characterQuests;
+    }
 }

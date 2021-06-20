@@ -2,7 +2,8 @@ package at.ac.univie.team17.mongoDB.mongoDBDocumentCreators;
 
 import at.ac.univie.team17.mariaDB.mariaDBmodels.CharacterClass;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.Skin;
-import at.ac.univie.team17.mongoDB.mongoDBmodels.*;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacterClass;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoSkin;
 import org.bson.Document;
 
 import java.util.ArrayList;

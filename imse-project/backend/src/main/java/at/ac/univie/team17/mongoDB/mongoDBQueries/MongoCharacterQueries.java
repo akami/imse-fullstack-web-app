@@ -122,7 +122,8 @@ public class MongoCharacterQueries
 
     public static void addSlayedMonster(Integer characterId, MongoMonster mongoMonster)
     {
-        Document slayedMonsterDoc = MonsterDocumentCreator.createMonsterDocumentFromMongoMonster(mongoMonster);
+        Document slayedMonsterDoc = SlayedMonsterDocumentCreator.createSlayedMonsterDocument(new SlayedMonsters(
+                mongoMonster.getMonsterId(), mongoMonster.getMonsterLoot(), 1));
 
         MongoDBConnectionHandler.setupConnection();
         MongoDBConnectionHandler.getDb().getCollection(CharacterDocumentCreator.CHARACTER_COLLECTION_NAME).updateOne(
@@ -181,6 +182,17 @@ public class MongoCharacterQueries
                 Arrays.asList(
                         eq("_id", characterId),
                         Updates.push("slayedMonsters", SlayedMonsterDocumentCreator.createSlayedMonsterDocument(slayedMonsters))));
+
+        MongoDBConnectionHandler.closeConnection();
+    }
+
+    public static void addCompletedQuestToCharacter(Integer characterId, MongoQuest mongoQuest)
+    {
+        Document questDoc = QuestDocumentCreator.createQuestDocument(mongoQuest);
+
+        MongoDBConnectionHandler.setupConnection();
+        MongoDBConnectionHandler.getDb().getCollection(CharacterDocumentCreator.CHARACTER_COLLECTION_NAME).updateOne(
+                eq("_id", characterId), Updates.push("completedQuests", questDoc));
 
         MongoDBConnectionHandler.closeConnection();
     }

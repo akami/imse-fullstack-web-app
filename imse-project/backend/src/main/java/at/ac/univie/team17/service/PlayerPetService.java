@@ -7,7 +7,6 @@ import at.ac.univie.team17.mariaDB.mariaDBQueries.PlayerPetQueries;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.PlayerPet;
 import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoPlayerQueries;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoPlayerPet;
-
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;

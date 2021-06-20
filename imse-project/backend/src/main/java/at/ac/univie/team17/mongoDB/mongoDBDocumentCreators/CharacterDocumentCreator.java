@@ -4,9 +4,7 @@ import at.ac.univie.team17.mariaDB.mariaDBmodels.GameCharacter;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.*;
 import org.bson.Document;
 
-import javax.print.Doc;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CharacterDocumentCreator
 {

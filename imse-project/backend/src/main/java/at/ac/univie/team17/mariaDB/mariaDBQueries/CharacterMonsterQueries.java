@@ -38,19 +38,6 @@ public class CharacterMonsterQueries
         return "DROP TABLE character_monster;";
     }
 
-    /*
-
-
-    public static String getSelectSlayedMonstersFromCharacterIdQuery(int characterId)
-    {
-        return "SELECT result_table.monster_id, result_table.slay_amount, result_table.gold_amount, " +
-                "result_table.experience_amount FROM" +
-                "((SELECT slayed_monsters.monster_id, slayed_monsters.slay_amount, monster.monster_loot_id FROM " +
-                "character_monster WHERE character_id = " + characterId + ") AS slayed_monsters" +
-                "JOIN monster ON slayed_monsters.monster_id = monster.monster_id) AS slayed_monsters_monster " +
-                "JOIN monster_loot ON slayed_monsters_monster.monster_loot_id = monster_loot.monster_loot_id AS result_table;";
-    } */
-
     public static String getSelectSlayedMonstersFromCharacterIdQuery(int characterId)
     {
         return "SELECT result_table.monster_id, result_table.slay_amount, result_table.gold_amount, " +

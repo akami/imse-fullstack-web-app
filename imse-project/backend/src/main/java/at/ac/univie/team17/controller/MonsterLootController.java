@@ -1,8 +1,6 @@
 package at.ac.univie.team17.controller;
 
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Monster;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.MonsterLoot;
-import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoMonsterLoot;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoMonsterLootWithIds;
 import at.ac.univie.team17.service.MonsterLootService;
 import org.springframework.beans.factory.annotation.Autowired;

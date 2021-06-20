@@ -1,7 +1,6 @@
 package at.ac.univie.team17.mongoDB.mongoDBDocumentCreators;
 
 import at.ac.univie.team17.mariaDB.mariaDBmodels.Player;
-import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacter;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoGoldOffer;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoPlayer;
 import at.ac.univie.team17.sharedDataModels.Pet;

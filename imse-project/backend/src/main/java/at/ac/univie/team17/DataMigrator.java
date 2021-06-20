@@ -4,7 +4,6 @@ import at.ac.univie.team17.mariaDB.MariaDBQueryExecuter;
 import at.ac.univie.team17.mariaDB.MariaDBResultReader;
 import at.ac.univie.team17.mariaDB.mariaDBQueries.*;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.*;
-import at.ac.univie.team17.mariaDB.mariaDBmodels.GameCharacter;
 import at.ac.univie.team17.mongoDB.MongoDBExecuter;
 import at.ac.univie.team17.mongoDB.mongoDBDocumentCreators.*;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.*;

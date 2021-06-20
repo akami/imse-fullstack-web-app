@@ -4,10 +4,8 @@ import at.ac.univie.team17.MongoDBConnectionHandler;
 import at.ac.univie.team17.mongoDB.mongoDBDocumentCreators.MonsterDocumentCreator;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoAlliedMonsters;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoMonster;
-import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoMonsterLoot;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoMonsterLootWithIds;
 import com.mongodb.Block;
-import com.mongodb.client.model.Projections;
 import org.bson.Document;
 
 import java.util.ArrayList;

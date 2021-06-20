@@ -5,13 +5,9 @@ import at.ac.univie.team17.MongoDBConnectionHandler;
 import at.ac.univie.team17.mariaDB.MariaDBQueryExecuter;
 import at.ac.univie.team17.mariaDB.MariaDBResultReader;
 import at.ac.univie.team17.mariaDB.mariaDBQueries.CharacterClassQueries;
-import at.ac.univie.team17.mariaDB.mariaDBQueries.SkinQueries;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.CharacterClass;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.CharacterClassReport;
-import at.ac.univie.team17.mariaDB.mariaDBmodels.SkinReport;
 import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoCharacterClassQueries;
-import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoCharacterQueries;
-import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacter;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacterClass;
 import org.springframework.stereotype.Component;
 

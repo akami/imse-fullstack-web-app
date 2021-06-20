@@ -1,6 +1,7 @@
 package at.ac.univie.team17.mongoDB.mongoDBDocumentCreators;
 
-import at.ac.univie.team17.mariaDB.mariaDBmodels.*;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.Monster;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.MonsterLoot;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoAlliedMonsters;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoMonster;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoMonsterLoot;

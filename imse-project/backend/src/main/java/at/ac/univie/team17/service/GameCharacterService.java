@@ -13,8 +13,6 @@ import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoCharacterClassQueries;
 import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoCharacterQueries;
 import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoPlayerQueries;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacter;
-import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacterClass;
-import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoPlayer;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.PlayerAge;
 import org.bson.Document;
 import org.springframework.stereotype.Component;

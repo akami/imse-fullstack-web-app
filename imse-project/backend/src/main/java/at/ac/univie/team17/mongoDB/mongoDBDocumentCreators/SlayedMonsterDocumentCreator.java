@@ -1,7 +1,6 @@
 package at.ac.univie.team17.mongoDB.mongoDBDocumentCreators;
 
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoMonsterLoot;
-import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoSkin;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.SlayedMonsters;
 import org.bson.Document;
 

@@ -4,9 +4,7 @@ import at.ac.univie.team17.MariaDBConnectionHandler;
 import at.ac.univie.team17.mariaDB.MariaDBQueryExecuter;
 import at.ac.univie.team17.mariaDB.MariaDBResultReader;
 import at.ac.univie.team17.mariaDB.mariaDBQueries.PetQueries;
-import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoMonsterQueries;
 import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoPetQueries;
-import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoMonster;
 import at.ac.univie.team17.sharedDataModels.Pet;
 import org.springframework.stereotype.Component;
 

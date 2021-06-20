@@ -5,7 +5,6 @@ import at.ac.univie.team17.mariaDB.MariaDBResultReader;
 import at.ac.univie.team17.mariaDB.mariaDBQueries.QuestRewardQueries;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.Quest;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.QuestReward;
-import at.ac.univie.team17.mariaDB.mariaDBmodels.Skin;
 
 import java.sql.ResultSet;
 import java.sql.Statement;

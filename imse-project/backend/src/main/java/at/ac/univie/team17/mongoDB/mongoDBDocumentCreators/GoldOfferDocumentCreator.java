@@ -4,7 +4,6 @@ import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoGoldOffer;
 import org.bson.Document;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class GoldOfferDocumentCreator
 {

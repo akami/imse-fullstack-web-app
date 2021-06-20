@@ -1,15 +1,13 @@
 package at.ac.univie.team17.mongoDB.mongoDBQueries;
 
 import at.ac.univie.team17.MongoDBConnectionHandler;
-import at.ac.univie.team17.mariaDB.mariaDBmodels.GoldOffer;
 import at.ac.univie.team17.mongoDB.mongoDBDocumentCreators.PlayerDocumentCreator;
-import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacter;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoGoldOffer;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoPlayer;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoPlayerPet;
-import com.mongodb.AggregationOptions;
 import com.mongodb.Block;
-import com.mongodb.client.model.*;
+import com.mongodb.client.model.Projections;
+import com.mongodb.client.model.Updates;
 import org.bson.Document;
 
 import java.util.ArrayList;
