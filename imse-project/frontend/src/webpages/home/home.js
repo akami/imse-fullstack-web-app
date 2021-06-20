@@ -11,10 +11,11 @@ const Home = () => {
 
     const [characters, setCharacters] = useState([]);
     const [playerId] = useState(cookies.get('playerId'));
+    const [database, setDatabase] = useState("maria");
 
     useEffect(() => {
         (async () => {
-            await fetch('/api/character/' + playerId)
+            await fetch('/api/' + database + '/character/' + playerId)
                 .then((response) => response.json())
                 .then((json) => setCharacters(json));
         })();

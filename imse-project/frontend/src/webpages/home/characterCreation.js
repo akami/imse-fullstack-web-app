@@ -25,14 +25,16 @@ const CharacterCreation = () => {
     const [selectedClass, setSelectedClass] = useState([]);
 
     const [characterName, setCharacterName] = useState("");
+
     const [playerId, setPlayerId] = useState(cookies.get('playerId'));
+    const [database, setDatabase] = useState("maria");
 
     useEffect(() =>  {
         let mounted = true;
 
         if (mounted) {
             (async () => {
-                await fetch('/api/class')
+                await fetch('/api/' + database + '/class')
                     .then((response) => response.json())
                     .then((json) => setClasses(json));
             })();
@@ -80,7 +82,7 @@ const CharacterCreation = () => {
 
     const createCharacter = () => {
         (async () => {
-            const response = await fetch('/api/character', {
+            const response = await fetch('/api/' + database + '/character', {
                 method: 'POST',
                 headers: {
                     "Content-type": "application/json"

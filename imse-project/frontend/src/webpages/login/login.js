@@ -11,9 +11,11 @@ const Login = () => {
 
     const [success, setSuccess] = useState(true);
 
+    const [database, setDatabase] = useState("maria");
+
     const login = () => {
         (async () => {
-            const playerId = await fetch('/api/player/' + username)
+            const playerId = await fetch('/api/' + database + '/player/' + username)
                 .then((response) => response.json())
                 .then((json) => {
                      return json.playerId;
