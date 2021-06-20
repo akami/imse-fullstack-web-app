@@ -3,6 +3,7 @@ import {Button, Col, Container, Row} from "react-bootstrap";
 import {useHistory} from 'react-router-dom';
 
 import CharacterList from "../../components/characterList";
+import Gold from "../../components/gold";
 import Cookies from "universal-cookie/lib";
 
 const Home = () => {
@@ -22,6 +23,13 @@ const Home = () => {
     }, [playerId]);
 
     return (
+        <div className="App">
+            <div className="Creation-header2">
+                <Gold/>
+                <div>
+                    <Button type="button" variant="danger" onClick={() => history.goBack()}> Log Out</Button> {' '}
+                </div>
+            </div>
         <Container className="App">
             <Col md={0.5}> </Col>
             <Col md="auto" className="Home-content">
@@ -40,6 +48,7 @@ const Home = () => {
             </Col>
             <Col md={0.5}> </Col>
         </Container>
+        </div>
     );
 }
 export default Home;
