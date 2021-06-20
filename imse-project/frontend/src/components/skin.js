@@ -145,7 +145,7 @@ const Skin = ({skin}) => {
                     </Row>
                 </Container>
                 {bought
-                    ? <Button type="button" variant="secondary">Select</Button>
+                    ? <Button type="button" variant="secondary">Bought</Button>
                     : <Button type="button" variant="success" onClick={() => buySkin()}>Buy</Button>
                 }
             </div>
