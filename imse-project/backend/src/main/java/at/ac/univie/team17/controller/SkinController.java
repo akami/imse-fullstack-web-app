@@ -56,7 +56,7 @@ public class SkinController extends BackendController {
         skinService.addSkinToCharacter(characterId, skinId);
     }
 
-    @PutMapping("/mongo/skin/purchase/{characterId}")
+    @PostMapping("/mongo/skin/purchase/{characterId}")
     public void addBoughtMongoSkinToMongoCharacter(@PathVariable("characterId") Integer characterId, @RequestBody MongoSkin mongoSkin)
     {
         skinService.addMongoSkinToMongoCharacter(characterId, mongoSkin);

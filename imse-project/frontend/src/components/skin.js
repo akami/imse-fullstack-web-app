@@ -111,7 +111,7 @@ const Skin = ({skin}) => {
             })();
         } else if (database === 'mongo') {
             (async () => {
-                response = await fetch('/api/' + database + '/skin/purchase/' + characterId + '/' + skin.skinId, {
+                response = await fetch('/api/' + database + '/skin/purchase/' + characterId, {
                     method: 'POST',
                     headers: {
                         "Content-type": "application/json"
