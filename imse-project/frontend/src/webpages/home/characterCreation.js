@@ -11,39 +11,33 @@ import Thief from "../../assets/thief.png";
 import {useHistory} from "react-router-dom";
 import Cookies from "universal-cookie/lib";
 
-// TODO @kh
-
 const CharacterCreation = () => {
     let history = useHistory();
     const cookies = new Cookies();
+
+    const [loaded, setLoaded] = useState(false);
 
     const [index, setIndex] = useState(0);
     const [success, setSuccess] = useState(false);
     const [inProgress, setInProgress] = useState(false);
 
     const [classes, setClasses] = useState([]);
-    const [selectedClass, setSelectedClass] = useState([]);
+    const [selectedClass, setSelectedClass] = useState({});
 
     const [characterName, setCharacterName] = useState("");
 
     const [playerId, setPlayerId] = useState(cookies.get('playerId'));
-    const [database, setDatabase] = useState("maria");
+    const [database, setDatabase] = useState(cookies.get('database'));
 
-    useEffect(() =>  {
-        let mounted = true;
-
-        if (mounted) {
-            (async () => {
-                await fetch('/api/' + database + '/class')
-                    .then((response) => response.json())
-                    .then((json) => setClasses(json));
-            })();
-        }
-
-        return function cleanup () {
-            mounted = false;
-        }
-    },[]);
+    useEffect(() => {
+        (async () => {
+            await fetch('/api/' + database + '/class')
+                .then((response) => response.json())
+                .then((json) => setClasses(json))
+                .then(() => handleSelect(0))
+                .then(() => setLoaded(true));
+        })();
+    }, [loaded]);
 
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
@@ -82,7 +76,7 @@ const CharacterCreation = () => {
 
     const createCharacter = () => {
         (async () => {
-            const response = await fetch('/api/' + database + '/character', {
+            const response = await fetch('/api/' + database + '/character/create', {
                 method: 'POST',
                 headers: {
                     "Content-type": "application/json"
@@ -107,53 +101,60 @@ const CharacterCreation = () => {
                     <Button type="button" variant="secondary" onClick={() => history.goBack()}> Go Back</Button> {' '}
                 </div>
             </div>
-        <Container className="App Home-content" style={{marginTop: 150}}>
-            <Row>
-                <Col md="6">
-                    <Image src={getImageFromClassName(selectedClass.className)} width="500" height="556"/>
-                </Col>
-                <Col md="4" className="justify-content-lg-center" style={{marginLeft: 60}}>
-                    <div className="Creation-form" >
-                        <p className="Text-header1">Character Creation</p>
-                        <Form>
-                            <Row className="Creation-form-row">
-                                <Form.Group controlId="formCharacterName" style={{paddingBottom: 20}}>
-                                    <Form.Label className="Text-header3">Choose a name for your character</Form.Label>
-                                    <Form.Control type="name" placeholder="Enter name" onChange={(text) => setCharacterName(text.target.value)}/>
-                                    <Form.Text className="text-muted">
-                                    </Form.Text>
-                                </Form.Group>
+            <Container className="App Home-content" style={{marginTop: 150}}>
+                <Row>
+                    <Col md="6">
+                        <Image src={getImageFromClassName(selectedClass.className)} width="500" height="556"/>
+                    </Col>
+                    <Col md="4" className="justify-content-lg-center" style={{marginLeft: 60}}>
+                        <div className="Creation-form">
+                            <p className="Text-header1">Character Creation</p>
+                            <Form>
+                                <Row className="Creation-form-row">
+                                    <Form.Group controlId="formCharacterName" style={{paddingBottom: 20}}>
+                                        <Form.Label className="Text-header3">Choose a name for your
+                                            character</Form.Label>
+                                        <Form.Control type="name" placeholder="Enter name"
+                                                      onChange={(text) => setCharacterName(text.target.value)}/>
+                                        <Form.Text className="text-muted">
+                                        </Form.Text>
+                                    </Form.Group>
 
-                                <Form.Group>
-                                    <Form.Label className="Text-header3">Choose a class for your character</Form.Label>
-                                    <Carousel className="Creation-form-carousel" activeIndex={index} interval={60000} onSelect={handleSelect}>
-                                        {classes.map((charClass, idx) => {
-                                            return (
-                                                <CarouselItem interval={60000}>
-                                                    <p className="Text-subsubtitle">{charClass.className}</p>
-                                                </CarouselItem>
-                                            );
-                                        })}
-                                    </Carousel>
-                                </Form.Group>
-                            </Row>
-                            <Row>
-                                <div className="Creation-form-preview">
-                                    <p className="Text-header2">Preview</p>
-                                    <p> Bonus Attack: <span style={{color: '#d62828'}}> {selectedClass.bonusAttack} </span></p>
-                                    <p> Bonus Life Points: <span style={{color: '#40916c'}}> {selectedClass.bonusLifepoints}</span></p>
-                                </div>
-                            </Row>
-                            <Row>
-                                <div>
-                                    <Button type="button" variant="success" onClick={() => createCharacter()}> Create </Button>
-                                </div>
-                            </Row>
-                        </Form>
-                    </div>
-                </Col>
-            </Row>
-        </Container>
+                                    <Form.Group>
+                                        <Form.Label className="Text-header3">Choose a class for your
+                                            character</Form.Label>
+                                        <Carousel className="Creation-form-carousel" activeIndex={index}
+                                                  interval={60000} onSelect={handleSelect}>
+                                            {classes.map((charClass, idx) => {
+                                                return (
+                                                    <CarouselItem interval={60000}>
+                                                        <p className="Text-subsubtitle">{charClass.className}</p>
+                                                    </CarouselItem>
+                                                );
+                                            })}
+                                        </Carousel>
+                                    </Form.Group>
+                                </Row>
+                                <Row>
+                                    <div className="Creation-form-preview">
+                                        <p className="Text-header2">Preview</p>
+                                        <p> Bonus Attack: <span
+                                            style={{color: '#d62828'}}> {selectedClass.bonusAttack} </span></p>
+                                        <p> Bonus Life Points: <span
+                                            style={{color: '#40916c'}}> {selectedClass.bonusLifepoints}</span></p>
+                                    </div>
+                                </Row>
+                                <Row>
+                                    <div>
+                                        <Button type="button" variant="success"
+                                                onClick={() => createCharacter()}> Create </Button>
+                                    </div>
+                                </Row>
+                            </Form>
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     );
 };

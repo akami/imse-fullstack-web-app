@@ -12,7 +12,7 @@ const Home = () => {
 
     const [characters, setCharacters] = useState([]);
     const [playerId] = useState(cookies.get('playerId'));
-    const [database, setDatabase] = useState("maria");
+    const [database, setDatabase] = useState(cookies.get('database'));
 
     useEffect(() => {
         (async () => {
@@ -25,7 +25,9 @@ const Home = () => {
     return (
         <div className="App">
             <div className="Creation-header2">
-                <Gold/>
+                <div>
+                    <Gold/>
+                </div>
                 <div>
                     <Button type="button" variant="danger" onClick={() => history.goBack()}> Log Out</Button> {' '}
                 </div>

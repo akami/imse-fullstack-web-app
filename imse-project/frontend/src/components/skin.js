@@ -84,15 +84,15 @@ const Skin = ({skin}) => {
             case 0:
                 return MageSkins[skinId];
             case 1:
-                return KnightSkins[skinId];
+                return KnightSkins[skinId - 5];
             case 2:
-                return PriestSkins[skinId];
+                return PriestSkins[skinId - 10];
             case 3:
-                return FighterSkins[skinId];
+                return FighterSkins[skinId - 15];
             case 4:
-                return RangerSkins[skinId];
+                return RangerSkins[skinId - 20];
             case 5:
-                return ThiefSkins[skinId];
+                return ThiefSkins[skinId - 25];
         }
 
         return undefined;
@@ -107,7 +107,6 @@ const Skin = ({skin}) => {
             setBought(response.ok)
         })();
     }
-
 
     return (
         <Col md="auto" className="Character-container" styles={{paddingLeft: 8, paddingRight: 8}}>

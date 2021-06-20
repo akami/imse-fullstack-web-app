@@ -4,14 +4,15 @@ import {Button, Col, Container, Row} from "react-bootstrap";
 
 import {useHistory} from "react-router-dom";
 import SkinList from "../../components/skinList";
+import Gold from "../../components/gold";
 
 const CharacterSkins = () => {
     const history = useHistory();
     const cookies = new Cookies();
-    const [skins, setSkins] = useState([]);
 
+    const [skins, setSkins] = useState([]);
     const [classId] = useState(cookies.get('classId'));
-    const [database, setDatabase] = useState("maria");
+    const [database, setDatabase] = useState(cookies.get('database'));
 
     useEffect(() => {
         (async () => {
@@ -24,6 +25,9 @@ const CharacterSkins = () => {
     return(
         <div className="App">
             <div className="Creation-header">
+                <div>
+                    <Gold/>
+                </div>
                 <div>
                     <Button type="button" variant="secondary" onClick={() => history.goBack()}> Go Back</Button> {' '}
                 </div>
