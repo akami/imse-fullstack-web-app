@@ -95,4 +95,21 @@ public class PlayerService {
 
         return player;
     }
+
+    /*
+    public Integer getGoldAmountOfPlayer(Integer playerId)
+    {
+        String query = PlayerQueries.getGoldAmountFromPlayer(playerId);
+
+        MariaDBConnectionHandler.setupConnection();
+
+        ResultSet result = MariaDBQueryExecuter.executeReturnQuery(MariaDBConnectionHandler.getStatement(), query);
+        Integer goldAMount = MariaDBResultReader.getIntegerFromResultSet(result);
+
+        MariaDBConnectionHandler.closeConnection();
+
+        return goldAMount;
+    }
+
+     */
 }

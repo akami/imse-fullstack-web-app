@@ -1,6 +1,7 @@
 package at.ac.univie.team17.mongoDB.mongoDBQueries;
 
 import at.ac.univie.team17.MongoDBConnectionHandler;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.GoldOffer;
 import at.ac.univie.team17.mongoDB.mongoDBDocumentCreators.PlayerDocumentCreator;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacter;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoGoldOffer;
@@ -85,5 +86,11 @@ public class MongoPlayerQueries
 
         MongoDBConnectionHandler.closeConnection();
         return mongoPlayerPets;
+    }
+
+    public static void insertMongoGoldOfferInPlayer(Integer playerId, MongoGoldOffer goldOffer)
+    {
+        MongoDBConnectionHandler.getDb().getCollection(PlayerDocumentCreator.PLAYER_COLLECTION_NAME)
+                .findOneAndUpdate(eq("_id", playerId), Updates.push("goldOffers", goldOffer));
     }
 }

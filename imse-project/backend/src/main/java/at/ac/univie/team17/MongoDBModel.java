@@ -14,6 +14,8 @@ public class MongoDBModel
         DataMigrator.migrateData(MariaDBConnectionHandler.getStatement(), MongoDBConnectionHandler.getDb());
         MariaDBConnectionHandler.closeConnection();
 
+        // TODO create indices
+
         MongoDBConnectionHandler.closeConnection();
     }
 

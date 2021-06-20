@@ -13,20 +13,24 @@ public class DatabaseService {
 
     public void initialize() {
         MariaDBModel.initialize();
+        System.out.println("Mariadb initialized");
     }
 
     public void clear() {
         if (activeDatabase.isMariadbActive())
         {
             MariaDBModel.clear();
+            System.out.println("MariaDB cleared");
         } else
         {
             MongoDBModel.clear();
+            System.out.println("MongoDB cleared");
         }
     }
 
     public void migrate() {
         MongoDBModel.initialize();
         activeDatabase.migrate();
+        System.out.println("Migrated to MongoDB");
     }
 }

@@ -29,4 +29,12 @@ public class PlayerQueries
     {
         return "DROP TABLE player;";
     }
+
+    public static String getGoldAmountFromPlayer(Integer playerId) // TODO
+    {
+        return "SELECT 200 + monster_loot_gold + quest_reward_gold + gold_offer_gold - bought_pets_gold - bought_skins_gold " +
+                "AS player_gold_amount FROM " +
+                "(SELECT " +
+                ") AS gold_table;";
+    }
 }
