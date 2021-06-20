@@ -57,7 +57,7 @@ const Skin = ({skin}) => {
     const [characterId, setCharacterId] = useState(cookies.get('characterId'));
     const [classId, setClassId] = useState(cookies.get('classId'));
 
-    const [database, setDatabase] = useState('maria');
+    const [database, setDatabase] = useState(cookies.get('database'));
     const [bought, setBought] = useState(false);
     const [boughtSkins, setBoughtSkins] = useState([]);
 
@@ -99,13 +99,34 @@ const Skin = ({skin}) => {
     };
 
     const buySkin = () => {
-        (async () => {
-            const response = await fetch('/api/' + database + '/skin/purchase/' + characterId + '/' + skin.skinId, {
-                method: 'POST'
-            });
+        let response;
 
-            setBought(response.ok)
-        })();
+        if (database === 'maria') {
+            (async () => {
+                response = await fetch('/api/' + database + '/skin/purchase/' + characterId + '/' + skin.skinId, {
+                    method: 'POST'
+                });
+
+                setBought(response.ok)
+            })();
+        } else if (database === 'mongo') {
+            (async () => {
+                response = await fetch('/api/' + database + '/skin/purchase/' + characterId + '/' + skin.skinId, {
+                    method: 'POST',
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        skinId: skin.skinId,
+                        skinName: skin.skinName,
+                        goldPrice: skin.goldPrice
+                    })
+                });
+
+                setBought(response.ok)
+            })();
+        }
+
     }
 
     return (

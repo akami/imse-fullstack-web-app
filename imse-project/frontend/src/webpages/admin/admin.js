@@ -72,7 +72,7 @@ const Admin = () => {
                         <p className="Text-header1">Database Overview</p>
                     </Col>
                     <Col md={2}>
-                        <Button variant="primary" type="button" onClick={() => migrateDb()}> To {cookies.get('database')}</Button> {' '}
+                        <Button variant="primary" type="button" onClick={() => migrateDb()}> {cookies.get('database')}</Button> {' '}
                     </Col>
 
                 </Row>

@@ -17,7 +17,7 @@ const AdminReports = () => {
                     </p>
                 </div>
                 <div>
-                    <Button variant="secondary" type="button" onClick={() => history.push("")}> Go Back </Button> {' '}
+                    <Button variant="secondary" type="button" onClick={() => history.push("/admin")}> Go Back </Button> {' '}
                 </div>
             </div>
             <Container className="App Home-content" style={{marginTop: 50}}>

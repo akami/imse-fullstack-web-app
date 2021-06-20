@@ -9,6 +9,7 @@ const Login = () => {
 
     const [username, setUsername] = useState("");
 
+    const [inProgress, setInProgress] = useState(false);
     const [success, setSuccess] = useState(true);
 
     const [database, setDatabase] = useState(cookies.get('database'));
@@ -29,6 +30,9 @@ const Login = () => {
 
             if (playerId !== undefined) {
                 cookies.set('playerId', playerId, {path: '/'});
+
+                setSuccess(true);
+                setInProgress(true);
 
                 history.push('/home/');
             } else {
@@ -67,13 +71,16 @@ const Login = () => {
                                 <Form.Group controlId="formBasicUserName">
                                     <Form.Label>Username</Form.Label>
                                     <Form.Control type="username" placeholder="Enter username"
-                                                  onChange={(text) => setUsername(text.target.value)}/>
+                                                  onChange={(text) => setUsername(text.target.value)}
+                                    />
                                 </Form.Group>
                                 <Button type="button" variant="success" onClick={() => login()}
                                         style={{marginTop: 16}}> Play Now </Button>
-                                {!success &&
-                                <Alert variant="danger"> Username invalid! </Alert>
+
+                                {inProgress && !success &&
+                                <Alert variant="danger" style={{marginTop: 16}}> Username invalid! </Alert>
                                 }
+
                             </Form>
                         </div>
                     </Col>
