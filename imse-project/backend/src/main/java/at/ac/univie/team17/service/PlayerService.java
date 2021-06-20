@@ -31,10 +31,12 @@ public class PlayerService {
 
     public void createMongoPlayer(Player player)
     {
+        MongoDBConnectionHandler.setupConnection();
+        List<MongoPlayer> players = MongoPlayerQueries.getMongoPlayers();
+        player.setPlayerId(players.size()+1);
+
         Document playerDocument = PlayerDocumentCreator.createPlayerDocument(player, new ArrayList<>(),
                 new ArrayList<>(), new ArrayList<>());
-
-        MongoDBConnectionHandler.setupConnection();
 
         MongoDBExecuter.insertDocument(MongoDBConnectionHandler.getDb(), playerDocument, PlayerDocumentCreator.PLAYER_COLLECTION_NAME);
 

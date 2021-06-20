@@ -48,4 +48,8 @@ public class GameCharacter
     {
         return characterClassId;
     }
+
+    public void setCharacterId(int i) {
+        this.characterId = i;
+    }
 }

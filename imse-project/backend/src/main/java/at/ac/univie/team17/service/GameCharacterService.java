@@ -81,14 +81,16 @@ public class GameCharacterService {
 
     public void createMongoCharacter(GameCharacter gameCharacter, int age)
     {
+        MongoDBConnectionHandler.setupConnection();
+        // insert into characters
+        List<MongoCharacter> chars = MongoCharacterQueries.getMongoCharacters();
+        gameCharacter.setCharacterId(chars.size() + 1);
         Document playerAgeDocument = PlayerAgeDocumentCreator.getPlayerAgeDocument(new PlayerAge(gameCharacter.getPlayerId(), age));
         Document characterClassDocument = MongoCharacterClassQueries.getCharacterClassFromId(gameCharacter.getCharacterClassId());
         Document mongoCharacter = CharacterDocumentCreator.createCharacterDocument(
                 CharacterDocumentCreator.getMongoCharacterFromCharacter(gameCharacter), new ArrayList<>(), new ArrayList<>(),
                 new ArrayList<>(), playerAgeDocument, characterClassDocument);
 
-        MongoDBConnectionHandler.setupConnection();
-        // insert into characters
         MongoDBExecuter.insertDocument(MongoDBConnectionHandler.getDb(), mongoCharacter, CharacterDocumentCreator.CHARACTER_COLLECTION_NAME);
         // insert into player's characters
         MongoPlayerQueries.insertMongoCharacterInPlayer(mongoCharacter, gameCharacter.getPlayerId());

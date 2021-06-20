@@ -34,4 +34,8 @@ public class Player
     {
         return emailAddress;
     }
+
+    public void setPlayerId(int i) {
+        this.playerId = i;
+    }
 }
