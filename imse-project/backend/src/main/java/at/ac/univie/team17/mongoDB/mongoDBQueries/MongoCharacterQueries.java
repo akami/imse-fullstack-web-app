@@ -196,4 +196,24 @@ public class MongoCharacterQueries
 
         MongoDBConnectionHandler.closeConnection();
     }
+
+    public static List<MongoCharacterClassReport> getMongoCharacterClassReports() {
+        List<MongoCharacterClassReport> mongoCharacterClassReports = new ArrayList<>();
+
+        MongoDBConnectionHandler.setupConnection();
+
+        MongoDBConnectionHandler.getDb().getCollection(CharacterDocumentCreator.CHARACTER_COLLECTION_NAME).aggregate(Arrays.asList(
+                Aggregates.match(lt("playerAge.age", 31)),
+                Aggregates.match(gt("playerAge.age", 17)),
+                Aggregates.unwind("$characterClass"),
+                Aggregates.group("$_id", Accumulators.first("characterClass", "$characterClass")),
+                Aggregates.group("$characterClass._id", Accumulators.sum("counter", 1)),
+                Aggregates.sort(Sorts.descending("counter"))
+        )).forEach((Block<Document>) document ->
+                mongoCharacterClassReports.add(MongoCharacterClassReportDocumentCreator.getMongoCharacterClassReportFromDocument(document)));
+
+        MongoDBConnectionHandler.closeConnection();
+
+        return mongoCharacterClassReports;
+    }
 }

@@ -8,7 +8,9 @@ import at.ac.univie.team17.mariaDB.mariaDBQueries.CharacterClassQueries;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.CharacterClass;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.CharacterClassReport;
 import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoCharacterClassQueries;
+import at.ac.univie.team17.mongoDB.mongoDBQueries.MongoCharacterQueries;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacterClass;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacterClassReport;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
@@ -50,5 +52,10 @@ public class CharacterClassService {
         MariaDBConnectionHandler.closeConnection();
 
         return classReports;
+    }
+
+    public List<MongoCharacterClassReport> getMongoCharacterClassReport() {
+        List<MongoCharacterClassReport> mongoCharacterClassReports = MongoCharacterQueries.getMongoCharacterClassReports();
+        return mongoCharacterClassReports;
     }
 }

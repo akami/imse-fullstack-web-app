@@ -3,6 +3,7 @@ package at.ac.univie.team17.controller;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.CharacterClass;
 import at.ac.univie.team17.mariaDB.mariaDBmodels.CharacterClassReport;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacterClass;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacterClassReport;
 import at.ac.univie.team17.service.CharacterClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,11 +34,9 @@ public class CharacterClassController extends BackendController {
         return classService.getCharacterClassReport();
     }
 
-    /*
     @GetMapping("/mongo/class/report")
     public List<MongoCharacterClassReport> getMongoCharacterClassReport()
     {
         return classService.getMongoCharacterClassReport();
     }
-     */
 }
