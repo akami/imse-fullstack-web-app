@@ -4,7 +4,7 @@ import {Row} from "react-bootstrap";
 
 const SkinList = ({skins}) => {
     return (
-        <Row style={{margin: 16}}>
+        <Row>
             {
                 Array.isArray(skins) &&
                 skins.length >= 1 &&

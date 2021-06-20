@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Cookies from "universal-cookie/lib";
-import {Button, Col, Container, Image, Row} from "react-bootstrap";
+import {Image} from "react-bootstrap";
 
 import Coins from '../assets/coins.png'
 import {useHistory} from "react-router-dom";
@@ -24,18 +24,10 @@ const Gold = () => {
     }, [playerId, goldAmount]);
 
     return (
-        <Container>
-            <Row>
-                <Col md={2}/>
-                <Col md={2}>
-                    <Image src={Coins} width={20} height={20}/>
-                </Col>
-                <Col md={2}>
-                    <p className="Text-subtitle">{goldAmount}</p>
-                </Col>
-                <Col md={1}/>
-            </Row>
-        </Container>
+        <div style={{marginRight: '8px'}}>
+            <Image src={Coins} width={20} height={'auto'}/> {' '}
+            <span className="Text-subtitle">{goldAmount}</span>
+        </div>
     );
 };
 export default Gold;
