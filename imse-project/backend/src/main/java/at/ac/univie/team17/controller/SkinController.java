@@ -1,8 +1,10 @@
 package at.ac.univie.team17.controller;
 
 import at.ac.univie.team17.mariaDB.mariaDBmodels.Skin;
+import at.ac.univie.team17.mariaDB.mariaDBmodels.SkinReport;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.CharacterClassMongoSkins;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoSkin;
+import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoSkinReport;
 import at.ac.univie.team17.service.SkinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -58,5 +60,18 @@ public class SkinController extends BackendController {
     public void addBoughtMongoSkinToMongoCharacter(@PathVariable Integer characterId, @RequestBody MongoSkin mongoSkin)
     {
         skinService.addMongoSkinToMongoCharacter(characterId, mongoSkin);
+    }
+
+    @GetMapping("/maria/skin/report")
+    public List<SkinReport> getSkinReport()
+    {
+        return skinService.getSkinReport();
+    }
+
+
+    @GetMapping("/mongo/skin/report")
+    public List<MongoSkinReport> getMongoSkinReport()
+    {
+        return skinService.getMongoSkinReport();
     }
 }

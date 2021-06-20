@@ -51,7 +51,6 @@ public class PlayerController extends BackendController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    /*
     @GetMapping("/maria/player/gold/{playerId}")
     public Integer getGoldAmountOfPlayer(@PathVariable("playerId") Integer playerId) {
         return playerService.getGoldAmountOfPlayer(playerId);
@@ -61,6 +60,4 @@ public class PlayerController extends BackendController {
     public Integer getGoldAmountOfMongoPlayer(@PathVariable("playerId") Integer playerId) {
         return playerService.getGoldAmountOfMongoPlayer(playerId);
     }
-
-     */
 }

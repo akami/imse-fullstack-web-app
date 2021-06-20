@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-// TODO @ĸh
-
 @RestController
 @RequestMapping("/api")
 public class GoldOfferController extends BackendController {
@@ -34,7 +32,7 @@ public class GoldOfferController extends BackendController {
     }
 
     @PutMapping("/mongo/goldOffer/{playerId}")
-    public void addBoughtMongoSkinToMongoCharacter(@PathVariable Integer playerId, @RequestBody MongoGoldOffer goldOffer)
+    public void addMongoGoldOfferToMongoPlayer(@PathVariable Integer playerId, @RequestBody MongoGoldOffer goldOffer)
     {
         goldOfferService.addMongoGoldOfferToMongoPlayer(playerId, goldOffer);
     }

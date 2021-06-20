@@ -27,6 +27,19 @@ public class MonsterDocumentCreator
         return questDocument;
     }
 
+    public static Document createMonsterDocumentFromMongoMonster(MongoMonster monster)
+    {
+        Document questDocument = new Document();
+        questDocument.append("_id", monster.getMonsterId());
+        questDocument.append("attack", monster.getAttack());
+        questDocument.append("lifepointAmount", monster.getLifepointAmount());
+        questDocument.append("challengeRating", monster.getChallengeRating());
+        questDocument.append("monsterName", monster.getMonsterName());
+        questDocument.append("monsterLoot", MonsterLootDocumentCreator.getMonsterLootDocument(monster.getMonsterLoot()));
+        questDocument.append("possibleAlliedMonsters", monster.getPossibleAlliedMonsters());
+        return questDocument;
+    }
+
     public static ArrayList<MongoMonster> getMonstersFromDocument(ArrayList<Document> documents)
     {
         ArrayList<MongoMonster> mongoMonsters = new ArrayList<>();

@@ -74,4 +74,35 @@ public class MongoPlayer
     {
         return age;
     }
+
+    public Integer getTotalGold()
+    {
+        final Integer defaultGold = 200;
+        Integer goldOfferGold = 0, petGold = 0, skinGold = 0, questGold = 0, monsterGold = 0;
+        for (MongoGoldOffer mongoGoldOffer: mongoGoldOffers)
+        {
+            goldOfferGold += mongoGoldOffer.getGoldAmount();
+        }
+        for (Pet pet : boughtPets)
+        {
+            petGold += pet.getGoldPrice();
+        }
+        for (MongoCharacter mongoCharacter : createdCharacters)
+        {
+            for (MongoSkin skin : mongoCharacter.getBoughtSkins())
+            {
+                skinGold += skin.getGoldPrice();
+            }
+            for (SlayedMonsters slayedMonsters : mongoCharacter.getSlayedMonsters())
+            {
+                monsterGold += slayedMonsters.getSlayAmount() * slayedMonsters.getMonsterLoot().getGoldAmount();
+            }
+            for (MongoQuest mongoQuest : mongoCharacter.getCompletedQuests())
+            {
+                questGold += mongoQuest.getQuestReward().getGoldAmount();
+            }
+        }
+
+        return defaultGold + goldOfferGold + questGold + monsterGold - petGold - skinGold;
+    }
 }

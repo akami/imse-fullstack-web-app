@@ -7,9 +7,9 @@ import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoCharacter;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoGoldOffer;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoPlayer;
 import at.ac.univie.team17.mongoDB.mongoDBmodels.MongoPlayerPet;
+import com.mongodb.AggregationOptions;
 import com.mongodb.Block;
-import com.mongodb.client.model.Projections;
-import com.mongodb.client.model.Updates;
+import com.mongodb.client.model.*;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -83,7 +83,6 @@ public class MongoPlayerQueries
                     mongoPlayerPets.add(new MongoPlayerPet(mongoPlayer.getPlayerId(), mongoPlayer.getBoughtPets()));
                 });
 
-
         MongoDBConnectionHandler.closeConnection();
         return mongoPlayerPets;
     }
@@ -92,5 +91,23 @@ public class MongoPlayerQueries
     {
         MongoDBConnectionHandler.getDb().getCollection(PlayerDocumentCreator.PLAYER_COLLECTION_NAME)
                 .findOneAndUpdate(eq("_id", playerId), Updates.push("goldOffers", goldOffer));
+    }
+
+    public static Integer getGoldAmountFromMongoPlayer(Integer playerId)
+    {
+        final Integer[] goldAmount = new Integer[1];
+
+        MongoDBConnectionHandler.setupConnection();
+
+        MongoDBConnectionHandler.getDb().getCollection(PlayerDocumentCreator.PLAYER_COLLECTION_NAME)
+                .find(eq("_id", playerId)).forEach((Block<Document>)document ->
+        {
+            MongoPlayer mongoPlayer = PlayerDocumentCreator.getMongoPlayerFromDocument(document);
+            goldAmount[0] = mongoPlayer.getTotalGold();
+        });
+
+        MongoDBConnectionHandler.closeConnection();
+
+        return goldAmount[0];
     }
 }

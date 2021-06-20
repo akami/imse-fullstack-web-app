@@ -108,4 +108,12 @@ public class PlayerService {
 
         return goldAMount;
     }
+
+    public Integer getGoldAmountOfMongoPlayer(Integer playerId)
+    {
+        MongoDBConnectionHandler.setupConnection();
+        Integer goldAmount = MongoPlayerQueries.getGoldAmountFromMongoPlayer(playerId);
+        MongoDBConnectionHandler.closeConnection();
+        return goldAmount;
+    }
 }
