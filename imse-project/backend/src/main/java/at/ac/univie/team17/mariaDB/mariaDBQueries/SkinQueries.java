@@ -46,6 +46,6 @@ public class SkinQueries
                 "JOIN skin ON character_skin.skin_id = skin.skin_id " +
                 ") " +
                 "GROUP BY skin.character_class_id, skin.skin_id " +
-                "ORDER BY bought_amount;";
+                "ORDER BY bought_amount DESC;";
     }
 }

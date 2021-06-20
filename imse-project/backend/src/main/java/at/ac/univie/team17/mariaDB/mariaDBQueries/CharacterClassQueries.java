@@ -40,6 +40,6 @@ public class CharacterClassQueries
                 "JOIN character_class ON player_character.character_class_id = character_class.character_class_id " +
                 ") " +
                 "GROUP BY character_class.character_class_id " +
-                "ORDER BY chosen_amount;";
+                "ORDER BY chosen_amount DESC;";
     }
 }
