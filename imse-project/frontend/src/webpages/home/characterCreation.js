@@ -54,22 +54,18 @@ const CharacterCreation = () => {
             switch (cl) {
                 case "Mage":
                     return Mage;
-                    break;
                 case "Knight":
                     return Knight;
-                    break;
                 case "Fighter":
                     return Fighter;
-                    break;
                 case "Priest":
                     return Priest;
-                    break;
                 case "Ranger":
                     return Ranger;
-                    break;
                 case "Thief":
                     return Thief;
-                    break;
+                default:
+                    return Mage;
             }
         }
     }
